@@ -132,12 +132,11 @@
       <Port>5050</Port>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="sample.Main" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="SoftwareEngineering" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sample.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -196,7 +195,7 @@
       <option name="presentableId" value="Default" />
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
-      <workItem from="1581338140551" duration="3665000" />
+      <workItem from="1581338140551" duration="4125000" />
     </task>
     <servers />
   </component>
@@ -208,6 +207,14 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="96" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581346541303">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="96" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.720@0.0.1280.720" timestamp="1581346541303" />
+    <state x="371" y="146" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1581346539765">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="371" y="146" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.720@0.0.1280.720" timestamp="1581346539765" />
     <state x="421" y="103" key="FileChooserDialogImpl" timestamp="1581338595074">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -216,22 +223,22 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="491" y="255" key="Github.ShareDialog/0.0.1280.720@0.0.1280.720" timestamp="1581338973450" />
-    <state width="1237" height="176" key="GridCell.Tab.0.bottom" timestamp="1581346155371">
+    <state width="1237" height="176" key="GridCell.Tab.0.bottom" timestamp="1581346588400">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1581346155371" />
-    <state width="1237" height="176" key="GridCell.Tab.0.center" timestamp="1581346155371">
+    <state width="1237" height="176" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1581346588400" />
+    <state width="1237" height="176" key="GridCell.Tab.0.center" timestamp="1581346588399">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1581346155371" />
-    <state width="1237" height="176" key="GridCell.Tab.0.left" timestamp="1581346155370">
+    <state width="1237" height="176" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1581346588399" />
+    <state width="1237" height="176" key="GridCell.Tab.0.left" timestamp="1581346588399">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1581346155370" />
-    <state width="1237" height="176" key="GridCell.Tab.0.right" timestamp="1581346155371">
+    <state width="1237" height="176" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1581346588399" />
+    <state width="1237" height="176" key="GridCell.Tab.0.right" timestamp="1581346588399">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1581346155371" />
+    <state width="1237" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1581346588399" />
     <state x="415" y="51" width="563" height="619" key="svn.repositoryBrowser" timestamp="1581338876241">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
