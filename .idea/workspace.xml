@@ -69,6 +69,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -92,6 +93,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -195,7 +197,11 @@
       <option name="presentableId" value="Default" />
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
-      <workItem from="1581338140551" duration="4125000" />
+      <workItem from="1581338140551" duration="4223000" />
+      <workItem from="1581439678477" duration="165000" />
+      <workItem from="1581447214501" duration="5000" />
+      <workItem from="1581503763946" duration="963000" />
+      <workItem from="1581514313675" duration="8275000" />
     </task>
     <servers />
   </component>
@@ -207,38 +213,62 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="96" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581346541303">
+    <state x="96" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581439836428">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="96" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.720@0.0.1280.720" timestamp="1581346541303" />
+    <state x="96" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.720@0.0.1280.720" timestamp="1581439836428" />
     <state x="371" y="146" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1581346539765">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="371" y="146" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.720@0.0.1280.720" timestamp="1581346539765" />
-    <state x="421" y="103" key="FileChooserDialogImpl" timestamp="1581338595074">
+    <state x="421" y="103" key="FileChooserDialogImpl" timestamp="1581347150414">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="421" y="103" key="FileChooserDialogImpl/0.0.1280.720@0.0.1280.720" timestamp="1581338595074" />
+    <state x="421" y="103" key="FileChooserDialogImpl/0.0.1280.720@0.0.1280.720" timestamp="1581347150414" />
     <state x="491" y="255" key="Github.ShareDialog" timestamp="1581338973450">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="491" y="255" key="Github.ShareDialog/0.0.1280.720@0.0.1280.720" timestamp="1581338973450" />
-    <state width="1237" height="176" key="GridCell.Tab.0.bottom" timestamp="1581346588400">
+    <state width="1236" height="176" key="GridCell.Tab.0.bottom" timestamp="1581522409895">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1581346588400" />
-    <state width="1237" height="176" key="GridCell.Tab.0.center" timestamp="1581346588399">
+    <state width="1236" height="176" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1581522409895" />
+    <state width="1236" height="176" key="GridCell.Tab.0.center" timestamp="1581522409894">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1581346588399" />
-    <state width="1237" height="176" key="GridCell.Tab.0.left" timestamp="1581346588399">
+    <state width="1236" height="176" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1581522409894" />
+    <state width="1236" height="176" key="GridCell.Tab.0.left" timestamp="1581522409894">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1581346588399" />
-    <state width="1237" height="176" key="GridCell.Tab.0.right" timestamp="1581346588399">
+    <state width="1236" height="176" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1581522409894" />
+    <state width="1236" height="176" key="GridCell.Tab.0.right" timestamp="1581522409895">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1237" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1581346588399" />
+    <state width="1236" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1581522409895" />
+    <state width="1236" height="220" key="GridCell.Tab.1.bottom" timestamp="1581517396433">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1236" height="220" key="GridCell.Tab.1.bottom/0.0.1280.720@0.0.1280.720" timestamp="1581517396433" />
+    <state width="1236" height="220" key="GridCell.Tab.1.center" timestamp="1581517396433">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1236" height="220" key="GridCell.Tab.1.center/0.0.1280.720@0.0.1280.720" timestamp="1581517396433" />
+    <state width="1236" height="220" key="GridCell.Tab.1.left" timestamp="1581517396433">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1236" height="220" key="GridCell.Tab.1.left/0.0.1280.720@0.0.1280.720" timestamp="1581517396433" />
+    <state width="1236" height="220" key="GridCell.Tab.1.right" timestamp="1581517396433">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1236" height="220" key="GridCell.Tab.1.right/0.0.1280.720@0.0.1280.720" timestamp="1581517396433" />
+    <state width="198" height="457" key="HiddenNamespacesPopup" timestamp="1581439832171">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="198" height="457" key="HiddenNamespacesPopup/0.0.1280.720@0.0.1280.720" timestamp="1581439832171" />
+    <state x="337" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1581514346249">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="337" y="185" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1581514346249" />
     <state x="415" y="51" width="563" height="619" key="svn.repositoryBrowser" timestamp="1581338876241">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
