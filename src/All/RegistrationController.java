@@ -1,4 +1,4 @@
-package Registration;
+package All;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
