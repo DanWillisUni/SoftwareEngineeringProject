@@ -8,7 +8,7 @@ public class DatabaseController {
 
     public DatabaseController() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "SoftwareEngineering","SoftwareEngineering");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "root","rootroot");
     }
 
     public void shutdown() throws SQLException {
@@ -38,10 +38,11 @@ public class DatabaseController {
     public void addPerson(Person User) throws SQLException {
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("Insert Into PersonalInfo Values(" + generateUserID() + ", " + User.getForename()+ ", " + User.getSurname()+ ", " + User.getUsername()+ ", " + User.getEmail()+ ", " + User.getPassword()+ ", " + User.getDOB()+ ", " + User.getGoalID()+ ", " + User.getCurrentWeight()+ ", " + User.getHeight()+ ")");
+                int ID = generateUserID();
+                stmnt.executeUpdate("Insert Into PersonalInfo Values(" + ID + ", " + User.getForename()+ ", " + User.getSurname()+ ", " + User.getUsername()+ ", " + User.getEmail()+ ", " + User.getPassword()+ ", " + User.getDOB()+ ", " + User.getGoalID()+ ", " + User.getCurrentWeight()+ ", " + User.getHeight()+ ")");
         ){}
     }
-    public int generateUserID(){
+    private int generateUserID(){
         //connect to db
         //get all ids
         //find highest id
