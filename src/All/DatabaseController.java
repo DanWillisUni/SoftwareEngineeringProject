@@ -3,9 +3,6 @@ package All;
 import java.math.BigDecimal;
 import java.sql.*;
 
-import java.util.List ;
-import java.util.ArrayList ;
-
 public class DatabaseController {
     // in real life, use a connection pool....
     private Connection connection ;
@@ -41,8 +38,15 @@ public class DatabaseController {
     public void addPerson(Person User) throws SQLException {
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("Insert Into PersonalInfo ");
+                ResultSet rs = stmnt.executeQuery("Insert Into PersonalInfo Values(" + generateUserID() + ", " + User.getForename()+ ", " + User.getSurname()+ ", " + User.getUsername()+ ", " + User.getEmail()+ ", " + User.getPassword()+ ", " + User.getDOB()+ ", " + User.getGoalID()+ ", " + User.getCurrentWeight()+ ", " + User.getHeight()+ ")");
         ){}
+    }
+    public int generateUserID(){
+        //connect to db
+        //get all ids
+        //find highest id
+        //add one to it
+        return 0;
     }
     // other methods, eg. addPerson(...) etc
 }
