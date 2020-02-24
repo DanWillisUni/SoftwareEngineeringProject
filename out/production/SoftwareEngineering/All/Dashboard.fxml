@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="All.DashboardController" xmlns:fx="http://javafx.com/fxml" prefHeight="1000.0" prefWidth="800.0">
+    <children>
+        <BorderPane xmlns:fx="http://javafx.com/fxml/1">
+            <left>
+                <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Button fx:id="AddWeight" text="AddWeight" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddWeightButtonAction"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Button fx:id="AddExerciseSession" text="Add Exercise Session" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddExerciseSessionButtonAction"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <Button fx:id="AddFood" text="Add Food" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddFoodButtonAction"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                        <Button fx:id="AddFriend" text="Add Friend" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddFriendButtonAction"/>
+                    </HBox>
+                </GridPane>
+            </left>
+        </BorderPane>
+    </children>
+</VBox>

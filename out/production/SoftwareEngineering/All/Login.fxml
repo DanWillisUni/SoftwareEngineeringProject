@@ -7,7 +7,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="Login.LoginController" xmlns:fx="http://javafx.com/fxml" prefHeight="200.0" prefWidth="400.0">
+<VBox fx:controller="All.LoginController" xmlns:fx="http://javafx.com/fxml" prefHeight="200.0" prefWidth="400.0">
     <children>
         <GridPane alignment="center" hgap="10" vgap="10">
             <Text text="Welcome" GridPane.columnIndex="0" GridPane.rowIndex="1" />
