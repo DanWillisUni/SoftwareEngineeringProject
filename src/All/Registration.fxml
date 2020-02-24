@@ -14,8 +14,8 @@
   <children>
       <GridPane alignment="center" hgap="10" vgap="10" VBox.vgrow="ALWAYS">
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" prefHeight="20.0" prefWidth="150.0" text="Registration" />
-          <TextField  GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="20.0" prefWidth="150.0" promptText="Forename" />
-          <TextField  GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Surname" />
+          <TextField  id="forename" fx:id="forename" GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="20.0" prefWidth="150.0" promptText="Forename" />
+          <TextField  id="surname" fx:id="surname" GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Surname" />
           <TextField  GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
           <TextField  GridPane.columnIndex="0" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" promptText="Email" />
           <PasswordField  GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
