@@ -28,7 +28,7 @@ public class RegistrationController {
     @FXML
     protected void RegisterHandleSubmitButtonAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         //get all the things and get a person from it
-        //validate passwords are the same
+        //validate everything
         if (password.getText().equals(password2.getText())){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(),new java.sql.Date(java.util.Date.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()),new BigDecimal(height.getText()));
             DatabaseController db = new DatabaseController();
