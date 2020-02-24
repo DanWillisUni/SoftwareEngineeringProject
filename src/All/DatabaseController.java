@@ -1,5 +1,6 @@
 package All;
 
+import java.math.BigDecimal;
 import java.sql.*;
 
 import java.util.List ;
@@ -18,13 +19,30 @@ public class DatabaseController {
             connection.close();
         }
     }
-    public ResultSet getAllPersonalInfo(int id) throws SQLException {
+    public Person getAllPersonalInfo(int id) throws SQLException {
         try (
                 Statement stmnt = connection.createStatement();
                 ResultSet rs = stmnt.executeQuery("select * from PersonalInfo where idPersonalInfo = "+id);
         ){
-            return rs;
+            //double check all these names
+            String firstName = rs.getString("Forename");
+            String lastName = rs.getString("Surname");
+            String Username = rs.getString("Username");
+            String email = rs.getString("Email");
+            String password = rs.getString("Password");
+            Date DOB = rs.getDate("DOB");
+            int weight = rs.getInt("CurrentWeight");
+            int goalID = rs.getInt("CurrentGoal");
+            BigDecimal height = rs.getBigDecimal("Height");
+            Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight,goalID);
+            return user;
         }
+    }
+    public void addPerson(Person User) throws SQLException {
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("Insert Into PersonalInfo ");
+        ){}
     }
     // other methods, eg. addPerson(...) etc
 }
