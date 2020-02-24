@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.sql.*;
 
 public class DatabaseController {
-    // in real life, use a connection pool....
     private Connection connection ;
 
-    public DatabaseController(String driverClassName, String dbURL, String user, String password) throws SQLException, ClassNotFoundException {
-       connection = DriverManager.getConnection(dbURL, user, password);
+    public DatabaseController() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "SoftwareEngineering","SoftwareEngineering");
     }
 
     public void shutdown() throws SQLException {

@@ -10,18 +10,19 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+<?import javafx.scene.text.Text?>
 <VBox fx:controller="All.RegistrationController" xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="250.0">
   <children>
       <GridPane alignment="center" hgap="10" vgap="10" VBox.vgrow="ALWAYS">
           <Label GridPane.columnIndex="0" GridPane.rowIndex="0" prefHeight="20.0" prefWidth="150.0" text="Registration" />
-          <TextField  GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="20.0" prefWidth="150.0" promptText="Forename" />
-          <TextField  GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Surname" />
-          <TextField  GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
-          <TextField  GridPane.columnIndex="0" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" promptText="Email" />
-          <PasswordField  GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
-          <PasswordField  GridPane.columnIndex="0" GridPane.rowIndex="6" prefHeight="20.0" prefWidth="150.0" promptText="Repeat Password" />
-          <DatePicker  GridPane.columnIndex="0" GridPane.rowIndex="7" prefHeight="20.0" prefWidth="150.0" promptText="Date Of Birth" />
-          <ComboBox editable="true"  GridPane.columnIndex="0" GridPane.rowIndex="8" prefHeight="20.0" prefWidth="150.0" promptText="Gender" >
+          <TextField  id="forename" fx:id="forename" GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="20.0" prefWidth="150.0" promptText="Forename" />
+          <TextField  id="surname" fx:id="surname" GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Surname" />
+          <TextField  id="username" fx:id="username" GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Username" />
+          <TextField  id="email" fx:id="email" GridPane.columnIndex="0" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" promptText="Email" />
+          <PasswordField  id="password" fx:id="password" GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="150.0" promptText="Password" />
+          <PasswordField  id="password2" fx:id="password2" GridPane.columnIndex="0" GridPane.rowIndex="6" prefHeight="20.0" prefWidth="150.0" promptText="Repeat Password" />
+          <DatePicker id="DOB" fx:id="DOB" GridPane.columnIndex="0" GridPane.rowIndex="7" prefHeight="20.0" prefWidth="150.0" promptText="Date Of Birth" />
+          <ComboBox id="gender" fx:id="gender" editable="true"  GridPane.columnIndex="0" GridPane.rowIndex="8" prefHeight="20.0" prefWidth="150.0" promptText="Gender" >
               <items>
                   <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Male" />
@@ -30,7 +31,9 @@
                   </FXCollections>
               </items>
           </ComboBox>
-          <Button  GridPane.columnIndex="0" GridPane.rowIndex="9" prefHeight="20.0" prefWidth="150.0" mnemonicParsing="false" text="Register" onAction="#RegisterHandleSubmitButtonAction"/>
+          <TextField  id="height" fx:id="height" GridPane.columnIndex="0" GridPane.rowIndex="9" prefHeight="20.0" prefWidth="150.0" promptText="Height(cm)" />
+          <Button  GridPane.columnIndex="0" GridPane.rowIndex="10" prefHeight="20.0" prefWidth="150.0" mnemonicParsing="false" text="Register" onAction="#RegisterHandleSubmitButtonAction"/>
+          <Text fx:id="actiontarget" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
     </GridPane>
   </children>
 </VBox>
