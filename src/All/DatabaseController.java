@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class DatabaseController {
-    private Connection connection ;
+    private Connection connection;
 
     public DatabaseController() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -41,7 +43,7 @@ public class DatabaseController {
         String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
         try {
-            addPerson(generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), df.format(User.getDOB()),Integer.toString(User.getGoalID()), Integer.toString(User.getCurrentWeight()),User.getHeight().toString());
+            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), df.format(User.getDOB()),Integer.toString(User.getGoalID()), Integer.toString(User.getCurrentWeight()),User.getHeight().toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,12 +54,24 @@ public class DatabaseController {
         ){int r = stmnt.executeUpdate(query);
         }
     }
-    private int generateUserID(){
-        //connect to db
-        //get all ids
-        //find highest id
-        //add one to it
-        return 0;
+    private ArrayList<Integer> getAllIDs(){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select idPersonalInfo from PersonalInfo");
+        ){
+            ArrayList<Integer> IDs = new ArrayList<>();
+            while (rs.next()) {
+                IDs.add(rs.getInt("idPersonalInfo"));
+            }
+            return IDs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    // other methods, eg. addPerson(...) etc
+    private int generateUserID(){
+        ArrayList<Integer> ids = getAllIDs();
+        Collections.sort(ids);
+        return ids.get(ids.size()-1) +1 ;
+    }
 }
