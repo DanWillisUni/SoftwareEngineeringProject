@@ -26,7 +26,7 @@ public class RegistrationController {
     @FXML private ComboBox gender;
     @FXML private TextField height;
     @FXML
-    protected void RegisterHandleSubmitButtonAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+    protected void RegisterHandleSubmitButtonAction(ActionEvent event){
         //get all the things and get a person from it
         //validate everything
         if (password.getText().equals(password2.getText())){

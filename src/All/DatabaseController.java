@@ -10,11 +10,18 @@ import java.util.Collections;
 public class DatabaseController {
     private Connection connection;
 
-    public DatabaseController() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "root","rootroot");
+    public DatabaseController() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "root","rootroot");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
     public void shutdown() throws SQLException {
         if (connection != null) {
             connection.close();
@@ -49,7 +56,7 @@ public class DatabaseController {
         }
     }
     public void addPerson(int ID,String fn,String sn,String un,String e,String p,String DOB,String GID,String cw,String h) throws SQLException {
-        final String query = "Insert Into PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', " + DOB+ ", " + GID+ ", " + cw+ ", " + h+ ")";
+        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', " + DOB+ ", " + GID+ ", " + cw+ ", " + h+ ")";
         try (Statement stmnt = connection.createStatement()
         ){int r = stmnt.executeUpdate(query);
         }
@@ -57,7 +64,7 @@ public class DatabaseController {
     private ArrayList<Integer> getAllIDs(){
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select idPersonalInfo from PersonalInfo");
+                ResultSet rs = stmnt.executeQuery("select softwareengineering.idPersonalInfo from PersonalInfo");
         ){
             ArrayList<Integer> IDs = new ArrayList<>();
             while (rs.next()) {
@@ -73,5 +80,18 @@ public class DatabaseController {
         ArrayList<Integer> ids = getAllIDs();
         Collections.sort(ids);
         return ids.get(ids.size()-1) +1 ;
+    }
+    public String getMatchingPassword(String email){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select Password from softwareengineering.personalinfo Where Email= '" + email + "'");
+        ){
+            if (rs.first()) {
+                return rs.getString("Password");
+            }
+    } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
