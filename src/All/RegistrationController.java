@@ -32,7 +32,7 @@ public class RegistrationController {
         if (password.getText().equals(password2.getText())){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(),new java.sql.Date(java.util.Date.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()),new BigDecimal(height.getText()));
             DatabaseController db = new DatabaseController();
-            db.addPerson(newPerson);
+            db.addUser(newPerson);
         } else {
             actiontarget.setText("Passwords do not match");
         }

@@ -2,6 +2,8 @@ package All;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class DatabaseController {
     private Connection connection ;
@@ -35,12 +37,20 @@ public class DatabaseController {
             return user;
         }
     }
-    public void addPerson(Person User) throws SQLException {
-        try (
-                Statement stmnt = connection.createStatement();
-                int ID = generateUserID();
-                stmnt.executeUpdate("Insert Into PersonalInfo Values(" + ID + ", " + User.getForename()+ ", " + User.getSurname()+ ", " + User.getUsername()+ ", " + User.getEmail()+ ", " + User.getPassword()+ ", " + User.getDOB()+ ", " + User.getGoalID()+ ", " + User.getCurrentWeight()+ ", " + User.getHeight()+ ")");
-        ){}
+    public void addUser(Person User){
+        String pattern = "dd/MM/yyyy";
+        DateFormat df = new SimpleDateFormat(pattern);
+        try {
+            addPerson(generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), df.format(User.getDOB()),Integer.toString(User.getGoalID()), Integer.toString(User.getCurrentWeight()),User.getHeight().toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addPerson(int ID,String fn,String sn,String un,String e,String p,String DOB,String GID,String cw,String h) throws SQLException {
+        final String query = "Insert Into PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', " + DOB+ ", " + GID+ ", " + cw+ ", " + h+ ")";
+        try (Statement stmnt = connection.createStatement()
+        ){int r = stmnt.executeUpdate(query);
+        }
     }
     private int generateUserID(){
         //connect to db
