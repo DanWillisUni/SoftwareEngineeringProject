@@ -29,6 +29,8 @@ public class RegistrationController {
     protected void RegisterHandleSubmitButtonAction(ActionEvent event){
         //get all the things and get a person from it
         //validate everything
+        //check emails
+        //sort out dates
         if (password.getText().equals(password2.getText())){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(),new java.sql.Date(java.util.Date.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()),new BigDecimal(height.getText()));
             DatabaseController db = new DatabaseController();

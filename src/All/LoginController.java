@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LoginController {
     @FXML private Text actiontarget;
@@ -27,10 +29,12 @@ public class LoginController {
         String matchingPassword = db.getMatchingPassword(email.getText());
         if(matchingPassword!=null){
             if(matchingPassword.equals(password.getText())){
-                Parent RegistrationParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-                Scene scene = new Scene(RegistrationParent);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+                Parent root = loader.load();
                 Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
+                stage.setScene(new Scene(root));
+                DashboardController controller = loader.<DashboardController>getController();
+                controller.setID(Integer.parseInt(db.getMatchingID(email.getText())));
                 stage.show();
             } else {
                 actiontarget.setText("Incorrect password details");

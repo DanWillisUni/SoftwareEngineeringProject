@@ -6,11 +6,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class DashboardController {
+    private int id;
+    @FXML
+    private Label email;
+    public void setID(int ID){
+        id = ID;
+        email.setText(Integer.toString(id));
+    }
     @FXML
     private void GoToAddWeightButtonAction (ActionEvent event) throws IOException {
         Parent RegistrationParent = FXMLLoader.load(getClass().getResource("AddWeight.fxml"));

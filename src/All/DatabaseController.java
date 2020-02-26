@@ -94,4 +94,17 @@ public class DatabaseController {
         }
         return null;
     }
+    public String getMatchingID(String email){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select idPersonalInfo from softwareengineering.personalinfo Where Email= '" + email + "'");
+        ){
+            if (rs.first()) {
+                return rs.getString("idPersonalInfo");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
