@@ -23,7 +23,7 @@
                 </GridPane>
             </left>
             <top>
-                <Label id="email" fx:id="email" text="Email:" prefHeight="20.0" prefWidth="150.0"/>
+                <Label id="name" fx:id="name" text="" prefHeight="20.0" prefWidth="150.0"/>
             </top>
         </BorderPane>
     </children>

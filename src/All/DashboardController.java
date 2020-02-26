@@ -12,12 +12,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DashboardController {
-    private int id;
+    private Person User;
     @FXML
-    private Label email;
-    public void setID(int ID){
-        id = ID;
-        email.setText(Integer.toString(id));
+    private Label name;
+    public void setUser(Person User){
+        this.User = User;
+    }
+    public void setUpDisplay(){
+        name.setText("Welcome " + User.getForename());
     }
     @FXML
     private void GoToAddWeightButtonAction (ActionEvent event) throws IOException {

@@ -34,7 +34,10 @@ public class LoginController {
                 Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 DashboardController controller = loader.<DashboardController>getController();
-                controller.setID(Integer.parseInt(db.getMatchingID(email.getText())));
+                int id =  Integer.parseInt(db.getMatchingID(email.getText()));
+                Person u = db.getAllPersonalInfo(id);
+                controller.setUser(u);
+                controller.setUpDisplay();
                 stage.show();
             } else {
                 actiontarget.setText("Incorrect password details");

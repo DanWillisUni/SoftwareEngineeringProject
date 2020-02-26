@@ -1,7 +1,6 @@
 package All;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 
 public class Person {
     int ID;
@@ -10,11 +9,11 @@ public class Person {
     String username;
     String email;
     String password;
-    Date DOB;
+    String DOB;
     BigDecimal height;
     int currentWeight;
     int goalID;
-    public Person(int ID, String forename, String surname,String username, String email, String password, Date DOB, BigDecimal height, int currentWeight, int goalID){
+    public Person(int ID, String forename, String surname, String username, String email, String password, String DOB, BigDecimal height, int currentWeight, int goalID){
         this.ID = ID;
         this.forename = forename;
         this.surname = surname;
@@ -26,7 +25,7 @@ public class Person {
         this.currentWeight = currentWeight;
         this.goalID = goalID;
     }
-    public Person(String forename, String surname,String username, String email, String password, Date DOB, BigDecimal height){
+    public Person(String forename, String surname, String username, String email, String password, String DOB, BigDecimal height){
         this.forename = forename;
         this.surname = surname;
         this.username = username;
@@ -53,7 +52,7 @@ public class Person {
     public String getPassword(){
         return password;
     }
-    public Date getDOB(){
+    public String getDOB(){
         return DOB;
     }
     public BigDecimal getHeight(){

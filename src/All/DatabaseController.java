@@ -27,30 +27,32 @@ public class DatabaseController {
             connection.close();
         }
     }
-    public Person getAllPersonalInfo(int id) throws SQLException {
+    public Person getAllPersonalInfo(int id) {
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select * from PersonalInfo where idPersonalInfo = "+id);
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.PersonalInfo where idPersonalInfo = '"+id +"'");
         ){
-            //double check all these names
-            String firstName = rs.getString("Forename");
-            String lastName = rs.getString("Surname");
-            String Username = rs.getString("Username");
-            String email = rs.getString("Email");
-            String password = rs.getString("Password");
-            Date DOB = rs.getDate("DOB");
-            int weight = rs.getInt("CurrentWeight");
-            int goalID = rs.getInt("CurrentGoal");
-            BigDecimal height = rs.getBigDecimal("Height");
-            Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight,goalID);
-            return user;
+            if(rs.next()){
+                String firstName = rs.getString("Forename");
+                String lastName = rs.getString("Surname");
+                String Username = rs.getString("Username");
+                String email = rs.getString("Email");
+                String password = rs.getString("Password");
+                String DOB = rs.getString("DOB");
+                int weight = rs.getInt("CurrentWeight");
+                int goalID = rs.getInt("CurrentGoal");
+                BigDecimal height = rs.getBigDecimal("Height");
+                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight,goalID);
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
     }
     public void addUser(Person User){
-        String pattern = "dd/MM/yyyy";
-        DateFormat df = new SimpleDateFormat(pattern);
         try {
-            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), df.format(User.getDOB()),Integer.toString(User.getGoalID()), Integer.toString(User.getCurrentWeight()),User.getHeight().toString());
+            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), User.getDOB(),Integer.toString(User.getGoalID()), Integer.toString(User.getCurrentWeight()),User.getHeight().toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,7 +66,7 @@ public class DatabaseController {
     private ArrayList<Integer> getAllIDs(){
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select softwareengineering.idPersonalInfo from PersonalInfo");
+                ResultSet rs = stmnt.executeQuery("select idPersonalInfo from softwareengineering.PersonalInfo");
         ){
             ArrayList<Integer> IDs = new ArrayList<>();
             while (rs.next()) {
