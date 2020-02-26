@@ -1,6 +1,7 @@
 package All;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Person {
     int ID;
@@ -9,11 +10,10 @@ public class Person {
     String username;
     String email;
     String password;
-    String DOB;
+    Date DOB;
     BigDecimal height;
-    int currentWeight;
-    int goalID;
-    public Person(int ID, String forename, String surname, String username, String email, String password, String DOB, BigDecimal height, int currentWeight, int goalID){
+    BigDecimal currentWeight;
+    public Person(int ID, String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height, BigDecimal currentWeight){
         this.ID = ID;
         this.forename = forename;
         this.surname = surname;
@@ -23,9 +23,8 @@ public class Person {
         this.DOB=DOB;
         this.height=height;
         this.currentWeight = currentWeight;
-        this.goalID = goalID;
     }
-    public Person(String forename, String surname, String username, String email, String password, String DOB, BigDecimal height){
+    public Person(String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height){
         this.forename = forename;
         this.surname = surname;
         this.username = username;
@@ -33,6 +32,7 @@ public class Person {
         this.password=password;
         this.DOB=DOB;
         this.height=height;
+        this.currentWeight= BigDecimal.valueOf(0.0);
     }
     public int getID(){
         return ID;
@@ -52,16 +52,13 @@ public class Person {
     public String getPassword(){
         return password;
     }
-    public String getDOB(){
+    public Date getDOB(){
         return DOB;
     }
     public BigDecimal getHeight(){
         return height;
     }
-    public int getCurrentWeight(){
+    public BigDecimal getCurrentWeight(){
         return currentWeight;
-    }
-    public int getGoalID(){
-        return goalID;
     }
 }

@@ -2,10 +2,10 @@ package All;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class DatabaseController {
     private Connection connection;
@@ -30,19 +30,18 @@ public class DatabaseController {
     public Person getAllPersonalInfo(int id) {
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.PersonalInfo where idPersonalInfo = '"+id +"'");
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.PersonalInfo where idUser = '"+id +"'");
         ){
             if(rs.next()){
-                String firstName = rs.getString("Forename");
-                String lastName = rs.getString("Surname");
-                String Username = rs.getString("Username");
-                String email = rs.getString("Email");
+                String firstName = rs.getString("forename");
+                String lastName = rs.getString("surname");
+                String Username = rs.getString("username");
+                String email = rs.getString("email");
                 String password = rs.getString("Password");
-                String DOB = rs.getString("DOB");
-                int weight = rs.getInt("CurrentWeight");
-                int goalID = rs.getInt("CurrentGoal");
-                BigDecimal height = rs.getBigDecimal("Height");
-                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight,goalID);
+                Date DOB = rs.getDate("DOB");
+                BigDecimal height = rs.getBigDecimal("height");
+                BigDecimal weight = rs.getBigDecimal("currentWeight");
+                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight);
                 return user;
             }
         } catch (SQLException e) {
@@ -51,42 +50,49 @@ public class DatabaseController {
         return null;
     }
     public void addUser(Person User){
+        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
         try {
-            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), User.getDOB(),Integer.toString(User.getGoalID()), Integer.toString(User.getCurrentWeight()),User.getHeight().toString());
+            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), User.getDOB(),User.getHeight().toString(),User.getCurrentWeight().toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void addPerson(int ID,String fn,String sn,String un,String e,String p,String DOB,String GID,String cw,String h) throws SQLException {
-        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', " + DOB+ ", " + GID+ ", " + cw+ ", " + h+ ")";
-        try (Statement stmnt = connection.createStatement()
-        ){int r = stmnt.executeUpdate(query);
+    public void addPerson(int ID, String fn, String sn, String un, String e, String p, Date DOB, String h, String cw) throws SQLException {
+        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', ? , " + h+ ", "+ cw+  " )";
+        try (
+                PreparedStatement pstmt = connection.prepareStatement(query)
+        ){
+            pstmt.setDate(1, new java.sql.Date(DOB.getTime()));
+            pstmt.executeUpdate();
         }
     }
     private ArrayList<Integer> getAllIDs(){
+        ArrayList<Integer> IDs = new ArrayList<>();
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select idPersonalInfo from softwareengineering.PersonalInfo");
+                ResultSet rs = stmnt.executeQuery("select idUser from softwareengineering.PersonalInfo");
         ){
-            ArrayList<Integer> IDs = new ArrayList<>();
             while (rs.next()) {
-                IDs.add(rs.getInt("idPersonalInfo"));
+                IDs.add(rs.getInt("idUser"));
             }
-            return IDs;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return IDs;
     }
     private int generateUserID(){
         ArrayList<Integer> ids = getAllIDs();
-        Collections.sort(ids);
-        return ids.get(ids.size()-1) +1 ;
+        if (ids.size()>0){
+            Collections.sort(ids);
+            return ids.get(ids.size()-1) +1 ;
+        } else {
+            return 0;
+        }
     }
     public String getMatchingPassword(String email){
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select Password from softwareengineering.personalinfo Where Email= '" + email + "'");
+                ResultSet rs = stmnt.executeQuery("select Password from softwareengineering.personalinfo Where email= '" + email + "'");
         ){
             if (rs.first()) {
                 return rs.getString("Password");
@@ -99,10 +105,10 @@ public class DatabaseController {
     public String getMatchingID(String email){
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select idPersonalInfo from softwareengineering.personalinfo Where Email= '" + email + "'");
+                ResultSet rs = stmnt.executeQuery("select idUser from softwareengineering.personalinfo Where email= '" + email + "'");
         ){
             if (rs.first()) {
-                return rs.getString("idPersonalInfo");
+                return rs.getString("idUser");
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -18,8 +18,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class RegistrationController {
     @FXML private Text actiontarget;
@@ -39,7 +41,7 @@ public class RegistrationController {
         //check emails
         //sort out dates
         if (password.getText().equals(password2.getText())){
-            Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(),DOB.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),new BigDecimal(height.getText()));
+            Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()));
             DatabaseController db = new DatabaseController();
             db.addUser(newPerson);
 

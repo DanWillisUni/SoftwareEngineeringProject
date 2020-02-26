@@ -1,10 +1,3 @@
-CREATE TABLE IF NOT EXISTS `softwareengineering`.`GoalWeight` (
-  `idGoalWeight` INT NOT NULL,
-  `weightGoal` DECIMAL(10) NOT NULL,
-  `dateSet` DATE NULL,
-  `targetDate` DATE NOT NULL,
-  PRIMARY KEY (`idGoalWeight`),
-  UNIQUE INDEX `idGoalWeight_UNIQUE` (`idGoalWeight` ASC) VISIBLE);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`PersonalInfo` (
   `idUser` INT NOT NULL,
   `forename` VARCHAR(45) NOT NULL,
@@ -15,15 +8,21 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`PersonalInfo` (
   `DOB` DATE NOT NULL,
   `height` DECIMAL(10) NULL,
   `currentWeight` DECIMAL(10) NULL,
-  `idGoalWeight` INT NULL,
   UNIQUE INDEX `idUser_UNIQUE` (`idUser` ASC) VISIBLE,
   PRIMARY KEY (`idUser`),
-  INDEX `idGoalWeight_idx` (`idGoalWeight` ASC) INVISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  CONSTRAINT `idGoalWeightinPersonalInfo`
-    FOREIGN KEY (`idGoalWeight`)
-    REFERENCES `softwareengineering`.`GoalWeight` (`idGoalWeight`)
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE);  
+CREATE TABLE IF NOT EXISTS `softwareengineering`.`GoalWeight` (
+  `idGoalWeight` INT NOT NULL,
+  `weightGoal` DECIMAL(10) NOT NULL,
+  `dateSet` DATE NULL,
+  `targetDate` DATE NOT NULL,
+  `idUser` INT NOT NULL,
+  PRIMARY KEY (`idGoalWeight`),
+  UNIQUE INDEX `idGoalWeight_UNIQUE` (`idGoalWeight` ASC) VISIBLE,
+    CONSTRAINT `idUserinGoalWeight`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `softwareengineering`.`PersonalInfo` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`Exercise` (
