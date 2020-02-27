@@ -46,6 +46,7 @@ public class RegistrationController {
         //check username length is less than 45
         //check username is individual
         //check DOB isnt crazy
+        //check height is a number
         if (password.getText().equals(password2.getText())){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             DatabaseController db = new DatabaseController();

@@ -7,14 +7,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AddWeightController {
     private Person User;
-    @FXML
-    private Label name;
+    @FXML private Label name;
+    @FXML private TextField weight;
     public void setUser(Person User){
         this.User = User;
     }
@@ -34,6 +35,10 @@ public class AddWeightController {
     }
     @FXML
     private void AddWeightAction (ActionEvent event) throws IOException {
-
+        //check weight is numeric
+        //check weight isnt crazy
+        DatabaseController db = new DatabaseController();
+        db.addWeight(User.getID(),weight.getText());
+        GoToDashButtonAction(event);
     }
 }

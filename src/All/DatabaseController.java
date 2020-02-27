@@ -111,4 +111,25 @@ public class DatabaseController {
         }
         return null;
     }
+    public void addWeight(int id,String weight){
+        try {
+            final String first ="Delete From softwareengineering.weightTracking Where idUser = " +id +" And date = ?";
+            final String second = "Insert Into softwareengineering.weightTracking Values("+ id + ", ? , '" + weight + "' )";
+            try (
+                    PreparedStatement pstmt1 = connection.prepareStatement(first)
+            ){
+                java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                pstmt1.setDate(1, currentDate);
+                pstmt1.executeUpdate();
+                try (
+                        PreparedStatement pstmt2 = connection.prepareStatement(second)
+                ){
+                    pstmt2.setDate(1, currentDate);
+                    pstmt2.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
