@@ -6,5 +6,5 @@ DROP TABLE `softwareengineering`.`Foods`;
 DROP TABLE `softwareengineering`.`ExerciseUser`;
 DROP TABLE `softwareengineering`.`ExerciseSession`;
 DROP TABLE `softwareengineering`.`Exercise`;
-DROP TABLE `softwareengineering`.`PersonalInfo`;
 DROP TABLE `softwareengineering`.`GoalWeight`;
+DROP TABLE `softwareengineering`.`PersonalInfo`;

@@ -37,11 +37,12 @@ public class DatabaseController {
                 String lastName = rs.getString("surname");
                 String Username = rs.getString("username");
                 String email = rs.getString("email");
-                String password = rs.getString("Password");
+                String password = rs.getString("password");
                 Date DOB = rs.getDate("DOB");
                 BigDecimal height = rs.getBigDecimal("height");
                 BigDecimal weight = rs.getBigDecimal("currentWeight");
-                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight);
+                char gender = rs.getString("gender").charAt(0);
+                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight,gender);
                 return user;
             }
         } catch (SQLException e) {
@@ -52,13 +53,13 @@ public class DatabaseController {
     public void addUser(Person User){
         SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
         try {
-            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), User.getDOB(),User.getHeight().toString(),User.getCurrentWeight().toString());
+            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), User.getDOB(),User.getHeight().toString(),User.getCurrentWeight().toString(),User.getGender());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void addPerson(int ID, String fn, String sn, String un, String e, String p, Date DOB, String h, String cw) throws SQLException {
-        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', ? , " + h+ ", "+ cw+  " )";
+    public void addPerson(int ID, String fn, String sn, String un, String e, String p, Date DOB, String h, String cw,char g) throws SQLException {
+        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', ? , " + h+ ", "+ cw+  ", '" + g + "' )";
         try (
                 PreparedStatement pstmt = connection.prepareStatement(query)
         ){
@@ -92,10 +93,10 @@ public class DatabaseController {
     public String getMatchingPassword(String email){
         try (
                 Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select Password from softwareengineering.personalinfo Where email= '" + email + "'");
+                ResultSet rs = stmnt.executeQuery("select password from softwareengineering.personalinfo Where email= '" + email + "'");
         ){
             if (rs.first()) {
-                return rs.getString("Password");
+                return rs.getString("password");
             }
     } catch (SQLException e) {
             e.printStackTrace();

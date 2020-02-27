@@ -37,11 +37,17 @@ public class RegistrationController {
     @FXML
     protected void RegisterHandleSubmitButtonAction(ActionEvent event) throws IOException {
         //get all the things and get a person from it
-        //validate everything
-        //check emails
-        //sort out dates
+        //check emails are unique
+        //check email length less than 60
+        //check forename length less that 45
+        //check surname length less than 45
+        //check password length less than 20
+        //check height isnt crazy
+        //check username length is less than 45
+        //check username is individual
+        //check DOB isnt crazy
         if (password.getText().equals(password2.getText())){
-            Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()));
+            Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             DatabaseController db = new DatabaseController();
             db.addUser(newPerson);
 

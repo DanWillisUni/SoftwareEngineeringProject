@@ -13,7 +13,8 @@ public class Person {
     Date DOB;
     BigDecimal height;
     BigDecimal currentWeight;
-    public Person(int ID, String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height, BigDecimal currentWeight){
+    char gender;
+    public Person(int ID, String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height, BigDecimal currentWeight,char gender){
         this.ID = ID;
         this.forename = forename;
         this.surname = surname;
@@ -23,8 +24,9 @@ public class Person {
         this.DOB=DOB;
         this.height=height;
         this.currentWeight = currentWeight;
+        this.gender = gender;
     }
-    public Person(String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height){
+    public Person(String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height,char gender){
         this.forename = forename;
         this.surname = surname;
         this.username = username;
@@ -33,6 +35,7 @@ public class Person {
         this.DOB=DOB;
         this.height=height;
         this.currentWeight= BigDecimal.valueOf(0.0);
+        this.gender = gender;
     }
     public int getID(){
         return ID;
@@ -61,4 +64,5 @@ public class Person {
     public BigDecimal getCurrentWeight(){
         return currentWeight;
     }
+    public char getGender(){return gender;}
 }
