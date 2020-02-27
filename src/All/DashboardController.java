@@ -38,7 +38,7 @@ public class DashboardController {
         Parent root = loader.load();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
-        AddWeightController controller = loader.<AddWeightController>getController();
+        AddExerciseSessionController controller = loader.<AddExerciseSessionController>getController();
         controller.setUser(User);
         controller.setUpDisplay();
         stage.show();
@@ -49,7 +49,7 @@ public class DashboardController {
         Parent root = loader.load();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
-        AddWeightController controller = loader.<AddWeightController>getController();
+        AddFoodController controller = loader.<AddFoodController>getController();
         controller.setUser(User);
         controller.setUpDisplay();
         stage.show();

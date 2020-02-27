@@ -135,5 +135,21 @@ public class DatabaseController {
         }
     }
 
+    public ArrayList<String> getAllExercisesLike(String s){
+        ArrayList<String> exercises = new ArrayList<>();
+        String sql = "SELECT * FROM softwareengineering.exercise WHERE exerciseName LIKE ? ";
+        try (
+            PreparedStatement pst=connection.prepareStatement(sql);
+        ){
+            pst.setString(1, "%" + s + "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                exercises.add(rs.getString("exerciseName"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exercises;
 
+    }
 }
