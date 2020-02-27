@@ -63,4 +63,13 @@ public class RegistrationController {
             actiontarget.setText("Passwords do not match");
         }
     }
+    @FXML
+    private void GoToLoginButtonAction (ActionEvent event) throws IOException {
+        //next 5 lines changes the page
+        Parent RegistrationParent = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Scene scene = new Scene(RegistrationParent);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }
