@@ -23,10 +23,13 @@ public class DashboardController {
     }
     @FXML
     private void GoToAddWeightButtonAction (ActionEvent event) throws IOException {
-        Parent RegistrationParent = FXMLLoader.load(getClass().getResource("AddWeight.fxml"));
-        Scene scene = new Scene(RegistrationParent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddWeight.fxml"));
+        Parent root = loader.load();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
+        AddWeightController controller = loader.<AddWeightController>getController();
+        controller.setUser(User);
+        controller.setUpDisplay();
         stage.show();
     }
     @FXML

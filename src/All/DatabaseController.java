@@ -2,7 +2,6 @@ package All;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -51,20 +50,16 @@ public class DatabaseController {
         return null;
     }
     public void addUser(Person User){
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
         try {
-            addPerson(this.generateUserID(),User.getForename(),User.getSurname(),User.getUsername(),User.getEmail(),User.getPassword(), User.getDOB(),User.getHeight().toString(),User.getCurrentWeight().toString(),User.getGender());
+            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ this.generateUserID() + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", "+ User.getCurrentWeight().toString()+  ", '" + User.getGender() + "' )";
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.setDate(1, new java.sql.Date(User.getDOB().getTime()));
+                pstmt.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-    private void addPerson(int ID, String fn, String sn, String un, String e, String p, Date DOB, String h, String cw,char g) throws SQLException {
-        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + e+ "', '" + un+ "', '" + p+ "', ? , " + h+ ", "+ cw+  ", '" + g + "' )";
-        try (
-                PreparedStatement pstmt = connection.prepareStatement(query)
-        ){
-            pstmt.setDate(1, new java.sql.Date(DOB.getTime()));
-            pstmt.executeUpdate();
         }
     }
     private ArrayList<Integer> getAllIDs(){
