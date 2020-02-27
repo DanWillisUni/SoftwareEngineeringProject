@@ -220,7 +220,7 @@
       <workItem from="1582717838768" duration="66000" />
       <workItem from="1582723574738" duration="12831000" />
       <workItem from="1582794674640" duration="1715000" />
-      <workItem from="1582798253409" duration="9066000" />
+      <workItem from="1582798253409" duration="12042000" />
     </task>
     <servers />
   </component>
@@ -256,22 +256,22 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="491" y="255" key="Github.ShareDialog/0.0.1280.720@0.0.1280.720" timestamp="1581338973450" />
-    <state width="1236" height="220" key="GridCell.Tab.0.bottom" timestamp="1582817998481">
+    <state width="1236" height="176" key="GridCell.Tab.0.bottom" timestamp="1582821153460">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1582817998481" />
-    <state width="1236" height="220" key="GridCell.Tab.0.center" timestamp="1582817998481">
+    <state width="1236" height="176" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1582821153460" />
+    <state width="1236" height="176" key="GridCell.Tab.0.center" timestamp="1582821153460">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1582817998481" />
-    <state width="1236" height="220" key="GridCell.Tab.0.left" timestamp="1582817998480">
+    <state width="1236" height="176" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1582821153460" />
+    <state width="1236" height="176" key="GridCell.Tab.0.left" timestamp="1582821153460">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1582817998480" />
-    <state width="1236" height="220" key="GridCell.Tab.0.right" timestamp="1582817998481">
+    <state width="1236" height="176" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1582821153460" />
+    <state width="1236" height="176" key="GridCell.Tab.0.right" timestamp="1582821153460">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1582817998481" />
+    <state width="1236" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1582821153460" />
     <state width="1236" height="220" key="GridCell.Tab.1.bottom" timestamp="1582817998482">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -310,8 +310,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/All/DatabaseController.java</url>
-          <line>116</line>
-          <option name="timeStamp" value="4" />
+          <line>118</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

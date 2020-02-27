@@ -52,13 +52,10 @@ public class RegistrationController {
             DatabaseController db = new DatabaseController();
             db.addUser(newPerson);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
-            Parent root = loader.load();
+            Parent RegistrationParent = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Scene scene = new Scene(RegistrationParent);
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            DashboardController controller = loader.<DashboardController>getController();
-            controller.setUser(newPerson);
-            controller.setUpDisplay();
+            stage.setScene(scene);
             stage.show();
         } else {
             actiontarget.setText("Passwords do not match");

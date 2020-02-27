@@ -8,7 +8,6 @@ import java.util.Date;
 
 public class DatabaseController {
     private Connection connection;
-
     public DatabaseController() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -26,6 +25,7 @@ public class DatabaseController {
             connection.close();
         }
     }
+
     public Person getAllPersonalInfo(int id) {
         try (
                 Statement stmnt = connection.createStatement();
@@ -85,6 +85,7 @@ public class DatabaseController {
             return 0;
         }
     }
+
     public String getMatchingPassword(String email){
         try (
                 Statement stmnt = connection.createStatement();
@@ -111,6 +112,7 @@ public class DatabaseController {
         }
         return null;
     }
+
     public void addWeight(int id,String weight){
         try {
             final String first ="Delete From softwareengineering.weightTracking Where idUser = " +id +" And date = ?";
@@ -132,4 +134,6 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+
+
 }

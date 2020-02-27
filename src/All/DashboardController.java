@@ -34,19 +34,24 @@ public class DashboardController {
     }
     @FXML
     private void GoToAddExerciseSessionButtonAction (ActionEvent event) throws IOException {
-        Parent RegistrationParent = FXMLLoader.load(getClass().getResource("AddExerciseSession.fxml"));
-        Scene scene = new Scene(RegistrationParent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddExerciseSession.fxml"));
+        Parent root = loader.load();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
+        AddWeightController controller = loader.<AddWeightController>getController();
+        controller.setUser(User);
+        controller.setUpDisplay();
         stage.show();
     }
     @FXML
     private void GoToAddFoodButtonAction (ActionEvent event) throws IOException {
-        //next 5 lines changes the page
-        Parent RegistrationParent = FXMLLoader.load(getClass().getResource("AddFood.fxml"));
-        Scene scene = new Scene(RegistrationParent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddFood.fxml"));
+        Parent root = loader.load();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
+        AddWeightController controller = loader.<AddWeightController>getController();
+        controller.setUser(User);
+        controller.setUpDisplay();
         stage.show();
     }
     @FXML
