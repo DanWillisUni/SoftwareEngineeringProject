@@ -26,6 +26,26 @@ public class DatabaseController {
         }
     }
 
+    private int genID(String TableName,String ColumName){
+        ArrayList<Integer> ids = new ArrayList<>();
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering." + TableName);
+        ){
+            while (rs.next()) {
+                ids.add(rs.getInt(ColumName));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (ids.size()>0){
+            Collections.sort(ids);
+            return ids.get(ids.size()-1) +1 ;
+        } else {
+            return 0;
+        }
+    }
+
     public Person getAllPersonalInfo(int id) {
         try (
                 Statement stmnt = connection.createStatement();
@@ -51,7 +71,7 @@ public class DatabaseController {
     }
     public void addUser(Person User){
         try {
-            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ this.generateUserID() + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", "+ User.getCurrentWeight().toString()+  ", '" + User.getGender() + "' )";
+            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ this.genID("PersonalInfo","idUser") + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", "+ User.getCurrentWeight().toString()+  ", '" + User.getGender() + "' )";
             try (
                     PreparedStatement pstmt = connection.prepareStatement(query)
             ){
@@ -62,30 +82,6 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-    private ArrayList<Integer> getAllIDs(){
-        ArrayList<Integer> IDs = new ArrayList<>();
-        try (
-                Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select idUser from softwareengineering.PersonalInfo");
-        ){
-            while (rs.next()) {
-                IDs.add(rs.getInt("idUser"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return IDs;
-    }
-    private int generateUserID(){
-        ArrayList<Integer> ids = getAllIDs();
-        if (ids.size()>0){
-            Collections.sort(ids);
-            return ids.get(ids.size()-1) +1 ;
-        } else {
-            return 0;
-        }
-    }
-
     public String getMatchingPassword(String email){
         try (
                 Statement stmnt = connection.createStatement();
@@ -150,6 +146,47 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return exercises;
-
+    }
+    public void addExerciseSession(BigDecimal duration,int sportID,int calburned,int userID){
+        try {
+            final String query = "Insert Into softwareengineering.exercisesession Values("+ genID("exercisesession","idExerciseSession") + ", ? , '" + duration + "' ,"+ sportID+ " ,"+ calburned + " ,"+ userID + ")";
+            try (
+                    PreparedStatement pstmt1 = connection.prepareStatement(query)
+            ){
+                java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                pstmt1.setDate(1, currentDate);
+                pstmt1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public int getIDFromName(String name){
+        int r = 0;
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercise where exerciseName = '"+name +"'");
+        ){
+            if(rs.next()){
+                r = Integer.parseInt(rs.getString("idExerciseType"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    public int getCalsBurnedFromID(int id){
+        int r = 0;
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercise where idExerciseType = '"+id+"'");
+        ){
+            if(rs.next()){
+                r = Integer.parseInt(rs.getString("calsPerMinute"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
     }
 }

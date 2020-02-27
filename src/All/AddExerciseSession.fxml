@@ -19,6 +19,7 @@
                 </items>
             </ComboBox>
             <TextField  id="duration" fx:id="duration" GridPane.columnIndex="0" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" promptText="Duration" />
+            <TextField  id="calBurned" fx:id="calBurned" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" promptText="Calories Burned" />
             <Button  GridPane.columnIndex="1" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="150.0" mnemonicParsing="false" text="Add Session" onAction="#AddExerciseSessionAction"/>
             <Button  GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="150.0" mnemonicParsing="false" text="Go Back" onAction="#GoToDashButtonAction"/>
         </GridPane>

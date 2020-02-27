@@ -38,26 +38,17 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`ExerciseSession` (
   `durationMinutesSeconds` DECIMAL(10) NULL,
   `idExerciseType` INT NOT NULL,
   `caloriesBurned` INT NULL,
+  `idUser` INT NOT NULL,
   PRIMARY KEY (`idExerciseSession`),
   UNIQUE INDEX `idExcerciseSession_UNIQUE` (`idExerciseSession` ASC) VISIBLE,
   CONSTRAINT `idExerciseTypeinExerciseSession`
     FOREIGN KEY (`idExerciseSession`)
     REFERENCES `softwareengineering`.`Exercise` (`idExerciseType`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-CREATE TABLE IF NOT EXISTS `softwareengineering`.`ExerciseUser` (
-  `idExerciseSession` INT NOT NULL,
-  `idUser` INT NOT NULL,
-  PRIMARY KEY (`idExerciseSession`, `idUser`),
-  INDEX `idUser_idx` (`idUser` ASC) VISIBLE,
-  CONSTRAINT `idUserinExerciseUser`
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idUserinExerciseSession`
     FOREIGN KEY (`idUser`)
     REFERENCES `softwareengineering`.`PersonalInfo` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idExerciseSessioninExerciseUser`
-    FOREIGN KEY (`idExerciseSession`)
-    REFERENCES `softwareengineering`.`ExerciseSession` (`idExerciseSession`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`Foods` (
