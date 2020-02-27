@@ -58,8 +58,8 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-    public void addPerson(int ID, String fn, String sn, String un, String e, String p, Date DOB, String h, String cw,char g) throws SQLException {
-        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + un+ "', '" + e+ "', '" + p+ "', ? , " + h+ ", "+ cw+  ", '" + g + "' )";
+    private void addPerson(int ID, String fn, String sn, String un, String e, String p, Date DOB, String h, String cw,char g) throws SQLException {
+        final String query = "Insert Into softwareengineering.PersonalInfo Values("+ ID + ", '" + fn + "', '" + sn+ "', '" + e+ "', '" + un+ "', '" + p+ "', ? , " + h+ ", "+ cw+  ", '" + g + "' )";
         try (
                 PreparedStatement pstmt = connection.prepareStatement(query)
         ){
