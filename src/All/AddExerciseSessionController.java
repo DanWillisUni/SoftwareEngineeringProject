@@ -51,17 +51,19 @@ public class AddExerciseSessionController {
     private void AddExerciseSessionAction (ActionEvent event) throws IOException {
         //checks if duration is craxy
         //checks if calcount is crazy
-        //checks if no calcount and no sport has been entered
+        //checks if anything is entered
         int sportID = 0;
         BigDecimal durationDec = new BigDecimal(duration.getText());
         int caloriesBurned = 0;
         if (!calBurned.getText().equals("")){
-           caloriesBurned = Integer.parseInt(calBurned.getText());
+            caloriesBurned = Integer.parseInt(calBurned.getText());
         }
         DatabaseController db = new DatabaseController();
         if (Exercise.getValue()!=null&&!Exercise.getValue().toString().equals("other")){
             sportID = db.getIDFromName(Exercise.getValue().toString());
-            caloriesBurned = durationDec.multiply(new BigDecimal(db.getCalsBurnedFromID(sportID))).intValue();
+            if (calBurned.getText().equals("")){
+                caloriesBurned = durationDec.multiply(new BigDecimal(db.getCalsBurnedFromID(sportID))).intValue();
+            }
         }
         db.addExerciseSession(durationDec,sportID,caloriesBurned,User.getID());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));

@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`Meal` (
   `idMeal` INT NOT NULL,
   `idFood` INT NOT NULL,
   `quantity` DECIMAL(10) NOT NULL DEFAULT 1,
-  `date` DATE NOT NULL,
   `mealCategory` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idMeal`),
   UNIQUE INDEX `idMeal_UNIQUE` (`idMeal` ASC) VISIBLE,
@@ -73,9 +72,11 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`Meal` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`Diet` (
+  `idDiet` INT NOT NULL,
   `idUser` INT NOT NULL,
-  `idMeal` INT NOT NULL,
-  PRIMARY KEY (`idUser`, `idMeal`),
+  `idMeal` INT NOT NULL,  
+  `date` DATE NOT NULL,
+  PRIMARY KEY (`idDiet`),
   INDEX `idMeal_idx` (`idMeal` ASC) VISIBLE,
   CONSTRAINT `idUserinDiet`
     FOREIGN KEY (`idUser`)

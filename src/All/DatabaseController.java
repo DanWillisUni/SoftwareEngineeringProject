@@ -124,11 +124,21 @@ public class DatabaseController {
                 ){
                     pstmt2.setDate(1, currentDate);
                     pstmt2.executeUpdate();
+
+                    final String query = "Update softwareengineering.personalInfo Set currentWeight = " + weight + " Where idUser = " + id;
+                    try (
+                            PreparedStatement pstmt3 = connection.prepareStatement(query)
+                    ){
+                        pstmt3.executeUpdate();
+                    }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    private void updateWeight(int id,String weight){
+
     }
 
     public ArrayList<String> getAllExercisesLike(String s){
@@ -189,4 +199,6 @@ public class DatabaseController {
         }
         return r;
     }
+
+    
 }

@@ -3,7 +3,6 @@ DROP TABLE `softwareengineering`.`WeightTracking`;
 DROP TABLE `softwareengineering`.`Diet`;
 DROP TABLE `softwareengineering`.`Meal`;
 DROP TABLE `softwareengineering`.`Foods`;
-DROP TABLE `softwareengineering`.`ExerciseUser`;
 DROP TABLE `softwareengineering`.`ExerciseSession`;
 DROP TABLE `softwareengineering`.`Exercise`;
 DROP TABLE `softwareengineering`.`GoalWeight`;
