@@ -45,6 +45,22 @@ public class DatabaseController {
             return 0;
         }
     }
+    public ArrayList<String> getAllLike(String s,String TableName,String ColumnName){
+        ArrayList<String> things = new ArrayList<>();
+        String sql = "SELECT * FROM softwareengineering."+TableName+" WHERE "+ ColumnName+" LIKE ? ";
+        try (
+                PreparedStatement pst=connection.prepareStatement(sql);
+        ){
+            pst.setString(1, "%" + s + "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                things.add(rs.getString(ColumnName));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return things;
+    }
 
     public Person getAllPersonalInfo(int id) {
         try (
@@ -137,26 +153,7 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-    private void updateWeight(int id,String weight){
 
-    }
-
-    public ArrayList<String> getAllExercisesLike(String s){
-        ArrayList<String> exercises = new ArrayList<>();
-        String sql = "SELECT * FROM softwareengineering.exercise WHERE exerciseName LIKE ? ";
-        try (
-            PreparedStatement pst=connection.prepareStatement(sql);
-        ){
-            pst.setString(1, "%" + s + "%");
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                exercises.add(rs.getString("exerciseName"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return exercises;
-    }
     public void addExerciseSession(BigDecimal duration,int sportID,int calburned,int userID){
         try {
             final String query = "Insert Into softwareengineering.exercisesession Values("+ genID("exercisesession","idExerciseSession") + ", ? , '" + duration + "' ,"+ sportID+ " ,"+ calburned + " ,"+ userID + ")";
@@ -200,5 +197,31 @@ public class DatabaseController {
         return r;
     }
 
-    
+    public void addMeal(int foodID,int quantity,String Type){
+        try {
+            final String query = "Insert Into softwareengineering.meal Values("+ genID("meal","idmeal") + foodID + ", " + quantity+", '" +Type+"')";
+            try (
+                    PreparedStatement pstmt1 = connection.prepareStatement(query)
+            ){
+                pstmt1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public int selectMeal(int foodID,int quantity,String Type){
+        int r = -1;
+        try (
+            Statement stmnt = connection.createStatement();
+            ResultSet rs = stmnt.executeQuery("Select * From softwareengineering.meal where + idFood ="+foodID + "AND quantity = " + quantity+"AND mealCatergory = '" +Type+"'");
+
+        ){
+            if(rs.next()) {
+                r = rs.getInt("idMeal");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
 }

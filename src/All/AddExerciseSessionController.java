@@ -29,7 +29,7 @@ public class AddExerciseSessionController {
     public void setUpDisplay(){
         try {
             DatabaseController db = new DatabaseController();
-            ArrayList<String> results = db.getAllExercisesLike("");
+            ArrayList<String> results = db.getAllLike("","exercise","exerciseName");
             ObservableList<String> observableList = FXCollections.observableList(results);
             Exercise.setItems(observableList);
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class AddExerciseSessionController {
         try {
             String toSearch = txt_search.getText();
             DatabaseController db = new DatabaseController();
-            ArrayList<String> results = db.getAllExercisesLike(toSearch);
+            ArrayList<String> results = db.getAllLike(toSearch,"exercise","exerciseName");
             ObservableList<String> observableList = FXCollections.observableList(results);
             Exercise.setItems(observableList);
         } catch (Exception e) {

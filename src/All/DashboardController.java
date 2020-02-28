@@ -54,13 +54,4 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
-    @FXML
-    private void GoToAddFriendButtonAction (ActionEvent event) throws IOException {
-        //next 5 lines changes the page
-        Parent RegistrationParent = FXMLLoader.load(getClass().getResource("AddFriend.fxml"));
-        Scene scene = new Scene(RegistrationParent);
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
 }
