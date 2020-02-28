@@ -19,7 +19,7 @@
                 </items>
             </ComboBox>
             <TextField  id="quantity" fx:id="quantity" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Quantity" />
-            <ComboBox id="MealType" fx:id="MealType" editable="true"  GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Select Meal Type" >
+            <ComboBox id="MealType" fx:id="MealType" editable="true"  GridPane.columnIndex="0" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" promptText="Select Meal Type" >
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Breakfast" />

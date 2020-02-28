@@ -49,7 +49,9 @@ public class AddFoodController {
     @FXML
     private void AddFoodsAction (ActionEvent event) throws IOException {
         //checks if anything is entered
-
+        DatabaseController db = new DatabaseController();
+        int mealId = db.addMeal(Foods.getValue().toString(),Integer.parseInt(quantity.getText()),MealType.getValue().toString());
+        db.addDiet(mealId,User.getID());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

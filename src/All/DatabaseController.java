@@ -197,23 +197,32 @@ public class DatabaseController {
         return r;
     }
 
-    public void addMeal(int foodID,int quantity,String Type){
-        try {
-            final String query = "Insert Into softwareengineering.meal Values("+ genID("meal","idmeal") + foodID + ", " + quantity+", '" +Type+"')";
-            try (
-                    PreparedStatement pstmt1 = connection.prepareStatement(query)
-            ){
-                pstmt1.executeUpdate();
+    public int addMeal(String foodName,int quantity,String Type){
+        int id;
+        int foodID = getFoodIDFromName(foodName);
+        int made = selectMeal(foodID,quantity,Type);
+        if (made==-1){
+            id = genID("meal","idmeal");
+            try {
+                final String query = "Insert Into softwareengineering.meal Values("+ id +", " + foodID + ", " + quantity+", '" +Type+"')";
+                try (
+                        PreparedStatement pstmt1 = connection.prepareStatement(query)
+                ){
+                    pstmt1.executeUpdate();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            id = made;
         }
+        return id;
     }
-    public int selectMeal(int foodID,int quantity,String Type){
+    private int selectMeal(int foodID,int quantity,String Type){
         int r = -1;
         try (
             Statement stmnt = connection.createStatement();
-            ResultSet rs = stmnt.executeQuery("Select * From softwareengineering.meal where + idFood ="+foodID + "AND quantity = " + quantity+"AND mealCatergory = '" +Type+"'");
+            ResultSet rs = stmnt.executeQuery("Select * From softwareengineering.meal where idFood ="+foodID + " AND quantity = " + quantity+" AND mealCategory = '" +Type+"'");
 
         ){
             if(rs.next()) {
@@ -223,5 +232,33 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return r;
+    }
+    private int getFoodIDFromName(String name){
+        int r = -1;
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("Select * From softwareengineering.foods where foodName = '"+name+"'");
+        ){
+            if(rs.next()) {
+                r = rs.getInt("idFood");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    public void addDiet(int mealID,int userID){
+        try {
+            final String query = "Insert Into softwareengineering.diet Values("+ genID("diet","idDiet") +", " + userID + ", " + mealID+", ?)";
+            try (
+                    PreparedStatement pstmt1 = connection.prepareStatement(query)
+            ){
+                java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                pstmt1.setDate(1, currentDate);
+                pstmt1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
