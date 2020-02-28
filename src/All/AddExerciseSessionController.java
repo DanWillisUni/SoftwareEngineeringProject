@@ -30,6 +30,7 @@ public class AddExerciseSessionController {
         try {
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike("","exercise","exerciseName");
+            db.shutdown();
             ObservableList<String> observableList = FXCollections.observableList(results);
             Exercise.setItems(observableList);
         } catch (Exception e) {
@@ -66,14 +67,8 @@ public class AddExerciseSessionController {
             }
         }
         db.addExerciseSession(durationDec,sportID,caloriesBurned,User.getID());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        db.shutdown();
+        GoToDashButtonAction(event);
     }
     @FXML
     private void goSearch(ActionEvent event) throws IOException {
@@ -81,6 +76,7 @@ public class AddExerciseSessionController {
             String toSearch = txt_search.getText();
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike(toSearch,"exercise","exerciseName");
+            db.shutdown();
             ObservableList<String> observableList = FXCollections.observableList(results);
             Exercise.setItems(observableList);
         } catch (Exception e) {

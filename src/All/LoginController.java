@@ -21,6 +21,7 @@ public class LoginController {
     private void LoginHandleSubmitButtonAction (ActionEvent event) throws IOException {
         DatabaseController db = new DatabaseController();
         String matchingPassword = db.getMatchingPassword(email.getText());
+        db.shutdown();
         if(matchingPassword!=null){
             if(matchingPassword.equals(password.getText())){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
@@ -28,8 +29,10 @@ public class LoginController {
                 Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 DashboardController controller = loader.<DashboardController>getController();
+                db = new DatabaseController();
                 int id =  Integer.parseInt(db.getMatchingID(email.getText()));
                 Person u = db.getAllPersonalInfo(id);
+                db.shutdown();
                 controller.setUser(u);
                 controller.setUpDisplay();
                 stage.show();

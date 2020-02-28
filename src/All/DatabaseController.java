@@ -20,9 +20,13 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-    public void shutdown() throws SQLException {
+    public void shutdown() {
         if (connection != null) {
-            connection.close();
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

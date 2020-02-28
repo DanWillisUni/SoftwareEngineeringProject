@@ -14,6 +14,7 @@ public class Person {
     BigDecimal height;
     BigDecimal currentWeight;
     char gender;
+
     public Person(int ID, String forename, String surname, String username, String email, String password, Date DOB, BigDecimal height, BigDecimal currentWeight,char gender){
         this.ID = ID;
         this.forename = forename;

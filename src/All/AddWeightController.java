@@ -39,6 +39,7 @@ public class AddWeightController {
         //check weight isnt crazy
         DatabaseController db = new DatabaseController();
         db.addWeight(User.getID(),weight.getText());
+        db.shutdown();
         GoToDashButtonAction(event);
     }
 }
