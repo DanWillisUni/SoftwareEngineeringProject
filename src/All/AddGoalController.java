@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class AddGoalController {
     private Person User;
@@ -35,7 +38,9 @@ public class AddGoalController {
     }
     @FXML
     private void AddWeightGoalButtonAction (ActionEvent event) throws IOException {
-
+        DatabaseController db = new DatabaseController();
+        db.addGoal(User.getID(),Integer.parseInt(TargetWeight.getText()), Date.from(Instant.from(targetDate.getValue().atStartOfDay(ZoneId.systemDefault()))));
+        db.shutdown();
         GoToDashButtonAction(event);
     }
 }

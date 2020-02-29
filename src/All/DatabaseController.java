@@ -266,10 +266,57 @@ public class DatabaseController {
         }
     }
 
-    public void addGoal(){
-        
+    public void addGoal(int id,int targetWeight, Date targetDate){
+        int idGoalWeight = selectGoal(targetWeight,new Date(),targetDate);
+        if (idGoalWeight == -1){
+            idGoalWeight = genID("goalweight","idGoalWeight");
+            createGoal(idGoalWeight,targetWeight,new Date(),targetDate);
+        }
+        addGoalLink(id,idGoalWeight);
     }
-    public void addGoalLink(){
-
+    private int selectGoal(int targetWeight,Date setDate, Date targetDate){
+        int r = -1;
+        try {
+            final String query = "SELECT * FROM softwareengineering.goalweight WHERE dateSet = ? AND targetDate = ? AND weightGoal = " + targetWeight;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.setDate(1, new java.sql.Date(setDate.getTime()));
+                pstmt.setDate(2, new java.sql.Date(targetDate.getTime()));
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()) {
+                    r = rs.getInt("idGoalWeight");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    private void addGoalLink(int id,int idGoalWeight){
+        try {
+            final String query = "Insert Into softwareengineering.goallink Values(" + id + ", " + idGoalWeight+")";
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void createGoal(int id,int targetWeight,Date set, Date targetDate){
+        try {
+            final String query = "Insert Into softwareengineering.goalweight Values("+ id +", " + targetWeight +", ?,?)";
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.setDate(1, new java.sql.Date(set.getTime()));
+                pstmt.setDate(2, new java.sql.Date(targetDate.getTime()));
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
