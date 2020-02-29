@@ -18,12 +18,20 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`GoalWeight` (
   `weightGoal` DECIMAL(10) NOT NULL,
   `dateSet` DATE NULL,
   `targetDate` DATE NOT NULL,
-  `idUser` INT NOT NULL,
   PRIMARY KEY (`idGoalWeight`),
-  UNIQUE INDEX `idGoalWeight_UNIQUE` (`idGoalWeight` ASC) VISIBLE,
-    CONSTRAINT `idUserinGoalWeight`
+  UNIQUE INDEX `idGoalWeight_UNIQUE` (`idGoalWeight` ASC) VISIBLE);
+CREATE TABLE IF NOT EXISTS `softwareengineering`.`GoalLink` (
+  `idUser` INT NOT NULL,
+  `idGoalWeight` INT NOT NULL,  
+  PRIMARY KEY (`idGoalWeight`,`idUser`),
+  CONSTRAINT `idUserinGoalLink`
     FOREIGN KEY (`idUser`)
     REFERENCES `softwareengineering`.`PersonalInfo` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idGoalWeightinGoalLink`
+    FOREIGN KEY (`idUser`)
+    REFERENCES `softwareengineering`.`goalweight` (`idGoalWeight`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`Exercise` (

@@ -17,6 +17,9 @@
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="3">
                         <Button fx:id="AddFood" text="Add Food" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddFoodButtonAction"/>
                     </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                        <Button fx:id="AddGoal" text="Add Food" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddGoalButtonAction"/>
+                    </HBox>
                 </GridPane>
             </left>
             <top>

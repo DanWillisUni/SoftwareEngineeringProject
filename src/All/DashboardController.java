@@ -54,4 +54,15 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
+    @FXML
+    private void GoToAddGoalButtonAction (ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddGoal.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        AddGoalController controller = loader.<AddGoalController>getController();
+        controller.setUser(User);
+        controller.setUpDisplay();
+        stage.show();
+    }
 }

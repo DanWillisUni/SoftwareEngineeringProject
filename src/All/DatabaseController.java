@@ -265,4 +265,11 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+
+    public void addGoal(){
+        
+    }
+    public void addGoalLink(){
+
+    }
 }
