@@ -469,4 +469,38 @@ public class DatabaseController {
         return r;
     }
 
+    public ArrayList<Integer> getWeightTrackingWeight(int id){
+        ArrayList<Integer> w = new ArrayList<>();
+        try {
+            final String query = "SELECT * FROM softwareengineering.weighttracking WHERE idUser = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    w.add(rs.getInt("weight"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return w;
+    }
+    public ArrayList<Date> getWeightTrackingDate(int id){
+        ArrayList<Date> d = new ArrayList<>();
+        try {
+            final String query = "SELECT * FROM softwareengineering.weighttracking WHERE idUser = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    d.add(rs.getDate("date"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }
 }
