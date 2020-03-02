@@ -319,4 +319,104 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+
+    public int getCalConsumed(int id,Date d){
+        int r = 0;
+        ArrayList<Integer> idMeals = getMealsFromID(id,d);
+        for (Integer idMeal:idMeals){
+            int q = getQuantityFromMeal(idMeal);
+            int cal = getCalCountFromFoodID(getFoodIDFromMeal(idMeal));
+            r+=(q*cal);
+        }
+        return r;
+    }
+    private ArrayList<Integer> getMealsFromID(int id,Date d){
+        ArrayList<Integer> i = new ArrayList<>();
+        try {
+            final String query = "SELECT * FROM softwareengineering.diet WHERE date = ? AND idUser = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.setDate(1, new java.sql.Date(d.getTime()));
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    i.add(rs.getInt("idMeal"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+    private int getQuantityFromMeal(int id){
+        int r = 0;
+        try {
+            final String query = "SELECT * FROM softwareengineering.meal WHERE idMeal = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()){
+                    r = (rs.getInt("quantity"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    private int getFoodIDFromMeal(int id){
+        int r = 0;
+        try {
+            final String query = "SELECT * FROM softwareengineering.meal WHERE idMeal = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()){
+                    r = (rs.getInt("idFood"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    private int getCalCountFromFoodID(int id){
+        int r = 0;
+        try {
+            final String query = "SELECT * FROM softwareengineering.foods WHERE idFood = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()){
+                    r = (rs.getInt("amountOfCal"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
+    public int getCalBurned(int id,Date d){
+        int r = 0;
+        try {
+            final String query = "SELECT * FROM softwareengineering.exercisesession WHERE exerciseDate = ? AND idUser = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.setDate(1, new java.sql.Date(d.getTime()));
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    r+=(rs.getInt("caloriesBurned"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
 }
