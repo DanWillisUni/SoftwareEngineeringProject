@@ -30,7 +30,6 @@ public class AddExerciseSessionController {
         try {
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike("","exercise","exerciseName");
-            db.shutdown();
             ObservableList<String> observableList = FXCollections.observableList(results);
             Exercise.setItems(observableList);
         } catch (Exception e) {
@@ -67,7 +66,6 @@ public class AddExerciseSessionController {
             }
         }
         db.addExerciseSession(durationDec,sportID,caloriesBurned,User.getID());
-        db.shutdown();
         GoToDashButtonAction(event);
     }
     @FXML
@@ -76,7 +74,6 @@ public class AddExerciseSessionController {
             String toSearch = txt_search.getText();
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike(toSearch,"exercise","exerciseName");
-            db.shutdown();
             ObservableList<String> observableList = FXCollections.observableList(results);
             Exercise.setItems(observableList);
         } catch (Exception e) {

@@ -51,7 +51,6 @@ public class RegistrationController {
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             DatabaseController db = new DatabaseController();
             db.addUser(newPerson);
-            db.shutdown();
             Parent RegistrationParent = FXMLLoader.load(getClass().getResource("Login.fxml"));
             Scene scene = new Scene(RegistrationParent);
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

@@ -29,7 +29,6 @@ public class AddFoodController {
         try {
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike("","foods","foodName");
-            db.shutdown();
             ObservableList<String> observableList = FXCollections.observableList(results);
             Foods.setItems(observableList);
         } catch (Exception e) {
@@ -53,7 +52,6 @@ public class AddFoodController {
         DatabaseController db = new DatabaseController();
         int mealId = db.addMeal(Foods.getValue().toString(),Integer.parseInt(quantity.getText()),MealType.getValue().toString());
         db.addDiet(mealId,User.getID());
-        db.shutdown();
         GoToDashButtonAction(event);
     }
     @FXML
@@ -62,7 +60,6 @@ public class AddFoodController {
             String toSearch = txt_search.getText();
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike(toSearch,"foods","foodName");
-            db.shutdown();
             ObservableList<String> observableList = FXCollections.observableList(results);
             Foods.setItems(observableList);
         } catch (Exception e) {

@@ -40,7 +40,6 @@ public class AddGoalController {
     private void AddWeightGoalButtonAction (ActionEvent event) throws IOException {
         DatabaseController db = new DatabaseController();
         db.addGoal(User.getID(),Integer.parseInt(TargetWeight.getText()), Date.from(Instant.from(targetDate.getValue().atStartOfDay(ZoneId.systemDefault()))));
-        db.shutdown();
         GoToDashButtonAction(event);
     }
 }
