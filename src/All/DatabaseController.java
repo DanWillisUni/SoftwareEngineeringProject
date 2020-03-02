@@ -157,6 +157,56 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    public boolean checkGoalMet(int id){
+        boolean r = false;
+        ArrayList<Integer> goalIDs = getGoalIDFromID(id);
+        Person u = getAllPersonalInfo(id);
+        int cw = u.getCurrentWeight().intValue();
+        for (int goalID:goalIDs){
+            if (getGoalWeight(goalID) >= cw){
+                r = true;
+                DelGoalLink(id,goalID);
+            }
+        }
+        return r;
+    }
+    private void DelGoalLink(int id,int goalID){
+        final String query = "Delete from softwareengineering.goallink Where idUser= "+ id + " And idGoalWeight = " + goalID;
+        try (
+                PreparedStatement pstmt = connection.prepareStatement(query)
+        ){
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private ArrayList<Integer> getGoalIDFromID(int id){
+        ArrayList<Integer> r = new ArrayList<>();
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.goallink Where idUser= "+ id);
+        ){
+            while (rs.next()) {
+                r.add(rs.getInt("idGoalWeight"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    private int getGoalWeight(int id){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.goalweight Where idGoalWeight=" + id);
+        ){
+            if (rs.first()) {
+                return rs.getInt("weightGoal");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
     public void addExerciseSession(BigDecimal duration,int sportID,int calburned,int userID){
         try {
@@ -391,7 +441,7 @@ public class DatabaseController {
             ){
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()){
-                    r = (rs.getInt("amountOfCal"));
+                    r = (rs.getInt("amountOfCalories"));
                 }
             }
         } catch (SQLException e) {

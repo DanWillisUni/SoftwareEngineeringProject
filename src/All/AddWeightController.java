@@ -39,6 +39,17 @@ public class AddWeightController {
         //check weight isnt crazy
         DatabaseController db = new DatabaseController();
         db.addWeight(User.getID(),weight.getText());
-        GoToDashButtonAction(event);
+        boolean goalMet = db.checkGoalMet(User.getID());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        DashboardController controller = loader.<DashboardController>getController();
+        if (goalMet){
+            controller.setGoalComplete();
+        }
+        controller.setUser(User);
+        controller.setUpDisplay();
+        stage.show();
     }
 }

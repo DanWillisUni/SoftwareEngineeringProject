@@ -17,8 +17,13 @@ public class DashboardController {
     @FXML
     private Label name;
     @FXML Label calLeft;
+    @FXML Label GoalDone;
     public void setUser(Person User){
-        this.User = User;
+        DatabaseController db = new DatabaseController();
+        this.User = db.getAllPersonalInfo(User.getID());
+    }
+    public void setGoalComplete(){
+        GoalDone.setText("Goal complete!");
     }
     public void setUpDisplay(){
         name.setText("Welcome " + User.getForename());
