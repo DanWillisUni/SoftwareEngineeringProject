@@ -12,7 +12,7 @@
             <center>
                 <LineChart fx:id="WeightTracking" title="Weight Tracking" prefHeight="300.0" prefWidth="300.0">
                     <xAxis>
-                        <CategoryAxis label="Date" fx:id="xAxis" tickLabelRotation="-90"/>
+                        <CategoryAxis label="Date" fx:id="xAxis" tickLabelRotation="-90" gapStartAndEnd="false"/>
                     </xAxis>
                     <yAxis>
                         <NumberAxis fx:id="yAxis" label="Weight" side="LEFT" />
