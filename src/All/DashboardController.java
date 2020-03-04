@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,6 +22,7 @@ public class DashboardController {
     private Label name;
     @FXML Label calLeft;
     @FXML Label GoalDone;
+    @FXML LineChart WeightTracking;
     public void setUser(Person User){
         DatabaseController db = new DatabaseController();
         this.User = db.getAllPersonalInfo(User.getID());
@@ -39,20 +42,14 @@ public class DashboardController {
         calLeft.setText(totalCal + " - " + cc + " + " + cb + " = " + (totalCal - cc + cb));
 
         ArrayList<Integer> weights = db.getWeightTrackingWeight(User.getID());
-        ArrayList<Date> dates = db.getWeightTrackingDate(User.getID());
-        final NumberAxis yAxis = new NumberAxis();
-        final Axis xAxis = new CategoryAxis();
-        xAxis.setLabel("Date");
-        yAxis.setLabel("Weights");
-        final LineChart<Date,Number> lineChart = new LineChart<Date,Number>(xAxis,yAxis);
-        lineChart.setTitle("Weight Tracking");
+        ArrayList<java.util.Date> dates = db.getWeightTrackingDate(User.getID());
         XYChart.Series series = new XYChart.Series();
-        series.setName("UsersWeight");
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         for (int i = 0;i<weights.size();i++){
-            series.getData().add(new XYChart.Data(dates.get(i),weights.get(i)));
+            series.getData().add(new XYChart.Data(dateFormat.format(dates.get(i)),weights.get(i)));
         }
-        lineChart.getData().add(series);
-        
+        series.setName("Weight");
+        WeightTracking.getData().add(series);
     }
 
     @FXML

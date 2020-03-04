@@ -486,8 +486,8 @@ public class DatabaseController {
         }
         return w;
     }
-    public ArrayList<Date> getWeightTrackingDate(int id){
-        ArrayList<Date> d = new ArrayList<>();
+    public ArrayList<java.util.Date> getWeightTrackingDate(int id){
+        ArrayList<java.util.Date> d = new ArrayList<>();
         try {
             final String query = "SELECT * FROM softwareengineering.weighttracking WHERE idUser = " + id;
             try (
@@ -495,7 +495,7 @@ public class DatabaseController {
             ){
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()){
-                    d.add(rs.getDate("date"));
+                    d.add(new java.util.Date(rs.getDate("date").getTime()));
                 }
             }
         } catch (SQLException e) {
