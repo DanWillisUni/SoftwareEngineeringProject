@@ -2,17 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.CategoryAxis?>
 <VBox fx:controller="All.DashboardController" xmlns:fx="http://javafx.com/fxml" prefHeight="1000.0" prefWidth="800.0">
     <children>
         <BorderPane xmlns:fx="http://javafx.com/fxml/1">
             <center>
                 <LineChart fx:id="WeightTracking" title="Weight Tracking" prefHeight="300.0" prefWidth="300.0">
                     <xAxis>
-                        <CategoryAxis label="Date" fx:id="xAxis" tickLabelRotation="-90" gapStartAndEnd="false"/>
+                        <NumberAxis label="Date" fx:id="xAxis" tickLabelRotation="-90" autoRanging="false" lowerBound="1582934400000" upperBound="1588204800000" tickMarkVisible="true" tickUnit="86400000"/>
                     </xAxis>
                     <yAxis>
                         <NumberAxis fx:id="yAxis" label="Weight" side="LEFT" />

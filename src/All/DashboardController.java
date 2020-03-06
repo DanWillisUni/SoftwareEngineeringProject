@@ -1,5 +1,7 @@
 package All;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,26 +34,40 @@ public class DashboardController {
     public void setGoalComplete(){
         GoalDone.setText("Goal complete!");
     }
-    public void setUpDisplay(){
+    public void setUpDisplay() {
         name.setText("Welcome " + User.getForename());
-        int totalCal= 1800;
-        if (User.getGender()=='M'){
+        int totalCal = 1800;
+        if (User.getGender() == 'M') {
             totalCal = 2000;
         }
         DatabaseController db = new DatabaseController();
-        int cb = db.getCalBurned(User.getID(),new Date());
-        int cc = db.getCalConsumed(User.getID(),new Date());
+        int cb = db.getCalBurned(User.getID(), new Date());
+        int cc = db.getCalConsumed(User.getID(), new Date());
         calLeft.setText(totalCal + " - " + cc + " + " + cb + " = " + (totalCal - cc + cb));
 
         ArrayList<Integer> weights = db.getWeightTrackingWeight(User.getID());
         ArrayList<java.util.Date> dates = db.getWeightTrackingDate(User.getID());
         XYChart.Series series = new XYChart.Series();
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        for (int i = 0;i<weights.size();i++){
-            series.getData().add(new XYChart.Data(dateFormat.format(dates.get(i)),weights.get(i)));
+        for (int i = 0; i < weights.size(); i++) {
+            series.getData().add(new XYChart.Data<Number,Number>(dates.get(i).getTime(), weights.get(i)));
         }
         series.setName("Weight");
         WeightTracking.getData().add(series);
+
+        NumberAxis xAxis = (NumberAxis) WeightTracking.getXAxis();
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number n) {
+                long i = n.longValue();
+                java.util.Date date = new Date(i);
+                DateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy");
+                return  newFormat.format(date);
+            }
+            @Override
+            public Number fromString(String string) {
+                return 0;
+            }
+        });
     }
 
     @FXML
