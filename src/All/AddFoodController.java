@@ -22,6 +22,7 @@ public class AddFoodController {
     @FXML private ComboBox Foods;
     @FXML private TextField quantity;
     @FXML private ComboBox MealType;
+    @FXML private Label errorMsg;
     public void setUser(Person User){
         this.User = User;
     }
@@ -49,10 +50,44 @@ public class AddFoodController {
     @FXML
     private void AddFoodsAction (ActionEvent event) throws IOException {
         //checks if anything is entered
+        errorMsg.setText("");
         DatabaseController db = new DatabaseController();
-        int mealId = db.addMeal(Foods.getValue().toString(),Integer.parseInt(quantity.getText()),MealType.getValue().toString());
-        db.addDiet(mealId,User.getID());
-        GoToDashButtonAction(event);
+        if (quantity.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
+            int i = Integer.parseInt(quantity.getText());
+            if (i>0){
+                if (i>10){
+                    errorMsg.setText("Error: quantity greater than 10");
+                }
+            } else {
+                errorMsg.setText("Error: quantity negative");
+            }
+        } else {
+            errorMsg.setText("Error: quantity not numeric");
+        }
+        if (Foods.getValue()==null) {
+            errorMsg.setText("Error: food not selected");
+        }else if(Foods.getValue().toString().equals("")){
+            errorMsg.setText("Error: not typed in");
+        } else {
+            if(!db.isFood(Foods.getValue().toString())){
+                errorMsg.setText("Error: not valid food");
+            }
+        }
+        if (MealType.getValue()==null) {
+            errorMsg.setText("Error: meal type not selected");
+        }else if(Foods.getValue().toString().equals("")){
+            errorMsg.setText("Error: meal type not typed in");
+        } else {
+            if(!Foods.getValue().toString().equals("Breakfast")&&!Foods.getValue().toString().equals("Lunch")&&!Foods.getValue().toString().equals("Dinner")&&!Foods.getValue().toString().equals("Snack")){
+                errorMsg.setText("Error: not valid meal type");
+            }
+        }
+
+        if (errorMsg.getText().equals("")){
+            int mealId = db.addMeal(Foods.getValue().toString(),Integer.parseInt(quantity.getText()),MealType.getValue().toString());
+            db.addDiet(mealId,User.getID());
+            GoToDashButtonAction(event);
+        }
     }
     @FXML
     private void goSearch(ActionEvent event) throws IOException {

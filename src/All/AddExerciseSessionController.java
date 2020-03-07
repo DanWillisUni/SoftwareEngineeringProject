@@ -84,7 +84,7 @@ public class AddExerciseSessionController {
             }
         }
 
-        if (!duration.getText().equals("") && duration.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
+        if (duration.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(duration.getText());
             if (i>0){
                 if (i>240){

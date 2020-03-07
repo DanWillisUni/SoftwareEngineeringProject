@@ -363,6 +363,22 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    public Boolean isFood(String str){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.foods");
+        ){
+            while(rs.next()){
+                String s = rs.getString("foodName");
+                if(s.equals(str)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public void addGoal(int id,int targetWeight, Date targetDate){
         int idGoalWeight = selectGoal(targetWeight,new Date(),targetDate);
