@@ -16,6 +16,7 @@ public class AddWeightController {
     private Person User;
     @FXML private Label name;
     @FXML private TextField weight;
+    @FXML private Label errorMsg;
     public void setUser(Person User){
         this.User = User;
     }
@@ -35,21 +36,35 @@ public class AddWeightController {
     }
     @FXML
     private void AddWeightAction (ActionEvent event) throws IOException {
-        //check weight is numeric
-        //check weight isnt crazy
-        DatabaseController db = new DatabaseController();
-        db.addWeight(User.getID(),weight.getText());
-        boolean goalMet = db.checkGoalMet(User.getID());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        if (goalMet){
-            controller.setGoalComplete();
+        errorMsg.setText("");
+        if (weight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
+            int i = Integer.parseInt(weight.getText());
+            if (i>0){
+                if (i>10){
+                    errorMsg.setText("Error: weight greater than 250");
+                }
+            } else {
+                errorMsg.setText("Error: weight negative");
+            }
+        } else {
+            errorMsg.setText("Error: weight not numeric");
         }
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        if(errorMsg.getText().equals("")){
+            DatabaseController db = new DatabaseController();
+            db.addWeight(User.getID(),weight.getText());
+            boolean goalMet = db.checkGoalMet(User.getID());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            DashboardController controller = loader.<DashboardController>getController();
+            if (goalMet){
+                controller.setGoalComplete();
+            }
+            controller.setUser(User);
+            controller.setUpDisplay();
+            stage.show();
+        }
+
     }
 }
