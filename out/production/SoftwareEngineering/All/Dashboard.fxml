@@ -10,7 +10,7 @@
             <center>
                 <LineChart fx:id="WeightTracking" title="Weight Tracking" prefHeight="300.0" prefWidth="300.0">
                     <xAxis>
-                        <NumberAxis label="Date" fx:id="xAxis" tickLabelRotation="-90" autoRanging="false" lowerBound="1582934400000" upperBound="1588204800000" tickMarkVisible="true" tickUnit="86400000"/>
+                        <NumberAxis label="Date" fx:id="xAxis" tickLabelRotation="-60" autoRanging="false" lowerBound="1582934400000" upperBound="1588204800000" tickMarkVisible="true" tickUnit="86400000"/>
                     </xAxis>
                     <yAxis>
                         <NumberAxis fx:id="yAxis" label="Weight" side="LEFT" />
@@ -31,10 +31,13 @@
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="4">
                         <Button fx:id="AddGoal" text="Add Goal" prefHeight="20.0" prefWidth="150.0" onAction="#GoToAddGoalButtonAction"/>
                     </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                        <Button fx:id="SignOut" text="Sign Out" prefHeight="20.0" prefWidth="150.0" onAction="#GoToSignOutButtonAction"/>
+                    </HBox>
                 </GridPane>
             </left>
             <top>
-                <Label id="name" fx:id="name" text="" prefHeight="20.0" prefWidth="150.0"/>
+                <Label id="name" fx:id="name" text="" prefHeight="20.0" prefWidth="150.0" alignment="CENTER"/>
             </top>
             <bottom>
                 <GridPane alignment="BOTTOM_CENTER">

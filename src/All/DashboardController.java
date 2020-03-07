@@ -114,4 +114,12 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
+    @FXML
+    private void GoToSignOutButtonAction (ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
