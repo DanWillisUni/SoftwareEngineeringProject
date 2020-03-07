@@ -208,9 +208,10 @@ public class DatabaseController {
         return -1;
     }
 
-    public void addExerciseSession(BigDecimal duration,int sportID,int calburned,int userID){
+    public void addExerciseLink(int sessionID,int userID){
+        int id =genID("exerciselink","idLink");
         try {
-            final String query = "Insert Into softwareengineering.exercisesession Values("+ genID("exercisesession","idExerciseSession") + ", ? , '" + duration + "' ,"+ sportID+ " ,"+ calburned + " ,"+ userID + ")";
+            final String query = "Insert Into softwareengineering.exerciselink Values("+ id + ", " + userID  + " ,"+ sessionID + " ,?)";
             try (
                     PreparedStatement pstmt1 = connection.prepareStatement(query)
             ){
@@ -221,6 +222,37 @@ public class DatabaseController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public int addExerciseSession(BigDecimal duration,int sportID,int calburned){
+        int id = getExerciseSessionID(duration,sportID,calburned);
+        if (id == -1){
+            id =genID("exercisesession","idExerciseSession");
+            try {
+                final String query = "Insert Into softwareengineering.exercisesession Values("+ id + ", '" + duration + "' ,"+ sportID+ " ,"+ calburned + ")";
+                try (
+                        PreparedStatement pstmt1 = connection.prepareStatement(query)
+                ){
+                    pstmt1.executeUpdate();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return id;
+    }
+    private int getExerciseSessionID(BigDecimal duration,int sportID,int calburned){
+        int r = -1;
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercisesession where idExerciseType = " + sportID+" AND durationMinutes = " +duration +" and caloriesBurned = "+calburned);
+        ){
+            if(rs.next()){
+                r = Integer.parseInt(rs.getString("idExerciseType"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
     }
     public int getIDFromName(String name){
         int r = 0;
@@ -249,6 +281,22 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return r;
+    }
+    public Boolean isExercise(String str){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercise");
+        ){
+            while(rs.next()){
+                String s = rs.getString("exerciseName");
+                if(s.equals(str)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public int addMeal(String foodName,int quantity,String Type){
@@ -453,14 +501,31 @@ public class DatabaseController {
     public int getCalBurned(int id,Date d){
         int r = 0;
         try {
-            final String query = "SELECT * FROM softwareengineering.exercisesession WHERE exerciseDate = ? AND idUser = " + id;
+            final String query = "SELECT * FROM softwareengineering.exerciselink WHERE date = ? AND idUser = " + id;
             try (
                     PreparedStatement pstmt = connection.prepareStatement(query)
             ){
                 pstmt.setDate(1, new java.sql.Date(d.getTime()));
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()){
-                    r+=(rs.getInt("caloriesBurned"));
+                    r+=getCalBurnedFromSessionID(rs.getInt("idExerciseSession"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+    private int getCalBurnedFromSessionID(int id){
+        int r = 0;
+        try {
+            final String query = "SELECT * FROM softwareengineering.exercisesession WHERE idExerciseSession = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()){
+                    r=(rs.getInt("caloriesBurned"));
                 }
             }
         } catch (SQLException e) {

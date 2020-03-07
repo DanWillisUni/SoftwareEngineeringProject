@@ -42,21 +42,30 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`Exercise` (
   UNIQUE INDEX `idExerciseType_UNIQUE` (`idExerciseType` ASC) VISIBLE);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`ExerciseSession` (
   `idExerciseSession` INT NOT NULL,
-  `exerciseDate` DATE NOT NULL,
-  `durationMinutesSeconds` DECIMAL(10) NULL,
+  `durationMinutes` DECIMAL(10) NULL,
   `idExerciseType` INT NOT NULL,
   `caloriesBurned` INT NULL,
-  `idUser` INT NOT NULL,
   PRIMARY KEY (`idExerciseSession`),
   UNIQUE INDEX `idExcerciseSession_UNIQUE` (`idExerciseSession` ASC) VISIBLE,
   CONSTRAINT `idExerciseTypeinExerciseSession`
     FOREIGN KEY (`idExerciseSession`)
     REFERENCES `softwareengineering`.`Exercise` (`idExerciseType`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idUserinExerciseSession`
+    ON UPDATE NO ACTION);
+CREATE TABLE IF NOT EXISTS `softwareengineering`.`ExerciseLink` (
+  `idLink` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  `idExerciseSession` INT NOT NULL,  
+  `date` DATE NOT NULL,
+  PRIMARY KEY (`idLink`),
+  CONSTRAINT `idUserinLink`
     FOREIGN KEY (`idUser`)
     REFERENCES `softwareengineering`.`PersonalInfo` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idsessioninLink`
+    FOREIGN KEY (`idExerciseSession`)
+    REFERENCES `softwareengineering`.`exercisesession` (`idExerciseSession`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 CREATE TABLE IF NOT EXISTS `softwareengineering`.`Foods` (
