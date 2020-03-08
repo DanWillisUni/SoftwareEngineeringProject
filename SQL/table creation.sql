@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`PersonalInfo` (
   `password` NVARCHAR(20) NOT NULL,
   `DOB` DATE NOT NULL,
   `height` DECIMAL(10) NOT NULL,
-  `currentWeight` DECIMAL(10) NULL,
   `gender` VARCHAR(1) NOT NULL,
   UNIQUE INDEX `idUser_UNIQUE` (`idUser` ASC) VISIBLE,
   PRIMARY KEY (`idUser`),

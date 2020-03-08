@@ -1,7 +1,7 @@
 package Model;
 
-import All.Person;
-
+import All.Person;//other class imports
+//java imports
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,7 +9,11 @@ import java.util.Collections;
 import java.util.Date;
 
 public class DatabaseController {
-    private Connection connection;
+    private Connection connection;//connection to the database
+    //used everywhere
+    /**
+     * Creates a connection to the server
+     */
     public DatabaseController() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -17,11 +21,15 @@ public class DatabaseController {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "root","rootroot");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareengineering", "root","rootroot");//my username and password
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * closes the connection to the local server
+     */
     public void shutdown() {
         if (connection != null) {
             try {
@@ -31,7 +39,16 @@ public class DatabaseController {
             }
         }
     }
-
+    //generic functions
+    /**
+     * Generates an id that hasnt been used before
+     * Selects all the ids in that column
+     * Sorts them
+     * gets the largest one and adds one to it
+     * @param TableName the name of the table to generate the id in
+     * @param ColumName the column name of the id
+     * @return a unique id
+     */
     private int genID(String TableName,String ColumName){
         ArrayList<Integer> ids = new ArrayList<>();
         try (
@@ -51,6 +68,14 @@ public class DatabaseController {
             return 0;
         }
     }
+
+    /**
+     * Select all ColumnName where they are like %s%
+     * @param s string to search
+     * @param TableName the name of the table to search in
+     * @param ColumnName the name of the column to search in
+     * @return an array list of all the elements in ColumnName like s
+     */
     public ArrayList<String> getAllLike(String s,String TableName,String ColumnName){
         ArrayList<String> things = new ArrayList<>();
         String sql = "SELECT * FROM softwareengineering."+TableName+" WHERE "+ ColumnName+" LIKE ? ";
@@ -67,6 +92,16 @@ public class DatabaseController {
         }
         return things;
     }
+
+    /**
+     * select all from the column
+     * if any of them match str return true
+     * if none match str return false
+     * @param str element to search for
+     * @param TableName the name of the table to look in
+     * @param ColumnName the column to look in
+     * @return if str is in the column
+     */
     public boolean isStr(String str,String TableName,String ColumnName){
         try (
                 Statement stmnt = connection.createStatement();
@@ -83,8 +118,17 @@ public class DatabaseController {
         }
         return false;
     }
+
+    /**
+     * select the id column from TableName where ColumnName is equal to name
+     * @param name the name to match
+     * @param TableName the table name
+     * @param ColumnName the name column
+     * @param ColumnIDName the id column
+     * @return
+     */
     public int getIDFromName(String name,String TableName,String ColumnName,String ColumnIDName){
-        int r = 0;
+        int r = -1;
         try (
                 Statement stmnt = connection.createStatement();
                 ResultSet rs = stmnt.executeQuery("select * from softwareengineering."+ TableName +" where " + ColumnName + " = '"+name +"'");
@@ -97,7 +141,14 @@ public class DatabaseController {
         }
         return r;
     }
-
+    //login
+    /**
+     * Selects all info from personalinfo where the user id is the same as id
+     * create new Person object from all the info
+     * return new person
+     * @param id the id of the user
+     * @return User with idUser id
+     */
     public Person getAllPersonalInfo(int id) {
         try (
                 Statement stmnt = connection.createStatement();
@@ -111,9 +162,8 @@ public class DatabaseController {
                 String password = rs.getString("password");
                 Date DOB = rs.getDate("DOB");
                 BigDecimal height = rs.getBigDecimal("height");
-                BigDecimal weight = rs.getBigDecimal("currentWeight");
                 char gender = rs.getString("gender").charAt(0);
-                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,weight,gender);
+                Person user = new Person(id,firstName, lastName,Username, email,password,DOB,height,gender);
                 return user;
             }
         } catch (SQLException e) {
@@ -121,19 +171,12 @@ public class DatabaseController {
         }
         return null;
     }
-    public void addUser(Person User){
-        try {
-            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ this.genID("PersonalInfo","idUser") + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", "+ User.getCurrentWeight().toString()+  ", '" + User.getGender() + "' )";
-            try (
-                    PreparedStatement pstmt = connection.prepareStatement(query)
-            ){
-                pstmt.setDate(1, new java.sql.Date(User.getDOB().getTime()));
-                pstmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
+    /**
+     * selects the password where the email matches
+     * @param email email to match
+     * @return password if there is any
+     */
     public String getMatchingPassword(String email){
         try (
                 Statement stmnt = connection.createStatement();
@@ -142,12 +185,37 @@ public class DatabaseController {
             if (rs.first()) {
                 return rs.getString("password");
             }
-    } catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
+    //registration
+    /**
+     * Inserts into personal info the new person
+     * @param User Person object to add to database
+     */
+    public void addUser(Person User){
+        try {
+            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ this.genID("PersonalInfo","idUser") + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", '" + User.getGender() + "' )";
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                pstmt.setDate(1, new java.sql.Date(User.getDOB().getTime()));//sets the date to the current
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //add weight
+    /**
+     * Adds a weight
+     * Deletes any weight entry by the same user that day
+     * Inserts weight
+     * @param id
+     * @param weight
+     */
     public void addWeight(int id,String weight){
         try {
             final String first ="Delete From softwareengineering.weightTracking Where idUser = " +id +" And date = ?";
@@ -163,24 +231,16 @@ public class DatabaseController {
                 ){
                     pstmt2.setDate(1, currentDate);
                     pstmt2.executeUpdate();
-
-                    final String query = "Update softwareengineering.personalInfo Set currentWeight = " + weight + " Where idUser = " + id;
-                    try (
-                            PreparedStatement pstmt3 = connection.prepareStatement(query)
-                    ){
-                        pstmt3.executeUpdate();
-                    }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public boolean checkGoalMet(int id){
+    public boolean checkGoalMet(int id,String weight){
         boolean r = false;
         ArrayList<Integer> goalIDs = getGoalIDFromID(id);
-        Person u = getAllPersonalInfo(id);
-        int cw = u.getCurrentWeight().intValue();
+        int cw = Integer.parseInt(weight);
         for (int goalID:goalIDs){
             if (getGoalWeight(goalID) >= cw){
                 r = true;
@@ -220,6 +280,19 @@ public class DatabaseController {
         ){
             if (rs.first()) {
                 return rs.getInt("weightGoal");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    private int getCurrentWeight(int id){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.weighttracking Where idUser=" + id + " order by date desc");
+        ){
+            if (rs.first()) {
+                return rs.getInt("weight");
             }
         } catch (SQLException e) {
             e.printStackTrace();

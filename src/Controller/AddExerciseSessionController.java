@@ -48,10 +48,20 @@ public class AddExerciseSessionController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Loads the dashboard on the push of the back button
+     * @param event button push
+     */
     @FXML
-    private void GoToDashButtonAction (ActionEvent event) throws IOException {
+    private void GoToDashButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         DashboardController controller = loader.<DashboardController>getController();
@@ -59,12 +69,18 @@ public class AddExerciseSessionController {
         controller.setUpDisplay();
         stage.show();
     }
+
+    /**
+     * Adds exercise when button pushed
+     * @param event button push
+     */
     @FXML
-    private void AddExerciseSessionAction (ActionEvent event) throws IOException {
+    private void AddExerciseSessionAction (ActionEvent event) {
         errorMsg.setText("");
         DatabaseController db = new DatabaseController();
         boolean validCal = false;
         Boolean validSport = false;
+        //validation of calories burned
         if (!calBurned.getText().equals("")){
             if (calBurned.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
                 int i = Integer.parseInt(calBurned.getText());
@@ -80,7 +96,7 @@ public class AddExerciseSessionController {
             } else {
                 errorMsg.setText("Error: calories not numeric");
             }
-        } else {
+        } else { // if no calories burned entered then validate the exercise type
             if (Exercise.getValue()==null) {
                 errorMsg.setText("Error: sport not selected");
             }else if(Exercise.getValue().toString().equals("")){
@@ -93,7 +109,7 @@ public class AddExerciseSessionController {
                 }
             }
         }
-
+        //validate the duration
         if (duration.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(duration.getText());
             if (i>0){
@@ -106,22 +122,25 @@ public class AddExerciseSessionController {
         } else {
             errorMsg.setText("Error: duration not numeric");
         }
-
+        //if no errors in validation
         if (errorMsg.getText()==""){
             int caloriesBurned = 0;
             int sportID = 0;
-            BigDecimal durationDec = new BigDecimal(duration.getText());
+            BigDecimal durationDec = new BigDecimal(duration.getText());//set the duration
+            //set the sport if it is valid
             if (validSport){
                 sportID = db.getIDFromName(Exercise.getValue().toString(),"exercise","exerciseName","idExerciseType");
+                //if the calories are not valid then calculate it
                 if (!validCal){
                     caloriesBurned = durationDec.multiply(new BigDecimal(db.getCalsBurnedFromID(sportID))).intValue();
                 }
             }
+            //set the calories if they are valid
             if (validCal){
                 caloriesBurned = Integer.parseInt(calBurned.getText());
             }
-            db.addExerciseLink(db.addExerciseSession(durationDec,sportID,caloriesBurned),User.getID());
-            GoToDashButtonAction(event);
+            db.addExerciseLink(db.addExerciseSession(durationDec,sportID,caloriesBurned),User.getID());//adds the exercise link to the database
+            GoToDashButtonAction(event);//go to the dashboard
         }
     }
     @FXML

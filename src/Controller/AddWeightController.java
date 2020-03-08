@@ -42,7 +42,7 @@ public class AddWeightController {
         if (weight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(weight.getText());
             if (i>0){
-                if (i>10){
+                if (i>250){
                     errorMsg.setText("Error: weight greater than 250");
                 }
             } else {
@@ -54,7 +54,7 @@ public class AddWeightController {
         if(errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
             db.addWeight(User.getID(),weight.getText());
-            boolean goalMet = db.checkGoalMet(User.getID());
+            boolean goalMet = db.checkGoalMet(User.getID(),weight.getText());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
