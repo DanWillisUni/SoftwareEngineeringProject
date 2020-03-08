@@ -19,16 +19,32 @@ public class AddWeightController {
     @FXML private Label name;
     @FXML private TextField weight;
     @FXML private Label errorMsg;
+    /**
+     * set the user
+     * @param User current user that is signed in
+     */
     public void setUser(Person User){
         this.User = User;
     }
+    /**
+     * sets up the display for the user
+     */
     public void setUpDisplay(){
         name.setText("Hi, " + User.getForename());
     }
+    /**
+     * go to the dashboard
+     * @param event push the back button
+     */
     @FXML
-    private void GoToDashButtonAction (ActionEvent event) throws IOException {
+    private void GoToDashButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         DashboardController controller = loader.<DashboardController>getController();
@@ -36,9 +52,16 @@ public class AddWeightController {
         controller.setUpDisplay();
         stage.show();
     }
+    /**
+     * validation
+     * add weight
+     * check if goals met
+     * @param event add weight button pushed
+     */
     @FXML
-    private void AddWeightAction (ActionEvent event) throws IOException {
+    private void AddWeightAction (ActionEvent event) {
         errorMsg.setText("");
+        //validation
         if (weight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(weight.getText());
             if (i>0){
@@ -54,9 +77,14 @@ public class AddWeightController {
         if(errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
             db.addWeight(User.getID(),weight.getText());
-            boolean goalMet = db.checkGoalMet(User.getID(),weight.getText());
+            boolean goalMet = db.checkGoalMet(User.getID());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-            Parent root = loader.load();
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             DashboardController controller = loader.<DashboardController>getController();
