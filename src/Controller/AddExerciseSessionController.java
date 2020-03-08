@@ -61,9 +61,9 @@ public class AddExerciseSessionController {
         }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
+//        DashboardController controller = loader.<DashboardController>getController();
+//        controller.setUser(User);
+//        controller.setUpDisplay();
         stage.show();
     }
     /**
