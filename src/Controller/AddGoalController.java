@@ -1,7 +1,8 @@
 package Controller;
-
+//my imports
 import Model.DatabaseController;
 import All.Person;
+//fx imports
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+//java imports
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -23,16 +24,32 @@ public class AddGoalController {
     @FXML private TextField TargetWeight;
     @FXML private DatePicker targetDate;
     @FXML private Label errorMsg;
+    /**
+     * sets the user that is signed in
+     * @param User person to set to
+     */
     public void setUser(Person User){
         this.User = User;
     }
+    /**
+     * sets up the display
+     */
     public void setUpDisplay(){
 
     }
+    /**
+     * go to the dashboard
+     * @param event back button pressed
+     */
     @FXML
-    private void GoToDashButtonAction (ActionEvent event) throws IOException {
+    private void GoToDashButtonAction (ActionEvent event){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         DashboardController controller = loader.<DashboardController>getController();
@@ -40,9 +57,14 @@ public class AddGoalController {
         controller.setUpDisplay();
         stage.show();
     }
+    /**
+     * adds goal via db.addgoal
+     * @param event add goal button pressed
+     */
     @FXML
-    private void AddWeightGoalButtonAction (ActionEvent event) throws IOException {
+    private void AddWeightGoalButtonAction (ActionEvent event) {
         errorMsg.setText("");
+        //validate target weight
         if (TargetWeight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(TargetWeight.getText());
             if (i>0){
@@ -55,6 +77,7 @@ public class AddGoalController {
         } else {
             errorMsg.setText("Error: target not numeric");
         }
+        //validate target date
         if(targetDate.getValue()!=null){
             Long d = Date.from(Instant.from(targetDate.getValue().atStartOfDay(ZoneId.systemDefault()))).getTime();
             Long c = new Date().getTime();
