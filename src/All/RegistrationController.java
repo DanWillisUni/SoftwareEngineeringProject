@@ -33,13 +33,17 @@ public class RegistrationController {
     @FXML private Label errorMsg;
     @FXML
     protected void RegisterHandleSubmitButtonAction(ActionEvent event) throws IOException {
+        DatabaseController db = new DatabaseController();
         errorMsg.setText("");
         if (forename.getText()!=null){
             if (!forename.getText().equals("")){
                 if (forename.getText().toString().length()>20){
                     errorMsg.setText("Error: forename too long");
                 }
+            } else {
+                errorMsg.setText("Error: forename null");
             }
+        } else {
             errorMsg.setText("Error: forename null");
         }
         if (surname.getText()!=null){
@@ -47,25 +51,44 @@ public class RegistrationController {
                 if (surname.getText().toString().length()>20){
                     errorMsg.setText("Error: surname too long");
                 }
+            } else {
+                errorMsg.setText("Error: surname null");
             }
+        } else {
             errorMsg.setText("Error: surname null");
         }
         if (username.getText()!=null){
             if (!username.getText().equals("")){
                 if (username.getText().toString().length()>20){
                     errorMsg.setText("Error: username too long");
+                } else {
+                    if(!db.isStr(username.getText(),"personalinfo","username")){
+                        errorMsg.setText("Error: username already in use");
+                    }
                 }
+            }else{
+                errorMsg.setText("Error: username null");
             }
+        }else{
             errorMsg.setText("Error: username null");
         }
         if (email.getText()!=null){
             if (!email.getText().equals("")){
                 if (email.getText().toString().length()<20){
-                    //regex if bothered
+                    if (email.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
+                        if(!db.isStr(email.getText(),"personalinfo","email")){
+                            errorMsg.setText("Error: email already in use");
+                        }
+                    } else {
+                        errorMsg.setText("Error: Not a valid email");
+                    }
                 } else {
                     errorMsg.setText("Error: email too long");
                 }
+            }else {
+                errorMsg.setText("Error: email null");
             }
+        } else {
             errorMsg.setText("Error: email null");
         }
         if (password.getText()!=null){
@@ -73,7 +96,10 @@ public class RegistrationController {
                 if (password.getText().toString().length()>20){
                     errorMsg.setText("Error: password too long");
                 }
+            } else {
+                errorMsg.setText("Error: password null");
             }
+        }else{
             errorMsg.setText("Error: password null");
         }
         if (password2.getText()!=null){
@@ -81,7 +107,10 @@ public class RegistrationController {
                 if (password2.getText().toString().length()>20){
                     errorMsg.setText("Error: password2 too long");
                 }
+            }else {
+                errorMsg.setText("Error: password2 null");
             }
+        } else {
             errorMsg.setText("Error: password2 null");
         }
         if(DOB.getValue()!=null){
@@ -118,27 +147,19 @@ public class RegistrationController {
         } else {
             errorMsg.setText("Error: height not numeric");
         }
-        //get all the things and get a person from it
-        //check emails are unique
-        //check email length less than 60
-        //check forename length less that 45
-        //check surname length less than 45
-        //check password length less than 20
-        //check height isnt crazy
-        //check username length is less than 45
-        //check username is individual
-        if (password.getText().equals(password2.getText())&&errorMsg.getText().equals("")){
+        if (!password.getText().equals(password2.getText())) {
+            errorMsg.setText("Passwords do not match");
+        }
+        if (errorMsg.getText().equals("")){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
-            DatabaseController db = new DatabaseController();
             db.addUser(newPerson);
             Parent RegistrationParent = FXMLLoader.load(getClass().getResource("Login.fxml"));
             Scene scene = new Scene(RegistrationParent);
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } else {
-            errorMsg.setText("Passwords do not match");
         }
+
     }
     @FXML
     private void GoToLoginButtonAction (ActionEvent event) throws IOException {

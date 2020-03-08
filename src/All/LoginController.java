@@ -29,7 +29,7 @@ public class LoginController {
                 stage.setScene(new Scene(root));
                 DashboardController controller = loader.<DashboardController>getController();
                 db = new DatabaseController();
-                int id =  Integer.parseInt(db.getMatchingID(email.getText()));
+                int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
                 controller.setUser(u);
                 controller.setUpDisplay();

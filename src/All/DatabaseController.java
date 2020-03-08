@@ -65,6 +65,36 @@ public class DatabaseController {
         }
         return things;
     }
+    public boolean isStr(String str,String TableName,String ColumnName){
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering." + TableName);
+        ){
+            while(rs.next()){
+                String s = rs.getString(ColumnName);
+                if(s.equals(str)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public int getIDFromName(String name,String TableName,String ColumnName,String ColumnIDName){
+        int r = 0;
+        try (
+                Statement stmnt = connection.createStatement();
+                ResultSet rs = stmnt.executeQuery("select * from softwareengineering."+ TableName +" where " + ColumnName + " = '"+name +"'");
+        ){
+            if(rs.next()){
+                r = Integer.parseInt(rs.getString(ColumnIDName));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
 
     public Person getAllPersonalInfo(int id) {
         try (
@@ -111,19 +141,6 @@ public class DatabaseController {
                 return rs.getString("password");
             }
     } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    public String getMatchingID(String email){
-        try (
-                Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select idUser from softwareengineering.personalinfo Where email= '" + email + "'");
-        ){
-            if (rs.first()) {
-                return rs.getString("idUser");
-            }
-        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -254,20 +271,6 @@ public class DatabaseController {
         }
         return r;
     }
-    public int getIDFromName(String name){
-        int r = 0;
-        try (
-                Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercise where exerciseName = '"+name +"'");
-        ){
-            if(rs.next()){
-                r = Integer.parseInt(rs.getString("idExerciseType"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return r;
-    }
     public int getCalsBurnedFromID(int id){
         int r = 0;
         try (
@@ -282,26 +285,10 @@ public class DatabaseController {
         }
         return r;
     }
-    public Boolean isExercise(String str){
-        try (
-                Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercise");
-        ){
-            while(rs.next()){
-                String s = rs.getString("exerciseName");
-                if(s.equals(str)){
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public int addMeal(String foodName,int quantity,String Type){
         int id;
-        int foodID = getFoodIDFromName(foodName);
+        int foodID = getIDFromName(foodName,"foods","foodName","idFood");
         int made = selectMeal(foodID,quantity,Type);
         if (made==-1){
             id = genID("meal","idmeal");
@@ -335,20 +322,6 @@ public class DatabaseController {
         }
         return r;
     }
-    private int getFoodIDFromName(String name){
-        int r = -1;
-        try (
-                Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("Select * From softwareengineering.foods where foodName = '"+name+"'");
-        ){
-            if(rs.next()) {
-                r = rs.getInt("idFood");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return r;
-    }
     public void addDiet(int mealID,int userID){
         try {
             final String query = "Insert Into softwareengineering.diet Values("+ genID("diet","idDiet") +", " + userID + ", " + mealID+", ?)";
@@ -362,22 +335,6 @@ public class DatabaseController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    public Boolean isFood(String str){
-        try (
-                Statement stmnt = connection.createStatement();
-                ResultSet rs = stmnt.executeQuery("select * from softwareengineering.foods");
-        ){
-            while(rs.next()){
-                String s = rs.getString("foodName");
-                if(s.equals(str)){
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public void addGoal(int id,int targetWeight, Date targetDate){

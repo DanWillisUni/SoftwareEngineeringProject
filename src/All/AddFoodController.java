@@ -49,7 +49,6 @@ public class AddFoodController {
     }
     @FXML
     private void AddFoodsAction (ActionEvent event) throws IOException {
-        //checks if anything is entered
         errorMsg.setText("");
         DatabaseController db = new DatabaseController();
         if (quantity.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
@@ -69,7 +68,7 @@ public class AddFoodController {
         }else if(Foods.getValue().toString().equals("")){
             errorMsg.setText("Error: not typed in");
         } else {
-            if(!db.isFood(Foods.getValue().toString())){
+            if(!db.isStr(Foods.getValue().toString(),"foods","foodName")){
                 errorMsg.setText("Error: not valid food");
             }
         }

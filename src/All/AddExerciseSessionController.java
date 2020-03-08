@@ -76,7 +76,7 @@ public class AddExerciseSessionController {
             }else if(Exercise.getValue().toString().equals("")){
                 errorMsg.setText("Error: not typed in");
             } else {
-                if(!db.isExercise(Exercise.getValue().toString())){
+                if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
                     errorMsg.setText("Error: not valid sport");
                 } else {
                     validSport = true;
@@ -102,7 +102,7 @@ public class AddExerciseSessionController {
             int sportID = 0;
             BigDecimal durationDec = new BigDecimal(duration.getText());
             if (validSport){
-                sportID = db.getIDFromName(Exercise.getValue().toString());
+                sportID = db.getIDFromName(Exercise.getValue().toString(),"exercise","exerciseName","idExerciseType");
                 if (!validCal){
                     caloriesBurned = durationDec.multiply(new BigDecimal(db.getCalsBurnedFromID(sportID))).intValue();
                 }
