@@ -144,7 +144,7 @@ public class AddExerciseSessionController {
         }
     }
     @FXML
-    private void goSearch(ActionEvent event) throws IOException {
+    private void goSearch(ActionEvent event) {
         try {
             String toSearch = txt_search.getText();
             DatabaseController db = new DatabaseController();

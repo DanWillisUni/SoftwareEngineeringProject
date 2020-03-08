@@ -26,7 +26,6 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-
     /**
      * closes the connection to the local server
      */
@@ -68,7 +67,6 @@ public class DatabaseController {
             return 0;
         }
     }
-
     /**
      * Select all ColumnName where they are like %s%
      * @param s string to search
@@ -92,7 +90,6 @@ public class DatabaseController {
         }
         return things;
     }
-
     /**
      * select all from the column
      * if any of them match str return true
@@ -118,7 +115,6 @@ public class DatabaseController {
         }
         return false;
     }
-
     /**
      * select the id column from TableName where ColumnName is equal to name
      * @param name the name to match
@@ -171,7 +167,6 @@ public class DatabaseController {
         }
         return null;
     }
-
     /**
      * selects the password where the email matches
      * @param email email to match
@@ -224,7 +219,7 @@ public class DatabaseController {
                     PreparedStatement pstmt1 = connection.prepareStatement(first)
             ){
                 java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-                pstmt1.setDate(1, currentDate);
+                pstmt1.setDate(1, currentDate);//sets current date into the query
                 pstmt1.executeUpdate();
                 try (
                         PreparedStatement pstmt2 = connection.prepareStatement(second)
@@ -237,10 +232,17 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-    public boolean checkGoalMet(int id,String weight){
+    /**
+     * select all the goals in goallink of that user
+     * for each of them see if the users current weight is less than that target weight
+     * if the goal is met, delete it, and set the goal completed label
+     * @param id user id
+     * @return true if a goal is met
+     */
+    public boolean checkGoalMet(int id){
         boolean r = false;
         ArrayList<Integer> goalIDs = getGoalIDFromID(id);
-        int cw = Integer.parseInt(weight);
+        int cw = getCurrentWeight(id);
         for (int goalID:goalIDs){
             if (getGoalWeight(goalID) >= cw){
                 r = true;
@@ -249,6 +251,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * delete from goal link where the user and goal id are the same
+     * @param id user id to delete
+     * @param goalID goal id to delete
+     */
     private void DelGoalLink(int id,int goalID){
         final String query = "Delete from softwareengineering.goallink Where idUser= "+ id + " And idGoalWeight = " + goalID;
         try (
@@ -259,6 +266,11 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    /**
+     * get the ids of all the goals of a user
+     * @param id user id
+     * @return arraylist of all the ids of a user
+     */
     private ArrayList<Integer> getGoalIDFromID(int id){
         ArrayList<Integer> r = new ArrayList<>();
         try (
@@ -273,6 +285,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * get the target weight of a goal with the id
+     * @param id the id of the goal
+     * @return target weight
+     */
     private int getGoalWeight(int id){
         try (
                 Statement stmnt = connection.createStatement();
@@ -286,6 +303,12 @@ public class DatabaseController {
         }
         return -1;
     }
+    /**
+     * gets the current weight of a user
+     * select all weights in weight tracking and order by date
+     * @param id users id
+     * @return current weight of user
+     */
     private int getCurrentWeight(int id){
         try (
                 Statement stmnt = connection.createStatement();
@@ -299,7 +322,12 @@ public class DatabaseController {
         }
         return -1;
     }
-
+    //add exercise
+    /**
+     * add into exercise link
+     * @param sessionID the session id
+     * @param userID the user id
+     */
     public void addExerciseLink(int sessionID,int userID){
         int id =genID("exerciselink","idLink");
         try {
@@ -315,6 +343,14 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    /**
+     * Check if there is already a session
+     * if it wasnt add it
+     * @param duration duration of exercise session
+     * @param sportID sport of the session
+     * @param calburned calories burned during the session
+     * @return the session id
+     */
     public int addExerciseSession(BigDecimal duration,int sportID,int calburned){
         int id = getExerciseSessionID(duration,sportID,calburned);
         if (id == -1){
@@ -332,6 +368,13 @@ public class DatabaseController {
         }
         return id;
     }
+    /**
+     * select the exercise session id
+     * @param duration the duration to look for
+     * @param sportID the sport id to look for
+     * @param calburned the number of calories burned to look for
+     * @return -1 if doesnt exist
+     */
     private int getExerciseSessionID(BigDecimal duration,int sportID,int calburned){
         int r = -1;
         try (
@@ -339,13 +382,18 @@ public class DatabaseController {
                 ResultSet rs = stmnt.executeQuery("select * from softwareengineering.exercisesession where idExerciseType = " + sportID+" AND durationMinutes = " +duration +" and caloriesBurned = "+calburned);
         ){
             if(rs.next()){
-                r = Integer.parseInt(rs.getString("idExerciseType"));
+                r = Integer.parseInt(rs.getString("idExerciseSession"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return r;
     }
+    /**
+     * gets the number of calories burned per minute for an exercise
+     * @param id exercise id
+     * @return the number of calories burned per min
+     */
     public int getCalsBurnedFromID(int id){
         int r = 0;
         try (
@@ -360,7 +408,17 @@ public class DatabaseController {
         }
         return r;
     }
-
+    //add diet
+    /**
+     * get food id from name
+     * check if the meal already exists
+     * if it does return it
+     * else make it
+     * @param foodName the name of the food eaten
+     * @param quantity the quantity of the food eaten
+     * @param Type the type of meal
+     * @return meal id
+     */
     public int addMeal(String foodName,int quantity,String Type){
         int id;
         int foodID = getIDFromName(foodName,"foods","foodName","idFood");
@@ -382,6 +440,13 @@ public class DatabaseController {
         }
         return id;
     }
+    /**
+     * gets the meal id if the meals exists
+     * @param foodID meal food id
+     * @param quantity meal quantity
+     * @param Type meal type
+     * @return -1 if not a meal id of the meal if it exists
+     */
     private int selectMeal(int foodID,int quantity,String Type){
         int r = -1;
         try (
@@ -397,6 +462,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * adds a diet link
+     * @param mealID meal id to add
+     * @param userID user id to add
+     */
     public void addDiet(int mealID,int userID){
         try {
             final String query = "Insert Into softwareengineering.diet Values("+ genID("diet","idDiet") +", " + userID + ", " + mealID+", ?)";
@@ -411,7 +481,15 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-
+    //add goal
+    /**
+     * checks to see if the goal exists
+     * if not make it
+     * create a goal link with the id and the goal id
+     * @param id  user id
+     * @param targetWeight the target for the goal
+     * @param targetDate the target date
+     */
     public void addGoal(int id,int targetWeight, Date targetDate){
         int idGoalWeight = selectGoal(targetWeight,new Date(),targetDate);
         if (idGoalWeight == -1){
@@ -420,6 +498,13 @@ public class DatabaseController {
         }
         addGoalLink(id,idGoalWeight);
     }
+    /**
+     * select goal id where criteria is the same
+     * @param targetWeight target weight
+     * @param setDate the date the goal was set
+     * @param targetDate the date to compete by
+     * @return goal id if it exists
+     */
     private int selectGoal(int targetWeight,Date setDate, Date targetDate){
         int r = -1;
         try {
@@ -439,6 +524,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * add a goal link between the goal id and the user id
+     * @param id user id
+     * @param idGoalWeight goal id
+     */
     private void addGoalLink(int id,int idGoalWeight){
         try {
             final String query = "Insert Into softwareengineering.goallink Values(" + id + ", " + idGoalWeight+")";
@@ -451,6 +541,13 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    /**
+     * inserts the values into the goal table
+     * @param id the goal id
+     * @param targetWeight the target weight
+     * @param set the set date
+     * @param targetDate the target date
+     */
     private void createGoal(int id,int targetWeight,Date set, Date targetDate){
         try {
             final String query = "Insert Into softwareengineering.goalweight Values("+ id +", " + targetWeight +", ?,?)";
@@ -465,7 +562,18 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
-
+    //dashboard
+    //cal consumed
+    /**
+     * get all the meals consumed by that user on that date
+     * get the quantity of the meal
+     * get the calorie count of each portion
+     * mutiply them
+     * sum them all
+     * @param id user id
+     * @param d date to get the calories consumed
+     * @return the number of calories consumed by the user of the date
+     */
     public int getCalConsumed(int id,Date d){
         int r = 0;
         ArrayList<Integer> idMeals = getMealsFromID(id,d);
@@ -476,6 +584,12 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * select from diet where date is d and userid is id
+     * @param id user id
+     * @param d date
+     * @return the meal ids of that day by that user
+     */
     private ArrayList<Integer> getMealsFromID(int id,Date d){
         ArrayList<Integer> i = new ArrayList<>();
         try {
@@ -494,6 +608,11 @@ public class DatabaseController {
         }
         return i;
     }
+    /**
+     * get the quantity from the meal id
+     * @param id meal id
+     * @return quantity
+     */
     private int getQuantityFromMeal(int id){
         int r = 0;
         try {
@@ -511,6 +630,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * get the food id from the meal id
+     * @param id meal id
+     * @return food id
+     */
     private int getFoodIDFromMeal(int id){
         int r = 0;
         try {
@@ -528,6 +652,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * get the calorie count of 1 portion of food
+     * @param id food id
+     * @return cal count
+     */
     private int getCalCountFromFoodID(int id){
         int r = 0;
         try {
@@ -545,7 +674,13 @@ public class DatabaseController {
         }
         return r;
     }
-
+    //get cal burned
+    /**
+     * calories burned on that date by that user
+     * @param id user id
+     * @param d date
+     * @return calories burned
+     */
     public int getCalBurned(int id,Date d){
         int r = 0;
         try {
@@ -564,6 +699,11 @@ public class DatabaseController {
         }
         return r;
     }
+    /**
+     * select calories burned where the exercise id is the id
+     * @param id session id
+     * @return calories burned
+     */
     private int getCalBurnedFromSessionID(int id){
         int r = 0;
         try {
@@ -581,7 +721,12 @@ public class DatabaseController {
         }
         return r;
     }
-
+    //get weight tracking
+    /**
+     * select weight from weighttracking where id is the id
+     * @param id user id
+     * @return arraylist of the weights of the user
+     */
     public ArrayList<Integer> getWeightTrackingWeight(int id){
         ArrayList<Integer> w = new ArrayList<>();
         try {
@@ -599,6 +744,11 @@ public class DatabaseController {
         }
         return w;
     }
+    /**
+     * select date from weighttracking for the user
+     * @param id user id
+     * @return arraylist of dates
+     */
     public ArrayList<java.util.Date> getWeightTrackingDate(int id){
         ArrayList<java.util.Date> d = new ArrayList<>();
         try {

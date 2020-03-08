@@ -33,6 +33,7 @@ public class LoginController {
                 db = new DatabaseController();
                 int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
+                //possible to remove goals overdue here or something along those lines
                 controller.setUser(u);
                 controller.setUpDisplay();
                 stage.show();
