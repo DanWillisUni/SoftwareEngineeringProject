@@ -26,7 +26,6 @@ public class AddExerciseSessionController {
     @FXML private TextField duration;//duration text box
     @FXML private TextField calBurned;//calories burned text box
     @FXML private Label errorMsg;//error message label
-
     /**
      * Sets the current user that is signed into the health tracker
      * @param User Person that is signed in
@@ -34,7 +33,6 @@ public class AddExerciseSessionController {
     public void setUser(Person User){
         this.User = User;
     }
-
     /**
      * Sets up the drop down for all the exercises
      */
@@ -48,7 +46,6 @@ public class AddExerciseSessionController {
             e.printStackTrace();
         }
     }
-
     /**
      * Loads the dashboard on the push of the back button
      * @param event button push
@@ -69,7 +66,6 @@ public class AddExerciseSessionController {
         controller.setUpDisplay();
         stage.show();
     }
-
     /**
      * Adds exercise when button pushed
      * @param event button push
@@ -143,6 +139,10 @@ public class AddExerciseSessionController {
             GoToDashButtonAction(event);//go to the dashboard
         }
     }
+    /**
+     * get all like search box and put it in the drop down
+     * @param event button pushed
+     */
     @FXML
     private void goSearch(ActionEvent event) {
         try {
