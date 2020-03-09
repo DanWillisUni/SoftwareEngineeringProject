@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.DatabaseController;
-import All.Person;
+import Model.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +28,14 @@ public class RegistrationController {
     @FXML private ComboBox gender;
     @FXML private TextField height;
     @FXML private Label errorMsg;
+    /**
+     * validate everything
+     * create Person object
+     * add the person object to the database
+     * @param event button push to register
+     */
     @FXML
-    protected void RegisterHandleSubmitButtonAction(ActionEvent event) throws IOException {
+    protected void RegisterHandleSubmitButtonAction(ActionEvent event) {
         DatabaseController db = new DatabaseController();
         errorMsg.setText("");
         //validation forename
@@ -172,7 +178,12 @@ public class RegistrationController {
         if (errorMsg.getText().equals("")){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             db.addUser(newPerson);
-            Parent RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+            Parent RegistrationParent = null;
+            try {
+                RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Scene scene = new Scene(RegistrationParent);
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -180,10 +191,18 @@ public class RegistrationController {
         }
 
     }
+    /**
+     * go to the login page
+     * @param event go back to login button pushed
+     */
     @FXML
-    private void GoToLoginButtonAction (ActionEvent event) throws IOException {
-        //next 5 lines changes the page
-        Parent RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+    private void GoToLoginButtonAction (ActionEvent event) {
+        Parent RegistrationParent = null;
+        try {
+            RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scene scene = new Scene(RegistrationParent);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);

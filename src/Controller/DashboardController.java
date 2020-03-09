@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.DatabaseController;
-import All.Person;
+import Model.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +41,12 @@ public class DashboardController {
             totalCal = 2000;
         }
         DatabaseController db = new DatabaseController();
+
+        int goalWeight = db.getClosestGoal(User.getID());
+        if (goalWeight != -1){
+            nextGoal.setText("Up coming goal: " + goalWeight);
+        }
+
         int cb = db.getCalBurned(User.getID(), new Date());
         int cc = db.getCalConsumed(User.getID(), new Date());
         calLeft.setText(totalCal + " - " + cc + " + " + cb + " = " + (totalCal - cc + cb));
@@ -68,10 +74,6 @@ public class DashboardController {
                 return 0;
             }
         });
-        int goalWeight = db.getClosestGoal(User.getID());
-        if (goalWeight != -1){
-            nextGoal.setText("Up coming goal: " + goalWeight);
-        }
     }
     @FXML
     private void GoToAddWeightButtonAction (ActionEvent event) throws IOException {

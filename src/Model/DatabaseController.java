@@ -1,6 +1,5 @@
 package Model;
 
-import All.Person;//other class imports
 //java imports
 import java.math.BigDecimal;
 import java.sql.*;

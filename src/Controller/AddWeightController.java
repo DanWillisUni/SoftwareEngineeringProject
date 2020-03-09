@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.DatabaseController;
-import All.Person;
+import Model.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

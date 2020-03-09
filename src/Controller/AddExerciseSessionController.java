@@ -1,7 +1,7 @@
 package Controller;
 //javafx imports
 import Model.DatabaseController;
-import All.Person;
+import Model.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
