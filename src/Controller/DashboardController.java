@@ -61,6 +61,8 @@ public class DashboardController {
         WeightTracking.getData().add(series);
 
         NumberAxis xAxis = (NumberAxis) WeightTracking.getXAxis();
+        xAxis.setUpperBound(new Date().getTime() + 86400000L);
+        xAxis.setLowerBound(new Date().getTime() - 1296000000L);
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number n) {
