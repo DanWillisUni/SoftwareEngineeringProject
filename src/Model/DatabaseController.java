@@ -797,6 +797,11 @@ public class DatabaseController {
         }
         return -1;
     }
+    /**
+     * gets all the goal ids that are linked to the user
+     * @param userid user id
+     * @return arraylist of al the id of the goal
+     */
     private ArrayList<Integer> getAllGoals(int userid){
         ArrayList<Integer> w = new ArrayList<>();
         try {
