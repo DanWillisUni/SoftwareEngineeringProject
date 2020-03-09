@@ -60,9 +60,9 @@ public class AddFoodController {
         }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
-//        DashboardController controller = loader.<DashboardController>getController();
-//        controller.setUser(User);
-//        controller.setUpDisplay();
+        DashboardController controller = loader.<DashboardController>getController();
+        controller.setUser(User);
+        controller.setUpDisplay();
         stage.show();
     }
     /**
@@ -76,7 +76,7 @@ public class AddFoodController {
         errorMsg.setText("");
         DatabaseController db = new DatabaseController();
         //validation for quantity
-        if (quantity.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
+        if (quantity.getText().matches("^[1-9][0-9]*$")){
             int i = Integer.parseInt(quantity.getText());
             if (i>0){
                 if (i>10){
@@ -104,7 +104,7 @@ public class AddFoodController {
         }else if(Foods.getValue().toString().equals("")){
             errorMsg.setText("Error: meal type not typed in");
         } else {
-            if(!Foods.getValue().toString().equals("Breakfast")&&!Foods.getValue().toString().equals("Lunch")&&!Foods.getValue().toString().equals("Dinner")&&!Foods.getValue().toString().equals("Snack")){
+            if(!(MealType.getValue().toString().equals("Breakfast")||MealType.getValue().toString().equals("Lunch")||MealType.getValue().toString().equals("Dinner")||MealType.getValue().toString().equals("Snack"))){
                 errorMsg.setText("Error: not valid meal type");
             }
         }

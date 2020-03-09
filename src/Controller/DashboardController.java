@@ -26,6 +26,7 @@ public class DashboardController {
     @FXML Label calLeft;
     @FXML Label GoalDone;
     @FXML LineChart WeightTracking;
+    @FXML Label nextGoal;
     public void setUser(Person User){
         DatabaseController db = new DatabaseController();
         this.User = db.getAllPersonalInfo(User.getID());
@@ -67,8 +68,11 @@ public class DashboardController {
                 return 0;
             }
         });
+        int goalWeight = db.getClosestGoal(User.getID());
+        if (goalWeight != -1){
+            nextGoal.setText("Up coming goal: " + goalWeight);
+        }
     }
-
     @FXML
     private void GoToAddWeightButtonAction (ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddWeight.fxml"));

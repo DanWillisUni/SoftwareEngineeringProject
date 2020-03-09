@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML private Text actiontarget;
+    @FXML private Label errorMsg;
     @FXML private TextField email;
     @FXML private PasswordField password;
     /**
@@ -31,6 +32,7 @@ public class LoginController {
     @FXML
     private void LoginHandleSubmitButtonAction (ActionEvent event) {
         DatabaseController db = new DatabaseController();
+        errorMsg.setText("");
         //validation
         String matchingPassword = db.getMatchingPassword(email.getText());
         if(matchingPassword!=null){
@@ -53,10 +55,10 @@ public class LoginController {
                 controller.setUpDisplay();
                 stage.show();
             } else {
-                actiontarget.setText("Incorrect password details");
+                errorMsg.setText("Incorrect password details");
             }
         } else {
-            actiontarget.setText("Incorrect email details");
+            errorMsg.setText("Incorrect email details");
         }
     }
     /**

@@ -63,7 +63,7 @@ public class AddWeightController {
         errorMsg.setText("");
         //validation
         if (weight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
-            int i = Integer.parseInt(weight.getText());
+            double i = Double.parseDouble(weight.getText());
             if (i>0){
                 if (i>250){
                     errorMsg.setText("Error: weight greater than 250");

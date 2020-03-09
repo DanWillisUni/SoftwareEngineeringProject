@@ -65,7 +65,7 @@ public class AddGoalController {
     private void AddWeightGoalButtonAction (ActionEvent event) {
         errorMsg.setText("");
         //validate target weight
-        if (TargetWeight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
+        if (TargetWeight.getText().matches("^[1-9][0-9]*$")){
             int i = Integer.parseInt(TargetWeight.getText());
             if (i>0){
                 if (i>250){

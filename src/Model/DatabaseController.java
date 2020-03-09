@@ -76,7 +76,7 @@ public class DatabaseController {
      */
     public ArrayList<String> getAllLike(String s,String TableName,String ColumnName){
         ArrayList<String> things = new ArrayList<>();
-        String sql = "SELECT * FROM softwareengineering."+TableName+" WHERE "+ ColumnName+" LIKE ? ";
+        String sql = "SELECT * FROM softwareengineering."+TableName+" WHERE "+ ColumnName+" LIKE ? order by " + ColumnName + " asc";
         try (
                 PreparedStatement pst=connection.prepareStatement(sql);
         ){
@@ -765,5 +765,54 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return d;
+    }
+    /**
+     * gets the goal closest to the current date
+     * @param userid id if the user
+     * @return
+     */
+    public int getClosestGoal(int userid){
+        ArrayList<Integer> goalIDs = getAllGoals(userid);
+        if (goalIDs.size()>0){
+            String str = "select * from softwareengineering.goalweight where";
+            boolean first = true;
+            for(int i:goalIDs){
+                if (first == true){
+                    str += " idGoalWeight= " + i;
+                    first = false;
+                } else {
+                    str += " OR idGoalWeight= " + i;
+                }
+            }
+            str += " order by targetDate asc";
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(str)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.first()){
+                    return (rs.getInt("weightGoal"));
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return -1;
+    }
+    private ArrayList<Integer> getAllGoals(int userid){
+        ArrayList<Integer> w = new ArrayList<>();
+        try {
+            final String query = "SELECT * FROM softwareengineering.goallink WHERE idUser = " + userid;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    w.add(rs.getInt("idGoalWeight"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return w;
     }
 }
