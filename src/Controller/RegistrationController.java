@@ -188,7 +188,7 @@ public class RegistrationController {
             password2.setText("");
         }
         if (errorMsg.getText().equals("")){
-            Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
+            Person newPerson = new Person(db.genID("PersonalInfo","idUser"),forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             db.addUser(newPerson);
             Parent RegistrationParent = null;
             try {

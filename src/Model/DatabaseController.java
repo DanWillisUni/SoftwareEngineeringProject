@@ -49,7 +49,7 @@ public class DatabaseController {
      * @param ColumName the column name of the id
      * @return a unique id
      */
-    private int genID(String TableName,String ColumName){
+    public int genID(String TableName,String ColumName){
         ArrayList<Integer> ids = new ArrayList<>();
         try (
                 Statement stmnt = connection.createStatement();
@@ -193,7 +193,7 @@ public class DatabaseController {
      */
     public void addUser(Person User){
         try {
-            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ this.genID("PersonalInfo","idUser") + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", '" + User.getGender() + "' )";
+            final String query = "Insert Into softwareengineering.PersonalInfo Values("+ User.getID() + ", '" + User.getForename() + "', '" + User.getSurname()+ "', '" + User.getEmail()+ "', '" + User.getUsername()+ "', '" + User.getPassword()+ "', ? , " + User.getHeight().toString()+ ", '" + User.getGender() + "' )";
             try (
                     PreparedStatement pstmt = connection.prepareStatement(query)
             ){
