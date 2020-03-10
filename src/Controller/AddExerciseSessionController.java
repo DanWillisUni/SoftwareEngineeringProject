@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 //java imports
 import java.io.IOException;
@@ -64,6 +65,8 @@ public class AddExerciseSessionController {
         DashboardController controller = loader.<DashboardController>getController();
         controller.setUser(User);
         controller.setUpDisplay();
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setFullScreen(true);
         stage.show();
     }
     /**

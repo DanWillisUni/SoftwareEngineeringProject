@@ -7,7 +7,8 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="Controller.LoginController" xmlns:fx="http://javafx.com/fxml" prefHeight="200.0" prefWidth="400.0">
+<?import java.net.URL?>
+<VBox fx:controller="Controller.LoginController" xmlns:fx="http://javafx.com/fxml" minHeight="200.0" minWidth="400.0">
     <children>
         <GridPane alignment="center" hgap="10" vgap="10">
             <Text text="Welcome" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -21,7 +22,13 @@
             <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="4">
                 <Button fx:id="Register" text="Register" onAction="#GoToRegisterButtonAction"/>
             </HBox>
+            <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                <Button fx:id="exit" text="Exit" onAction="#Exit"/>
+            </HBox>
             <Label fx:id="errorMsg" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
         </GridPane>
     </children>
+    <stylesheets>
+        <URL value="@myStyle.css" />
+    </stylesheets>
 </VBox>

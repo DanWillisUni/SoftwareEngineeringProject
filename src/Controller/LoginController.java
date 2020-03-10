@@ -2,6 +2,7 @@ package Controller;
 
 import Model.DatabaseController;
 import Model.Person;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class LoginController {
     @FXML private Label errorMsg;
@@ -53,6 +54,8 @@ public class LoginController {
                 boolean removedOneGoal = db.removeOverdueGoals(u.getID());
                 controller.setUser(u);
                 controller.setUpDisplay();
+                stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+                stage.setFullScreen(true);
                 if(removedOneGoal){
                     controller.setGoalRemove();
                 }
@@ -82,6 +85,17 @@ public class LoginController {
         Scene scene = new Scene(RegistrationParent);//create new scene of the registration page
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();//set the stage to be the current window
         stage.setScene(scene);//put the scene on the current window
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setFullScreen(true);
         stage.show();//show the new page
+    }
+    /**
+     * exits the application
+     * @param event exit button pushed
+     */
+    @FXML
+    private void Exit (ActionEvent event){
+        Platform.exit();
+        System.exit(0);
     }
 }

@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -102,19 +103,7 @@ public class DashboardController {
      */
     @FXML
     private void GoToAddWeightButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddWeight.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        AddWeightController controller = loader.<AddWeightController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        gotoPage("../View/AddWeight.fxml",User,event);
     }
     /**
      * goes to the add exercise page
@@ -122,19 +111,7 @@ public class DashboardController {
      */
     @FXML
     private void GoToAddExerciseSessionButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddExerciseSession.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        AddExerciseSessionController controller = loader.<AddExerciseSessionController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        gotoPage("../View/AddExerciseSession.fxml",User,event);
     }
     /**
      * goes to the add food page
@@ -142,19 +119,7 @@ public class DashboardController {
      */
     @FXML
     private void GoToAddFoodButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddFood.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        AddFoodController controller = loader.<AddFoodController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        gotoPage("../View/AddFood.fxml",User,event);
     }
     /**
      * goes to the add goal page
@@ -162,19 +127,7 @@ public class DashboardController {
      */
     @FXML
     private void GoToAddGoalButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddGoal.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        AddGoalController controller = loader.<AddGoalController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        gotoPage("../View/AddGoal.fxml",User,event);
     }
     /**
      * signs out the user by not passing the user and going to login page
@@ -191,6 +144,30 @@ public class DashboardController {
         }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setFullScreen(true);
+        stage.show();
+    }
+    /**
+     * Change page displayed to the user
+     * @param page file to go to
+     * @param User current user signed in
+     * @param event button pressed
+     */
+    private void gotoPage(String page,Person User,ActionEvent event){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        AddExerciseSessionController controller = loader.<AddExerciseSessionController>getController();
+        controller.setUser(User);
+        controller.setUpDisplay();
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setFullScreen(true);
         stage.show();
     }
 }
