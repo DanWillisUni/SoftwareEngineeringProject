@@ -11,7 +11,7 @@
             <Label id="name" fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0" text="" prefHeight="20.0" prefWidth="150.0"/>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Please enter your" prefHeight="20.0" prefWidth="150.0"/>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Weight:" prefHeight="20.0" prefWidth="150.0"/>
-            <TextField id="weight" fx:id="weight" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Weight"/>
+            <TextField id="weight" fx:id="weight" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Weight (kg)"/>
             <Button  GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" mnemonicParsing="false" text="Add Weight" onAction="#AddWeightAction"/>
             <Button  GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" mnemonicParsing="false" text="Go Back" onAction="#GoToDashButtonAction"/>
             <Label  id="errorMsg" fx:id="errorMsg" GridPane.columnIndex="0" GridPane.rowIndex="4" prefHeight="20.0" prefWidth="150.0" text=""/>

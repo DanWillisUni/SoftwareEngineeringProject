@@ -826,15 +826,19 @@ public class DatabaseController {
      * gets all the goals of that user
      * checks the date to see if it is in the past
      * @param idUser user id
+     * @return if one was removed
      */
-    public void removeOverdueGoals(int idUser){
+    public boolean removeOverdueGoals(int idUser){
+        boolean r = false;
         ArrayList<Integer> allGoals = getAllGoals(idUser);
         for(int goalid:allGoals){
             Date d = getDateOfGoal(goalid);
             if (d.getTime() < new Date().getTime()){
                 DelGoalLink(idUser,goalid);
+                r=true;
             }
         }
+        return r;
     }
     /**
      * gets the target date of the goal

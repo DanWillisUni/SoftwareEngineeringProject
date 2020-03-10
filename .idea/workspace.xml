@@ -72,8 +72,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -238,7 +238,7 @@
       <workItem from="1583504851345" duration="29257000" />
       <workItem from="1583667031810" duration="21976000" />
       <workItem from="1583755373889" duration="12344000" />
-      <workItem from="1583834783616" duration="2549000" />
+      <workItem from="1583834783616" duration="4443000" />
     </task>
     <servers />
   </component>
@@ -278,6 +278,10 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="438" y="246" width="404" height="236" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1280.720@0.0.1280.720" timestamp="1583761647555" />
+    <state x="371" y="108" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583854415082">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="371" y="108" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.720@0.0.1280.720" timestamp="1583854415082" />
     <state x="421" y="103" key="FileChooserDialogImpl" timestamp="1583675237120">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -286,22 +290,22 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="491" y="255" key="Github.ShareDialog/0.0.1280.720@0.0.1280.720" timestamp="1581338973450" />
-    <state width="1236" height="220" key="GridCell.Tab.0.bottom" timestamp="1583785428365">
+    <state width="1236" height="165" key="GridCell.Tab.0.bottom" timestamp="1583854336586">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1583785428365" />
-    <state width="1236" height="220" key="GridCell.Tab.0.center" timestamp="1583785428365">
+    <state width="1236" height="165" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1583854336586" />
+    <state width="1236" height="165" key="GridCell.Tab.0.center" timestamp="1583854336586">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1583785428365" />
-    <state width="1236" height="220" key="GridCell.Tab.0.left" timestamp="1583785428365">
+    <state width="1236" height="165" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1583854336586" />
+    <state width="1236" height="165" key="GridCell.Tab.0.left" timestamp="1583854336586">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1583785428365" />
-    <state width="1236" height="220" key="GridCell.Tab.0.right" timestamp="1583785428365">
+    <state width="1236" height="165" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1583854336586" />
+    <state width="1236" height="165" key="GridCell.Tab.0.right" timestamp="1583854336586">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="220" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1583785428365" />
+    <state width="1236" height="165" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1583854336586" />
     <state width="1236" height="220" key="GridCell.Tab.1.bottom" timestamp="1583785428365">
       <screen x="0" y="0" width="1280" height="720" />
     </state>

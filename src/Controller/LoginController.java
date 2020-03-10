@@ -50,9 +50,12 @@ public class LoginController {
                 db = new DatabaseController();
                 int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
-                db.removeOverdueGoals(u.getID());
+                boolean removedOneGoal = db.removeOverdueGoals(u.getID());
                 controller.setUser(u);
                 controller.setUpDisplay();
+                if(removedOneGoal){
+                    controller.setGoalRemove();
+                }
                 stage.show();
             } else {
                 errorMsg.setText("Incorrect password details");

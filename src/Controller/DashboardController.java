@@ -27,13 +27,33 @@ public class DashboardController {
     @FXML Label GoalDone;
     @FXML LineChart WeightTracking;
     @FXML Label nextGoal;
+    /**
+     * sets the user to the user that is logged in
+     * @param User Person object logged in
+     */
     public void setUser(Person User){
         DatabaseController db = new DatabaseController();
         this.User = db.getAllPersonalInfo(User.getID());
     }
+    /**
+     * Sets the text to say that a goal was completed
+     */
     public void setGoalComplete(){
         GoalDone.setText("Goal complete!");
     }
+    /**
+     * sets the label to say that a goal was removed
+     */
+    public void setGoalRemove(){
+        GoalDone.setText("Goal Removed as it was overdue");
+    }
+    /**
+     * Sets up the display
+     * gets the calories of that day both consumed and burned and works out calories left
+     * gets the weight of the upcoming goal
+     * gets the weights and dates
+     * only displays the chart of the last 2 weeks to track weight
+     */
     public void setUpDisplay() {
         name.setText("Welcome " + User.getForename());
         int totalCal = 1800;
@@ -41,7 +61,6 @@ public class DashboardController {
             totalCal = 2000;
         }
         DatabaseController db = new DatabaseController();
-
         int goalWeight = db.getClosestGoal(User.getID());
         if (goalWeight != -1){
             nextGoal.setText("Up coming goal: " + goalWeight);
@@ -77,10 +96,19 @@ public class DashboardController {
             }
         });
     }
+    /**
+     * take the user to the add weight button
+     * @param event button pushed to add weight
+     */
     @FXML
-    private void GoToAddWeightButtonAction (ActionEvent event) throws IOException {
+    private void GoToAddWeightButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddWeight.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         AddWeightController controller = loader.<AddWeightController>getController();
@@ -88,10 +116,19 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
+    /**
+     * goes to the add exercise page
+     * @param event add exercise button pressed
+     */
     @FXML
-    private void GoToAddExerciseSessionButtonAction (ActionEvent event) throws IOException {
+    private void GoToAddExerciseSessionButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddExerciseSession.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         AddExerciseSessionController controller = loader.<AddExerciseSessionController>getController();
@@ -99,10 +136,19 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
+    /**
+     * goes to the add food page
+     * @param event add food button pushed
+     */
     @FXML
-    private void GoToAddFoodButtonAction (ActionEvent event) throws IOException {
+    private void GoToAddFoodButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddFood.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         AddFoodController controller = loader.<AddFoodController>getController();
@@ -110,10 +156,19 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
+    /**
+     * goes to the add goal page
+     * @param event add goal button pressed
+     */
     @FXML
-    private void GoToAddGoalButtonAction (ActionEvent event) throws IOException {
+    private void GoToAddGoalButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/AddGoal.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         AddGoalController controller = loader.<AddGoalController>getController();
@@ -121,10 +176,19 @@ public class DashboardController {
         controller.setUpDisplay();
         stage.show();
     }
+    /**
+     * signs out the user by not passing the user and going to login page
+     * @param event sign out button pushed
+     */
     @FXML
-    private void GoToSignOutButtonAction (ActionEvent event) throws IOException {
+    private void GoToSignOutButtonAction (ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Login.fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
