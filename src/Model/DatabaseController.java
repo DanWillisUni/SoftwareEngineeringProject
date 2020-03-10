@@ -3,6 +3,8 @@ package Model;
 //java imports
 import java.math.BigDecimal;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -818,5 +820,41 @@ public class DatabaseController {
             e.printStackTrace();
         }
         return w;
+    }
+    /**
+     * removes all the overdue goals
+     * gets all the goals of that user
+     * checks the date to see if it is in the past
+     * @param idUser user id
+     */
+    public void removeOverdueGoals(int idUser){
+        ArrayList<Integer> allGoals = getAllGoals(idUser);
+        for(int goalid:allGoals){
+            Date d = getDateOfGoal(goalid);
+            if (d.getTime() < new Date().getTime()){
+                DelGoalLink(idUser,goalid);
+            }
+        }
+    }
+    /**
+     * gets the target date of the goal
+     * @param id goal id
+     * @return target date
+     */
+    private Date getDateOfGoal(int id){
+        try {
+            final String query = "SELECT * FROM softwareengineering.goalweight WHERE idGoalWeight = " + id;
+            try (
+                    PreparedStatement pstmt = connection.prepareStatement(query)
+            ){
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    return new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("targetDate"));
+                }
+            }
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

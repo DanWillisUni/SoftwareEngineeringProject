@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LoginController {
     @FXML private Label errorMsg;
@@ -49,7 +50,7 @@ public class LoginController {
                 db = new DatabaseController();
                 int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
-                //possible to remove goals overdue here or something along those lines
+                db.removeOverdueGoals(u.getID());
                 controller.setUser(u);
                 controller.setUpDisplay();
                 stage.show();
