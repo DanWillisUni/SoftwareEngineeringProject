@@ -70,12 +70,15 @@ public class AddGoalController {
             if (i>0){
                 if (i>250){
                     errorMsg.setText("Error: target greater than 250");
+                    TargetWeight.setText("");
                 }
             } else {
                 errorMsg.setText("Error: target negative");
+                TargetWeight.setText("");
             }
         } else {
             errorMsg.setText("Error: target not numeric");
+            TargetWeight.setText("");
         }
         //validate target date
         if(targetDate.getValue()!=null){

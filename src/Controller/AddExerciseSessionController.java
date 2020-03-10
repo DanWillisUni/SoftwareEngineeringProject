@@ -83,14 +83,17 @@ public class AddExerciseSessionController {
                 if (i>0){
                     if (i>2500){
                         errorMsg.setText("Error: calories > 2500");
+                        calBurned.setText("");
                     } else {
                         validCal = true;
                     }
                 } else {
                     errorMsg.setText("Error: calories negative");
+                    calBurned.setText("");
                 }
             } else {
                 errorMsg.setText("Error: calories not numeric");
+                calBurned.setText("");
             }
         } else { // if no calories burned entered then validate the exercise type
             if (Exercise.getValue()==null) {
@@ -100,6 +103,7 @@ public class AddExerciseSessionController {
             } else {
                 if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
                     errorMsg.setText("Error: not valid sport");
+                    Exercise.setValue("");
                 } else {
                     validSport = true;
                 }
@@ -111,12 +115,15 @@ public class AddExerciseSessionController {
             if (i>0){
                 if (i>240){
                     errorMsg.setText("Error: duration greater than 4 hours");
+                    duration.setText("");
                 }
             } else {
                 errorMsg.setText("Error: duration negative");
+                duration.setText("");
             }
         } else {
             errorMsg.setText("Error: duration not numeric");
+            duration.setText("");
         }
         //if no errors in validation
         if (errorMsg.getText()==""){

@@ -67,12 +67,15 @@ public class AddWeightController {
             if (i>0){
                 if (i>250){
                     errorMsg.setText("Error: weight greater than 250");
+                    weight.setText("");
                 }
             } else {
                 errorMsg.setText("Error: weight negative");
+                weight.setText("");
             }
         } else {
             errorMsg.setText("Error: weight not numeric");
+            weight.setText("");
         }
         if(errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
@@ -95,6 +98,5 @@ public class AddWeightController {
             controller.setUpDisplay();
             stage.show();
         }
-
     }
 }

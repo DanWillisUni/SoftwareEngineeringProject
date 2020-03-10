@@ -56,9 +56,12 @@ public class LoginController {
                 stage.show();
             } else {
                 errorMsg.setText("Incorrect password details");
+                password.setText("");
             }
         } else {
             errorMsg.setText("Incorrect email details");
+            password.setText("");
+            email.setText("");
         }
     }
     /**

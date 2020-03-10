@@ -81,12 +81,15 @@ public class AddFoodController {
             if (i>0){
                 if (i>10){
                     errorMsg.setText("Error: quantity greater than 10");
+                    quantity.setText("");
                 }
             } else {
                 errorMsg.setText("Error: quantity negative");
+                quantity.setText("");
             }
         } else {
             errorMsg.setText("Error: quantity not numeric");
+            quantity.setText("");
         }
         //validation of dropdown
         if (Foods.getValue()==null) {
@@ -96,6 +99,7 @@ public class AddFoodController {
         } else {
             if(!db.isStr(Foods.getValue().toString(),"foods","foodName")){
                 errorMsg.setText("Error: not valid food");
+                Foods.setValue("");
             }
         }
         //validation of the meal type
@@ -106,6 +110,7 @@ public class AddFoodController {
         } else {
             if(!(MealType.getValue().toString().equals("Breakfast")||MealType.getValue().toString().equals("Lunch")||MealType.getValue().toString().equals("Dinner")||MealType.getValue().toString().equals("Snack"))){
                 errorMsg.setText("Error: not valid meal type");
+                MealType.setValue("");
             }
         }
 

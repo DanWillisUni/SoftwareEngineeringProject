@@ -44,9 +44,11 @@ public class RegistrationController {
                 if(forename.getText().matches("^([a-z]|[A-Z])+$")){
                     if (forename.getText().toString().length()>45){
                         errorMsg.setText("Error: forename too long");
+                        forename.setText("");
                     }
                 } else {
                     errorMsg.setText("Error: forename has a number in");
+                    forename.setText("");
                 }
             } else {
                 errorMsg.setText("Error: forename null");
@@ -60,9 +62,11 @@ public class RegistrationController {
                 if(surname.getText().matches("^([a-z]|[A-Z])+$")){
                     if (forename.getText().toString().length()>45){
                         errorMsg.setText("Error: surname too long");
+                        surname.setText("");
                     }
                 } else {
                     errorMsg.setText("Error: surname has a number in");
+                    surname.setText("");
                 }
             } else {
                 errorMsg.setText("Error: surname null");
@@ -75,13 +79,11 @@ public class RegistrationController {
             if (!username.getText().equals("")){
                 if (username.getText().toString().length()>45){
                     errorMsg.setText("Error: username too long");
+                    username.setText("");
                 } else {
                     if(db.isStr(username.getText(),"personalinfo","username")){
                         errorMsg.setText("Error: username already in use");
-                    } else {
-                        if(!username.getText().matches("^([a-z]|[A-Z])+$")){
-                            errorMsg.setText("Error: username has a number in");
-                        }
+                        username.setText("");
                     }
                 }
             }else{
@@ -97,12 +99,15 @@ public class RegistrationController {
                     if (email.getText().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
                         if(db.isStr(email.getText(),"personalinfo","email")){
                             errorMsg.setText("Error: email already in use");
+                            email.setText("");
                         }
                     } else {
                         errorMsg.setText("Error: Not a valid email");
+                        email.setText("");
                     }
                 } else {
                     errorMsg.setText("Error: email too long");
+                    email.setText("");
                 }
             }else {
                 errorMsg.setText("Error: email null");
@@ -115,6 +120,7 @@ public class RegistrationController {
             if (!password.getText().equals("")){
                 if (password.getText().toString().length()>20){
                     errorMsg.setText("Error: password too long");
+                    password.setText("");
                 }
             } else {
                 errorMsg.setText("Error: password null");
@@ -127,6 +133,7 @@ public class RegistrationController {
             if (!password2.getText().equals("")){
                 if (password2.getText().toString().length()>20){
                     errorMsg.setText("Error: password2 too long");
+                    password2.setText("");
                 }
             }else {
                 errorMsg.setText("Error: password2 null");
@@ -156,6 +163,7 @@ public class RegistrationController {
         } else {
             if(!gender.getValue().toString().equals("Male")&&!gender.getValue().toString().equals("Female")&&!gender.getValue().toString().equals("Other")){
                 errorMsg.setText("Error: not valid gender");
+                gender.setValue("");
             }
         }
         //height validation
@@ -164,16 +172,20 @@ public class RegistrationController {
             if (i>0){
                 if (i>250){
                     errorMsg.setText("Error: height greater than 250");
+                    height.setText("");
                 }
             } else {
                 errorMsg.setText("Error: height negative");
+                height.setText("");
             }
         } else {
             errorMsg.setText("Error: height not numeric");
+            height.setText("");
         }
         //password matching validation
         if (!password.getText().equals(password2.getText())) {
             errorMsg.setText("Passwords do not match");
+            password2.setText("");
         }
         if (errorMsg.getText().equals("")){
             Person newPerson = new Person(forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
