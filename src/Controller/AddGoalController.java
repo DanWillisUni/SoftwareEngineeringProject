@@ -44,21 +44,7 @@ public class AddGoalController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setFullScreen(true);
-        stage.show();
+        GenericController.goToDash(User,event);
     }
     /**
      * adds goal via db.addgoal
@@ -100,7 +86,7 @@ public class AddGoalController {
         if (errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
             db.addGoal(User.getID(),Integer.parseInt(TargetWeight.getText()), Date.from(Instant.from(targetDate.getValue().atStartOfDay(ZoneId.systemDefault()))));
-            GoToDashButtonAction(event);
+            GenericController.goToDash(User,event);
         }
     }
 }

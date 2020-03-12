@@ -38,28 +38,10 @@ public class LoginController {
         String matchingPassword = db.getMatchingPassword(email.getText());
         if(matchingPassword!=null){
             if(matchingPassword.equals(password.getText())){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
-                DashboardController controller = loader.<DashboardController>getController();
                 db = new DatabaseController();
                 int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
-                boolean removedOneGoal = db.removeOverdueGoals(u.getID());
-                controller.setUser(u);
-                controller.setUpDisplay();
-                stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-                stage.setFullScreen(true);
-                if(removedOneGoal){
-                    controller.setGoalRemove();
-                }
-                stage.show();
+                GenericController.goToDash(u,event);
             } else {
                 errorMsg.setText("Incorrect password details");
                 password.setText("");

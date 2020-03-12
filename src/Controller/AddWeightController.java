@@ -39,19 +39,7 @@ public class AddWeightController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.show();
+        GenericController.goToDash(User,event);
     }
     /**
      * validation
@@ -81,25 +69,7 @@ public class AddWeightController {
         if(errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
             db.addWeight(User.getID(),weight.getText());
-            boolean goalMet = db.checkGoalMet(User.getID());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            DashboardController controller = loader.<DashboardController>getController();
-            if (goalMet){
-                controller.setGoalComplete();
-            }
-            controller.setUser(User);
-            controller.setUpDisplay();
-            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-            stage.setFullScreen(true);
-            stage.show();
+            GenericController.goToDash(User,event);
         }
     }
 }

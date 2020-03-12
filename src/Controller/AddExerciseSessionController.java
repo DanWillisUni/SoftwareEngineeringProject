@@ -53,21 +53,7 @@ public class AddExerciseSessionController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setFullScreen(true);
-        stage.show();
+        GenericController.goToDash(User,event);
     }
     /**
      * Adds exercise when button pushed
@@ -146,7 +132,7 @@ public class AddExerciseSessionController {
                 caloriesBurned = Integer.parseInt(calBurned.getText());
             }
             db.addExerciseLink(db.addExerciseSession(durationDec,sportID,caloriesBurned),User.getID());//adds the exercise link to the database
-            GoToDashButtonAction(event);//go to the dashboard
+            GenericController.goToDash(User,event);//go to the dashboard
         }
     }
     /**

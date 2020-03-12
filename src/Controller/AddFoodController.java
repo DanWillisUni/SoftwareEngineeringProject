@@ -52,21 +52,7 @@ public class AddFoodController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        DashboardController controller = loader.<DashboardController>getController();
-        controller.setUser(User);
-        controller.setUpDisplay();
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setFullScreen(true);
-        stage.show();
+        GenericController.goToDash(User,event);
     }
     /**
      * adds meal
@@ -120,7 +106,7 @@ public class AddFoodController {
         if (errorMsg.getText().equals("")){
             int mealId = db.addMeal(Foods.getValue().toString(),Integer.parseInt(quantity.getText()),MealType.getValue().toString());//adds meal
             db.addDiet(mealId,User.getID());//adds diet
-            GoToDashButtonAction(event);
+            GenericController.goToDash(User,event);
         }
     }
     /**

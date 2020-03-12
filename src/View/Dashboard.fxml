@@ -21,29 +21,29 @@
             <left>
                 <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10" GridPane.columnIndex="0" GridPane.rowIndex="0" >
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                        <Button fx:id="AddWeight" text="AddWeight" prefHeight="20.0" prefWidth="175.0" onAction="#GoToAddWeightButtonAction"/>
+                        <Button fx:id="AddWeight" text="AddWeight" prefHeight="20.0" prefWidth="200.0" onAction="#GoToAddWeightButtonAction"/>
                     </HBox>
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                        <Button fx:id="AddExerciseSession" text="Add Exercise Session" prefHeight="20.0" prefWidth="175.0" onAction="#GoToAddExerciseSessionButtonAction"/>
+                        <Button fx:id="AddExerciseSession" text="Add Exercise" prefHeight="20.0" prefWidth="200.0" onAction="#GoToAddExerciseSessionButtonAction"/>
                     </HBox>
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                        <Button fx:id="AddFood" text="Add Food" prefHeight="20.0" prefWidth="175.0" onAction="#GoToAddFoodButtonAction"/>
+                        <Button fx:id="AddFood" text="Add Food" prefHeight="20.0" prefWidth="200.0" onAction="#GoToAddFoodButtonAction"/>
                     </HBox>
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                        <Button fx:id="AddGoal" text="Add Goal" prefHeight="20.0" prefWidth="175.0" onAction="#GoToAddGoalButtonAction"/>
+                        <Button fx:id="AddGoal" text="Add Goal" prefHeight="20.0" prefWidth="200.0" onAction="#GoToAddGoalButtonAction"/>
                     </HBox>
                     <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="5">
-                        <Button fx:id="SignOut" text="Sign Out" prefHeight="20.0" prefWidth="175.0" onAction="#GoToSignOutButtonAction"/>
+                        <Button fx:id="SignOut" text="Sign Out" prefHeight="20.0" prefWidth="200.0" onAction="#GoToSignOutButtonAction"/>
                     </HBox>
                 </GridPane>
             </left>
             <top>
-                <Label id="name" fx:id="name" text="" prefHeight="20.0" prefWidth="175.0" alignment="CENTER"/>
+                <Label id="name" fx:id="name" text="" prefHeight="20.0" alignment="CENTER"/>
             </top>
             <bottom>
                 <GridPane alignment="BOTTOM_CENTER">
-                    <Label id="nextGoal" fx:id="nextGoal" GridPane.columnIndex="0" GridPane.rowIndex="5" text="" prefHeight="20.0" prefWidth="175.0"/>
-                    <Label id="GoalDone" fx:id="GoalDone" GridPane.columnIndex="0" GridPane.rowIndex="4" text="" prefHeight="20.0" prefWidth="175.0"/>
+                    <Label id="nextGoal" fx:id="nextGoal" GridPane.columnIndex="0" GridPane.rowIndex="5" text="" prefHeight="20.0" />
+                    <Label id="GoalDone" fx:id="GoalDone" GridPane.columnIndex="0" GridPane.rowIndex="4" text="" prefHeight="20.0" />
                     <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Todays Calories Summary:" prefHeight="20.0"/>
                     <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text=" Total Allowed - Calories Consumed + Calories Burned = CaloriesLeft To Eat" prefHeight="20.0" />
                     <Label GridPane.columnIndex="0" GridPane.rowIndex="2" id="calLeft" fx:id="calLeft" text="" prefHeight="20.0"/>
