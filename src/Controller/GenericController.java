@@ -12,6 +12,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GenericController {
+    /**
+     * goes to a page with no setting the user
+     * @param page page to load path
+     * @param event button pushed
+     */
     public static void goToPage(String page, ActionEvent event){
         FXMLLoader loader = new FXMLLoader(GenericController.class.getResource(page));
         Parent root = null;
@@ -25,6 +30,11 @@ public class GenericController {
         stage.setFullScreen(true);
         stage.show();
     }
+    /**
+     * go to the dashboard
+     * @param User user to set it to
+     * @param event go to dashboard button pushed
+     */
     public static void goToDash(Person User,ActionEvent event){
         FXMLLoader loader = new FXMLLoader(GenericController.class.getResource("../View/Dashboard.fxml"));
         Parent root = null;
