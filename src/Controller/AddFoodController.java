@@ -26,6 +26,7 @@ public class AddFoodController {
     @FXML private TextField quantity;
     @FXML private ComboBox MealType;
     @FXML private Label errorMsg;
+    @FXML private Label name;
     /**
      * sets the user to the user signed in
      * @param User logged in user
@@ -37,6 +38,7 @@ public class AddFoodController {
      * sets the drop down of food to all the food
      */
     public void setUpDisplay(){
+        name.setText("Hello, " + User.getForename());
         try {
             DatabaseController db = new DatabaseController();
             ArrayList<String> results = db.getAllLike("","foods","foodName");

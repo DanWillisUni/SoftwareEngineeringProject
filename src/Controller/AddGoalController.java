@@ -25,6 +25,7 @@ public class AddGoalController {
     @FXML private TextField TargetWeight;
     @FXML private DatePicker targetDate;
     @FXML private Label errorMsg;
+    @FXML private Label name;
     /**
      * sets the user that is signed in
      * @param User person to set to
@@ -36,7 +37,7 @@ public class AddGoalController {
      * sets up the display
      */
     public void setUpDisplay(){
-
+        name.setText("Hi, " + User.getForename());
     }
     /**
      * go to the dashboard

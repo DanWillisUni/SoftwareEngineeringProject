@@ -27,6 +27,7 @@ public class AddExerciseSessionController {
     @FXML private TextField duration;//duration text box
     @FXML private TextField calBurned;//calories burned text box
     @FXML private Label errorMsg;//error message label
+    @FXML private Label name;
     /**
      * Sets the current user that is signed into the health tracker
      * @param User Person that is signed in
@@ -46,6 +47,7 @@ public class AddExerciseSessionController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        name.setText("Hello, " + User.getForename());
     }
     /**
      * Loads the dashboard on the push of the back button
