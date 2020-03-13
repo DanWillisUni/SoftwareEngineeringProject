@@ -37,7 +37,7 @@
             </ComboBox>
             <Button  GridPane.columnIndex="1" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="200.0" mnemonicParsing="false" text="Add Food" onAction="#AddFoodsAction"/>
             <Button  GridPane.columnIndex="0" GridPane.rowIndex="5" prefHeight="20.0" prefWidth="200.0" mnemonicParsing="false" text="Go Back" onAction="#GoToDashButtonAction"/>
-            <Label  id="errorMsg" fx:id="errorMsg" GridPane.columnIndex="0" GridPane.rowIndex="6" prefHeight="20.0" prefWidth="150.0" text=""/>
+            <Label  id="errorMsg" fx:id="errorMsg" GridPane.columnIndex="0" GridPane.rowIndex="6" prefHeight="20.0" text=""/>
         </GridPane>
     </children>
     <stylesheets>

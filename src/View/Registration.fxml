@@ -43,7 +43,7 @@
           <Label GridPane.columnIndex="0" GridPane.rowIndex="8" prefHeight="20.0" prefWidth="200.0" text="Gender:" />
           <Label GridPane.columnIndex="0" GridPane.rowIndex="9" prefHeight="20.0" prefWidth="200.0" text="Height:" />
           <Button  GridPane.columnIndex="0" GridPane.rowIndex="10" prefHeight="20.0" prefWidth="200.0" mnemonicParsing="false" text="Go Back" onAction="#GoToLoginButtonAction"/>
-          <Label  id="errorMsg" fx:id="errorMsg" GridPane.columnIndex="0" GridPane.rowIndex="11" prefHeight="20.0" prefWidth="200.0" text=""/>
+          <Label  id="errorMsg" fx:id="errorMsg" GridPane.columnIndex="0" GridPane.rowIndex="11" prefHeight="20.0" text=""/>
       </GridPane>
   </children>
     <stylesheets>

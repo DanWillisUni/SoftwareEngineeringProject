@@ -50,12 +50,12 @@ public class DashboardController {
             totalCal = 2000;
         }
         DatabaseController db = new DatabaseController();
+        if (db.checkGoalMet(User.getID())){
+            GoalDone.setText("Goal complete!");
+        }
         int goalWeight = db.getClosestGoal(User.getID());
         if (goalWeight != -1){
             nextGoal.setText("Up coming goal: " + goalWeight);
-        }
-        if (db.checkGoalMet(User.getID())){
-            GoalDone.setText("Goal complete!");
         }
         int cb = db.getCalBurned(User.getID(), new Date());
         int cc = db.getCalConsumed(User.getID(), new Date());

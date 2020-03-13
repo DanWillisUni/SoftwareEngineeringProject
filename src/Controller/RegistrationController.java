@@ -191,18 +191,8 @@ public class RegistrationController {
         if (errorMsg.getText().equals("")){
             Person newPerson = new Person(db.genID("PersonalInfo","idUser"),forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             db.addUser(newPerson);
-            Parent RegistrationParent = null;
-            try {
-                RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Scene scene = new Scene(RegistrationParent);
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            GenericController.goToPage("../View/Login.fxml",event);
         }
-
     }
     /**
      * go to the login page
