@@ -72,7 +72,9 @@ public class DashboardController {
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.CEILING);
         double bmi = db.getCurrentWeight(User.getID())/Math.pow((User.getHeight().doubleValue()/100.0),2.0);
-        BMI.setText("Your BMI is: " + df.format(bmi));
+        if (bmi > 0){
+            BMI.setText("Your BMI is: " + df.format(bmi));
+        }
 
         ArrayList<Integer> weights = db.getWeightTrackingWeight(User.getID());
         ArrayList<java.util.Date> dates = db.getWeightTrackingDate(User.getID());

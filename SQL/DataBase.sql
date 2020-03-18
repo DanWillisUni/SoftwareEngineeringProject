@@ -43,7 +43,7 @@ CREATE TABLE `diet` (
 
 LOCK TABLES `diet` WRITE;
 /*!40000 ALTER TABLE `diet` DISABLE KEYS */;
-INSERT INTO `diet` VALUES (0,0,0,'2020-03-14'),(1,0,1,'2020-03-14'),(2,0,2,'2020-03-14'),(3,0,3,'2020-03-14'),(4,0,4,'2020-03-14'),(5,1,5,'2020-03-14'),(6,1,6,'2020-03-14'),(7,1,7,'2020-03-14'),(8,1,8,'2020-03-14'),(9,1,9,'2020-03-14'),(10,1,10,'2020-03-14'),(11,2,11,'2020-03-14'),(12,2,12,'2020-03-14'),(13,2,13,'2020-03-14'),(14,2,14,'2020-03-14'),(15,2,15,'2020-03-14'),(16,2,16,'2020-03-14'),(17,2,17,'2020-03-14'),(18,2,18,'2020-03-14'),(19,2,19,'2020-03-14'),(20,3,20,'2020-03-14'),(21,3,6,'2020-03-14'),(22,3,21,'2020-03-14'),(23,3,22,'2020-03-14'),(24,3,23,'2020-03-14'),(25,4,24,'2020-03-14'),(26,4,25,'2020-03-14'),(27,4,26,'2020-03-14'),(28,4,27,'2020-03-14'),(29,4,28,'2020-03-14'),(30,4,29,'2020-03-14'),(31,5,11,'2020-03-14'),(32,5,12,'2020-03-14'),(33,5,30,'2020-03-14'),(34,5,31,'2020-03-14'),(35,5,32,'2020-03-14'),(36,5,33,'2020-03-14');
+INSERT INTO `diet` VALUES (0,0,0,'2020-03-18'),(1,0,1,'2020-03-18'),(2,0,2,'2020-03-18'),(3,0,3,'2020-03-18'),(4,0,4,'2020-03-18'),(5,0,5,'2020-03-18'),(6,0,6,'2020-03-18');
 /*!40000 ALTER TABLE `diet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `exerciselink` (
 
 LOCK TABLES `exerciselink` WRITE;
 /*!40000 ALTER TABLE `exerciselink` DISABLE KEYS */;
-INSERT INTO `exerciselink` VALUES (0,0,0,'2020-03-14'),(1,1,1,'2020-03-14'),(2,1,2,'2020-03-14'),(3,2,0,'2020-03-14'),(4,2,2,'2020-03-14'),(5,3,3,'2020-03-14'),(6,4,4,'2020-03-14'),(7,5,5,'2020-03-14'),(8,5,6,'2020-03-14'),(9,5,7,'2020-03-14');
+INSERT INTO `exerciselink` VALUES (0,0,0,'2020-03-18'),(1,0,1,'2020-03-18'),(2,0,2,'2020-03-18');
 /*!40000 ALTER TABLE `exerciselink` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `exercisesession` (
 
 LOCK TABLES `exercisesession` WRITE;
 /*!40000 ALTER TABLE `exercisesession` DISABLE KEYS */;
-INSERT INTO `exercisesession` VALUES (0,60,18,780),(1,30,9,360),(2,90,3,1170),(3,180,13,1620),(4,60,12,720),(5,20,14,200),(6,20,14,20),(7,120,0,240);
+INSERT INTO `exercisesession` VALUES (0,20,9,200),(1,30,13,270),(2,60,0,500);
 /*!40000 ALTER TABLE `exercisesession` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +181,7 @@ CREATE TABLE `goallink` (
 
 LOCK TABLES `goallink` WRITE;
 /*!40000 ALTER TABLE `goallink` DISABLE KEYS */;
-INSERT INTO `goallink` VALUES (0,0),(1,2),(2,3),(3,4),(4,4),(5,6);
+INSERT INTO `goallink` VALUES (0,1),(0,2);
 /*!40000 ALTER TABLE `goallink` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `goalweight` (
 
 LOCK TABLES `goalweight` WRITE;
 /*!40000 ALTER TABLE `goalweight` DISABLE KEYS */;
-INSERT INTO `goalweight` VALUES (0,90,'2020-03-09','2020-04-09'),(1,80,'2020-03-09','2020-03-13'),(2,77,'2020-03-09','2020-04-09'),(3,75,'2020-03-09','2020-04-09'),(4,60,'2020-03-09','2020-04-09'),(5,90,'2020-03-14','2020-03-19'),(6,80,'2020-03-14','2020-03-25');
+INSERT INTO `goalweight` VALUES (0,100,'2020-03-18','2020-03-24'),(1,80,'2020-03-18','2020-03-31'),(2,85,'2020-03-18','2020-03-25');
 /*!40000 ALTER TABLE `goalweight` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +237,7 @@ CREATE TABLE `meal` (
 
 LOCK TABLES `meal` WRITE;
 /*!40000 ALTER TABLE `meal` DISABLE KEYS */;
-INSERT INTO `meal` VALUES (0,6,1,'Dinner'),(1,11,1,'Dinner'),(2,24,1,'Breakfast'),(3,5,1,'Snack'),(4,21,2,'Lunch'),(5,6,1,'Lunch'),(6,8,1,'Breakfast'),(7,22,2,'Breakfast'),(8,1,1,'Snack'),(9,27,8,'Dinner'),(10,46,1,'Lunch'),(11,26,3,'Breakfast'),(12,38,2,'Breakfast'),(13,10,2,'Breakfast'),(14,0,1,'Snack'),(15,4,2,'Snack'),(16,46,2,'Lunch'),(17,44,1,'Lunch'),(18,13,10,'Dinner'),(19,6,2,'Dinner'),(20,45,4,'Dinner'),(21,22,3,'Breakfast'),(22,1,1,'Lunch'),(23,11,2,'Lunch'),(24,26,4,'Breakfast'),(25,0,2,'Snack'),(26,18,3,'Lunch'),(27,6,3,'Dinner'),(28,25,2,'Dinner'),(29,49,1,'Dinner'),(30,6,2,'Lunch'),(31,27,1,'Lunch'),(32,45,2,'Dinner'),(33,47,2,'Snack');
+INSERT INTO `meal` VALUES (0,1,2,'Snack'),(1,11,2,'Lunch'),(2,26,3,'Breakfast'),(3,17,2,'Snack'),(4,29,3,'Dinner'),(5,46,2,'Lunch'),(6,30,1,'Snack');
 /*!40000 ALTER TABLE `meal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +271,7 @@ CREATE TABLE `personalinfo` (
 
 LOCK TABLES `personalinfo` WRITE;
 /*!40000 ALTER TABLE `personalinfo` DISABLE KEYS */;
-INSERT INTO `personalinfo` VALUES (0,'Dan','Willis','dan@gmail.com','DanWillis','password','2000-08-02',195,'M'),(1,'Will','Darby','will@gmail.com','WillDarby','password','2000-07-02',185,'M'),(2,'Zarq','Khan','zarq@gmail.com','ZarqKahn','password','2000-06-02',180,'M'),(3,'Megan','Crothers','megan@gmail.com','MeganCrothers','password','2000-05-02',165,'F'),(4,'Charlotte','Lebeau','charlotte@gmail.com','CharlotteLebeau','password','2000-04-02',170,'F'),(5,'Daniel','Willis','dan.willis@gmail.com','DW','pass','2000-03-02',190,'M');
+INSERT INTO `personalinfo` VALUES (0,'Dan','Willis','danwillis@gmail.com','DaNWIllis1','pass','2000-03-16',200,'M');
 /*!40000 ALTER TABLE `personalinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +324,7 @@ CREATE TABLE `weighttracking` (
 
 LOCK TABLES `weighttracking` WRITE;
 /*!40000 ALTER TABLE `weighttracking` DISABLE KEYS */;
-INSERT INTO `weighttracking` VALUES (0,'2020-03-03',115),(0,'2020-03-04',112),(0,'2020-03-05',111),(0,'2020-03-06',105),(0,'2020-03-07',104),(0,'2020-03-08',102),(0,'2020-03-09',100),(1,'2020-03-03',94),(1,'2020-03-04',93),(1,'2020-03-05',90),(1,'2020-03-06',89),(1,'2020-03-07',87),(1,'2020-03-08',87),(1,'2020-03-09',85),(2,'2020-03-03',90),(2,'2020-03-04',88),(2,'2020-03-05',86),(2,'2020-03-06',83),(2,'2020-03-07',83),(2,'2020-03-08',80),(2,'2020-03-09',80),(3,'2020-03-03',73),(3,'2020-03-04',71),(3,'2020-03-05',70),(3,'2020-03-06',68),(3,'2020-03-07',68),(3,'2020-03-08',66),(3,'2020-03-09',65),(4,'2020-03-03',72),(4,'2020-03-04',70),(4,'2020-03-05',69),(4,'2020-03-06',67),(4,'2020-03-07',65),(4,'2020-03-08',64),(4,'2020-03-09',65),(5,'2020-03-14',89);
+INSERT INTO `weighttracking` VALUES (0,'2020-03-18',90);
 /*!40000 ALTER TABLE `weighttracking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -337,4 +337,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-14 11:45:07
+-- Dump completed on 2020-03-18 15:44:23

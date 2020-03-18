@@ -57,7 +57,7 @@ public class AddExerciseSessionController {
     private void GoToDashButtonAction (ActionEvent event) {
         GenericController.goToDash(User,event);
     }
-    /**
+     /**
      * Adds exercise when button pushed
      * @param event button push
      */
@@ -67,19 +67,7 @@ public class AddExerciseSessionController {
         DatabaseController db = new DatabaseController();
         boolean validCal = false;
         Boolean validSport = false;
-        //validate sport
-        if (Exercise.getValue()==null) {
-            errorMsg.setText("Error: sport not selected");
-        }else if(Exercise.getValue().toString().equals("")){
-            errorMsg.setText("Error: not typed in");
-        } else {
-            if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
-                errorMsg.setText("Error: not valid sport");
-                Exercise.setValue("");
-            } else {
-                validSport = true;
-            }
-        }
+
         //validation of calories burned
         if (!calBurned.getText().equals("")){
             if (calBurned.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
@@ -99,11 +87,33 @@ public class AddExerciseSessionController {
                 errorMsg.setText("Error: calories not numeric");
                 calBurned.setText("");
             }
-        } else { // if no calories burned entered then validate the exercise type
-            if (!validSport){
-                errorMsg.setText("Error: no calorie count or sport");
+        }
+
+        //validate sport
+        if (validCal){
+            if (Exercise.getValue()!=null&&!Exercise.getValue().toString().equals("")){
+                if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
+                    errorMsg.setText("Error: not valid sport");
+                    Exercise.setValue("");
+                } else {
+                    validSport = true;
+                }
+            }
+        } else {
+            if (Exercise.getValue()==null) {
+                errorMsg.setText("Error: sport not selected");
+            }else if(Exercise.getValue().toString().equals("")){
+                errorMsg.setText("Error: not typed in");
+            } else {
+                if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
+                    errorMsg.setText("Error: not valid sport");
+                    Exercise.setValue("");
+                } else {
+                    validSport = true;
+                }
             }
         }
+
         //validate the duration
         if (duration.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(duration.getText());
@@ -132,6 +142,8 @@ public class AddExerciseSessionController {
                 if (!validCal){
                     caloriesBurned = durationDec.multiply(new BigDecimal(db.getCalsBurnedFromID(sportID))).intValue();
                 }
+            } else {
+                sportID = 0;
             }
             //set the calories if they are valid
             if (validCal){
