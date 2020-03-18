@@ -310,7 +310,7 @@ public class DatabaseController {
      * @param id users id
      * @return current weight of user
      */
-    private int getCurrentWeight(int id){
+    public int getCurrentWeight(int id){
         try (
                 Statement stmnt = connection.createStatement();
                 ResultSet rs = stmnt.executeQuery("select * from softwareengineering.weighttracking Where idUser=" + id + " order by date desc");

@@ -58,18 +58,7 @@ public class LoginController {
      */
     @FXML
     private void GoToRegisterButtonAction (ActionEvent event) {
-        Parent RegistrationParent = null;
-        try {
-            RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Registration.fxml"));//set the parent to the registration page
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(RegistrationParent);//create new scene of the registration page
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();//set the stage to be the current window
-        stage.setScene(scene);//put the scene on the current window
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setFullScreen(true);
-        stage.show();//show the new page
+        GenericController.goToPage("../View/Registration.fxml",event);
     }
     /**
      * exits the application

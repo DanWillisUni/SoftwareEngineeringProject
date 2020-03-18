@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,7 @@ public class DashboardController {
     @FXML Label GoalDone;
     @FXML LineChart WeightTracking;
     @FXML Label nextGoal;
+    @FXML Label BMI;
     /**
      * sets the user to the user that is logged in
      * @param User Person object logged in
@@ -38,6 +41,8 @@ public class DashboardController {
     }
     /**
      * Sets up the display
+     * gets any goals that have expired or been competed and removes them with a message
+     * gets bmi
      * gets the calories of that day both consumed and burned and works out calories left
      * gets the weight of the upcoming goal
      * gets the weights and dates
@@ -50,6 +55,9 @@ public class DashboardController {
             totalCal = 2000;
         }
         DatabaseController db = new DatabaseController();
+        if(db.removeOverdueGoals(User.getID())){
+            GoalDone.setText("Goal Removed as it was overdue");
+        }
         if (db.checkGoalMet(User.getID())){
             GoalDone.setText("Goal complete!");
         }
@@ -60,9 +68,12 @@ public class DashboardController {
         int cb = db.getCalBurned(User.getID(), new Date());
         int cc = db.getCalConsumed(User.getID(), new Date());
         calLeft.setText(totalCal + " - " + cc + " + " + cb + " = " + (totalCal - cc + cb));
-        if(db.removeOverdueGoals(User.getID())){
-            GoalDone.setText("Goal Removed as it was overdue");
-        }
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        df.setRoundingMode(RoundingMode.CEILING);
+        double bmi = db.getCurrentWeight(User.getID())/Math.pow((User.getHeight().doubleValue()/100.0),2.0);
+        BMI.setText("Your BMI is: " + df.format(bmi));
+
         ArrayList<Integer> weights = db.getWeightTrackingWeight(User.getID());
         ArrayList<java.util.Date> dates = db.getWeightTrackingDate(User.getID());
         XYChart.Series series = new XYChart.Series();
