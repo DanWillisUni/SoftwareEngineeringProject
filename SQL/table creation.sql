@@ -114,18 +114,6 @@ CREATE TABLE IF NOT EXISTS `softwareengineering`.`WeightTracking` (
     REFERENCES `softwareengineering`.`PersonalInfo` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-CREATE TABLE IF NOT EXISTS `softwareengineering`.`WeeklySummary` (
-  `idUser` INT NOT NULL,
-  `dateWC` DATE NOT NULL,
-  `avgCalIntake` DECIMAL(10) NULL,
-  `avgExerciseCal` DECIMAL(10) NULL,
-  `latestWeight` DECIMAL(10) NULL,
-  PRIMARY KEY (`idUser`, `dateWC`),
-  CONSTRAINT `idUserinWeeklySummary`
-    FOREIGN KEY (`idUser`)
-    REFERENCES `softwareengineering`.`PersonalInfo` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
 
 insert into softwareengineering.exercise values(0,0,'other');
 insert into softwareengineering.exercise values(1,11,'swimming');

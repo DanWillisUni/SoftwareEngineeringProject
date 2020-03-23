@@ -57,17 +57,12 @@ public class AddGoalController {
         //validate target weight
         if (TargetWeight.getText().matches("^[1-9][0-9]*$")){
             int i = Integer.parseInt(TargetWeight.getText());
-            if (i>0){
-                if (i>250){
-                    errorMsg.setText("Error: target greater than 250");
-                    TargetWeight.setText("");
-                }
-            } else {
-                errorMsg.setText("Error: target negative");
+            if (i>250){
+                errorMsg.setText("Error: target greater than 250");
                 TargetWeight.setText("");
             }
         } else {
-            errorMsg.setText("Error: target not numeric");
+            errorMsg.setText("Error: target not positive integer");
             TargetWeight.setText("");
         }
         //validate target date
@@ -79,7 +74,7 @@ public class AddGoalController {
                     errorMsg.setText("Error: target to far");
                 }
             } else {
-                errorMsg.setText("Error: target date in the past");
+                errorMsg.setText("Error: target date in the past or today");
             }
         }else {
             errorMsg.setText("Error: Date not selected");

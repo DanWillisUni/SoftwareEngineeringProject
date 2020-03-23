@@ -276,33 +276,6 @@ INSERT INTO `personalinfo` VALUES (0,'Dan','Willis','danwillis@gmail.com','DaNWI
 UNLOCK TABLES;
 
 --
--- Table structure for table `weeklysummary`
---
-
-DROP TABLE IF EXISTS `weeklysummary`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `weeklysummary` (
-  `idUser` int NOT NULL,
-  `dateWC` date NOT NULL,
-  `avgCalIntake` decimal(10,0) DEFAULT NULL,
-  `avgExerciseCal` decimal(10,0) DEFAULT NULL,
-  `latestWeight` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`idUser`,`dateWC`),
-  CONSTRAINT `idUserinWeeklySummary` FOREIGN KEY (`idUser`) REFERENCES `personalinfo` (`idUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `weeklysummary`
---
-
-LOCK TABLES `weeklysummary` WRITE;
-/*!40000 ALTER TABLE `weeklysummary` DISABLE KEYS */;
-/*!40000 ALTER TABLE `weeklysummary` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `weighttracking`
 --
 

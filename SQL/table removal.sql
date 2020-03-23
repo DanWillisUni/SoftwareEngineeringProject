@@ -1,4 +1,3 @@
-DROP TABLE `softwareengineering`.`WeeklySummary`;
 DROP TABLE `softwareengineering`.`WeightTracking`;
 DROP TABLE `softwareengineering`.`Diet`;
 DROP TABLE `softwareengineering`.`Meal`;

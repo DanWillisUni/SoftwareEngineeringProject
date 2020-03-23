@@ -72,28 +72,22 @@ public class AddExerciseSessionController {
         if (!calBurned.getText().equals("")){
             if (calBurned.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
                 int i = Integer.parseInt(calBurned.getText());
-                if (i>0){
-                    if (i>2500){
-                        errorMsg.setText("Error: calories > 2500");
-                        calBurned.setText("");
-                    } else {
-                        validCal = true;
-                    }
-                } else {
-                    errorMsg.setText("Error: calories negative");
+                if (i>2500){
+                    errorMsg.setText("Error: calories > 2500");
                     calBurned.setText("");
+                } else {
+                    validCal = true;
                 }
             } else {
-                errorMsg.setText("Error: calories not numeric");
+                errorMsg.setText("Error: calories not positive number");
                 calBurned.setText("");
             }
         }
-
         //validate sport
         if (validCal){
             if (Exercise.getValue()!=null&&!Exercise.getValue().toString().equals("")){
                 if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
-                    errorMsg.setText("Error: not valid sport");
+                    errorMsg.setText("Error: No such sport found, try other");
                     Exercise.setValue("");
                 } else {
                     validSport = true;
@@ -101,12 +95,12 @@ public class AddExerciseSessionController {
             }
         } else {
             if (Exercise.getValue()==null) {
-                errorMsg.setText("Error: sport not selected");
+                errorMsg.setText("Error: Sport not selected");
             }else if(Exercise.getValue().toString().equals("")){
-                errorMsg.setText("Error: not typed in");
+                errorMsg.setText("Error: Sport not typed in");
             } else {
                 if(!db.isStr(Exercise.getValue().toString(),"exercise","exerciseName")){
-                    errorMsg.setText("Error: not valid sport");
+                    errorMsg.setText("Error: No such sport found, try other");
                     Exercise.setValue("");
                 } else {
                     validSport = true;
@@ -117,17 +111,12 @@ public class AddExerciseSessionController {
         //validate the duration
         if (duration.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(duration.getText());
-            if (i>0){
-                if (i>240){
-                    errorMsg.setText("Error: duration greater than 4 hours");
-                    duration.setText("");
-                }
-            } else {
-                errorMsg.setText("Error: duration negative");
+            if (i>240){
+                errorMsg.setText("Error: duration greater than 4 hours");
                 duration.setText("");
             }
         } else {
-            errorMsg.setText("Error: duration not numeric");
+            errorMsg.setText("Error: duration not a positive number");
             duration.setText("");
         }
         //if no errors in validation

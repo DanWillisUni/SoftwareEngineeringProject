@@ -43,12 +43,12 @@ public class RegistrationController {
         if (forename.getText()!=null){
             if (!forename.getText().equals("")){
                 if(forename.getText().matches("^([a-z]|[A-Z])+$")){
-                    if (forename.getText().toString().length()>45){
+                    if (forename.getText().toString().length()>=45){
                         errorMsg.setText("Error: forename too long");
                         forename.setText("");
                     }
                 } else {
-                    errorMsg.setText("Error: forename has a number in");
+                    errorMsg.setText("Error: forename non alphabetical");
                     forename.setText("");
                 }
             } else {
@@ -61,12 +61,12 @@ public class RegistrationController {
         if (surname.getText()!=null){
             if (!surname.getText().equals("")){
                 if(surname.getText().matches("^([a-z]|[A-Z])+$")){
-                    if (forename.getText().toString().length()>45){
+                    if (surname.getText().toString().length()>=45){
                         errorMsg.setText("Error: surname too long");
                         surname.setText("");
                     }
                 } else {
-                    errorMsg.setText("Error: surname has a number in");
+                    errorMsg.setText("Error: surname non alphabetical");
                     surname.setText("");
                 }
             } else {
@@ -78,7 +78,7 @@ public class RegistrationController {
         //username validation
         if (username.getText()!=null){
             if (!username.getText().equals("")){
-                if (username.getText().toString().length()>45){
+                if (username.getText().toString().length()>=45){
                     errorMsg.setText("Error: username too long");
                     username.setText("");
                 } else {
@@ -119,7 +119,7 @@ public class RegistrationController {
         //password validation
         if (password.getText()!=null){
             if (!password.getText().equals("")){
-                if (password.getText().toString().length()>20){
+                if (password.getText().toString().length()>=20){
                     errorMsg.setText("Error: password too long");
                     password.setText("");
                 }
@@ -128,19 +128,6 @@ public class RegistrationController {
             }
         }else{
             errorMsg.setText("Error: password null");
-        }
-        //password2 validation
-        if (password2.getText()!=null){
-            if (!password2.getText().equals("")){
-                if (password2.getText().toString().length()>20){
-                    errorMsg.setText("Error: password2 too long");
-                    password2.setText("");
-                }
-            }else {
-                errorMsg.setText("Error: password2 null");
-            }
-        } else {
-            errorMsg.setText("Error: password2 null");
         }
         //Date of birth validation
         if(DOB.getValue()!=null){
@@ -170,17 +157,12 @@ public class RegistrationController {
         //height validation
         if (height.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             int i = Integer.parseInt(height.getText());
-            if (i>0){
-                if (i>250){
-                    errorMsg.setText("Error: height greater than 250");
-                    height.setText("");
-                }
-            } else {
-                errorMsg.setText("Error: height negative");
+            if (i>250){
+                errorMsg.setText("Error: height greater than 250");
                 height.setText("");
             }
         } else {
-            errorMsg.setText("Error: height not numeric");
+            errorMsg.setText("Error: height not positive");
             height.setText("");
         }
         //password matching validation

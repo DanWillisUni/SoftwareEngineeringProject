@@ -69,24 +69,19 @@ public class AddFoodController {
         //validation for quantity
         if (quantity.getText().matches("^[1-9][0-9]*$")){
             int i = Integer.parseInt(quantity.getText());
-            if (i>0){
-                if (i>10){
-                    errorMsg.setText("Error: quantity greater than 10");
-                    quantity.setText("");
-                }
-            } else {
-                errorMsg.setText("Error: quantity negative");
+            if (i>10){
+                errorMsg.setText("Error: quantity greater than 10");
                 quantity.setText("");
             }
         } else {
-            errorMsg.setText("Error: quantity not numeric");
+            errorMsg.setText("Error: quantity not positive");
             quantity.setText("");
         }
         //validation of dropdown
         if (Foods.getValue()==null) {
             errorMsg.setText("Error: food not selected");
         }else if(Foods.getValue().toString().equals("")){
-            errorMsg.setText("Error: not typed in");
+            errorMsg.setText("Error: food not typed in");
         } else {
             if(!db.isStr(Foods.getValue().toString(),"foods","foodName")){
                 errorMsg.setText("Error: not valid food");

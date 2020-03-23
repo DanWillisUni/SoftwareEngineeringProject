@@ -53,17 +53,12 @@ public class AddWeightController {
         //validation
         if (weight.getText().matches("^([1-9][0-9]*(\\.[0-9]+)?|0+\\.[0-9]*[1-9][0-9]*)$")){
             double i = Double.parseDouble(weight.getText());
-            if (i>0){
-                if (i>250){
-                    errorMsg.setText("Error: weight greater than 250");
-                    weight.setText("");
-                }
-            } else {
-                errorMsg.setText("Error: weight negative");
+            if (i>250){
+                errorMsg.setText("Error: weight greater than 250");
                 weight.setText("");
             }
         } else {
-            errorMsg.setText("Error: weight not numeric");
+            errorMsg.setText("Error: weight not positive");
             weight.setText("");
         }
         if(errorMsg.getText().equals("")){
