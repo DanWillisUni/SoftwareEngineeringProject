@@ -91,7 +91,7 @@ public class AddFoodController {
         //validation of the meal type
         if (MealType.getValue()==null) {
             errorMsg.setText("Error: meal type not selected");
-        }else if(Foods.getValue().toString().equals("")){
+        }else if(MealType.getValue().toString().equals("")){
             errorMsg.setText("Error: meal type not typed in");
         } else {
             if(!(MealType.getValue().toString().equals("Breakfast")||MealType.getValue().toString().equals("Lunch")||MealType.getValue().toString().equals("Dinner")||MealType.getValue().toString().equals("Snack"))){

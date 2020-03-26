@@ -11,21 +11,18 @@
 <VBox fx:controller="Controller.LoginController" xmlns:fx="http://javafx.com/fxml" minHeight="200.0" minWidth="400.0">
     <children>
         <GridPane alignment="center" hgap="10" vgap="10">
-            <Text text="Welcome" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0"/>
-            <TextField id="email" fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Email"/>
-            <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0"/>
-            <PasswordField id="password" fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Password"/>
-            <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                <Button fx:id="SignIn" text="Sign In" onAction="#LoginHandleSubmitButtonAction"/>
-            </HBox>
-            <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                <Button fx:id="Register" text="Register" onAction="#GoToRegisterButtonAction"/>
-            </HBox>
-            <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                <Button fx:id="exit" text="Exit" onAction="#Exit"/>
-            </HBox>
-            <Label fx:id="errorMsg" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+            <Label text="Login" GridPane.columnIndex="0" GridPane.rowIndex="0" prefHeight="20.0" prefWidth="150.0"/>
+            <GridPane alignment="center" hgap="10" vgap="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Text text="Welcome" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0"/>
+                <TextField id="email" fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="20.0" prefWidth="150.0" promptText="Email"/>
+                <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0"/>
+                <PasswordField id="password" fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="20.0" prefWidth="150.0" promptText="Password"/>
+                <Button fx:id="SignIn" GridPane.columnIndex="1" GridPane.rowIndex="4" text="Sign In" onAction="#LoginHandleSubmitButtonAction"/>
+                <Button fx:id="Register"  GridPane.columnIndex="0" GridPane.rowIndex="4" text="Register" onAction="#GoToRegisterButtonAction"/>
+            </GridPane>
+            <Button fx:id="exit" GridPane.columnIndex="0" GridPane.rowIndex="2" text="Exit" onAction="#Exit" />
+            <Label fx:id="errorMsg" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         </GridPane>
     </children>
     <stylesheets>

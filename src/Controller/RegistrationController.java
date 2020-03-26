@@ -182,16 +182,6 @@ public class RegistrationController {
      */
     @FXML
     private void GoToLoginButtonAction (ActionEvent event) {
-        Parent RegistrationParent = null;
-        try {
-            RegistrationParent = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(RegistrationParent);
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
+        GenericController.goToPage("../View/Login.fxml",event);
     }
 }
