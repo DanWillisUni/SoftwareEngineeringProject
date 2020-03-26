@@ -41,7 +41,24 @@ public class LoginController {
                 db = new DatabaseController();
                 int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
-                GenericController.goToDash(u,event);
+                FXMLLoader loader = new FXMLLoader(GenericController.class.getResource("../View/Dashboard.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                DashboardController controller = loader.<DashboardController>getController();
+                controller.setUser(u);
+                if(db.removeOverdueGoals(u.getID())){//checks for any overdue goals
+                    controller.GoalDone.setText("Goal Removed as it was overdue");
+                }
+                controller.setUpDisplay();
+                stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+                stage.setFullScreen(true);
+                stage.show();
             } else {
                 errorMsg.setText("Incorrect password details");
                 password.setText("");

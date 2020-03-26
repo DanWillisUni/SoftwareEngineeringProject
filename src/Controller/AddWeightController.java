@@ -2,6 +2,7 @@ package Controller;
 
 import Model.DatabaseController;
 import Model.Person;
+//javafx imports
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +45,7 @@ public class AddWeightController {
     /**
      * validation
      * add weight
-     * check if goals met
+     * go to dash
      * @param event add weight button pushed
      */
     @FXML
@@ -64,7 +65,25 @@ public class AddWeightController {
         if(errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
             db.addWeight(User.getID(),weight.getText());
-            GenericController.goToDash(User,event);
+            //go to dashboard
+            FXMLLoader loader = new FXMLLoader(GenericController.class.getResource("../View/Dashboard.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            DashboardController controller = loader.<DashboardController>getController();
+            controller.setUser(User);
+            if (db.checkGoalMet(User.getID())){//checks if any goals are complete
+                controller.GoalDone.setText("Goal complete!");
+            }
+            controller.setUpDisplay();
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            stage.setFullScreen(true);
+            stage.show();
         }
     }
 }

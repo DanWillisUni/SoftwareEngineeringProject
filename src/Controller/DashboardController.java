@@ -24,13 +24,12 @@ import java.util.Date;
 
 public class DashboardController {
     private Person User;
-    @FXML
-    private Label name;
-    @FXML Label calLeft;
+    @FXML private Label name;
+    @FXML private Label calLeft;
     @FXML Label GoalDone;
-    @FXML LineChart WeightTracking;
-    @FXML Label nextGoal;
-    @FXML Label BMI;
+    @FXML private LineChart WeightTracking;
+    @FXML private Label nextGoal;
+    @FXML private Label BMI;
     /**
      * sets the user to the user that is logged in
      * @param User Person object logged in
@@ -51,53 +50,47 @@ public class DashboardController {
     public void setUpDisplay() {
         name.setText("Welcome " + User.getForename());
         int totalCal = 1800;
-        if (User.getGender() == 'M') {
+        if (User.getGender() == 'M') {//men eat more calories so start with 2000 calories whereas women start with 1800
             totalCal = 2000;
         }
         DatabaseController db = new DatabaseController();
-        if(db.removeOverdueGoals(User.getID())){
-            GoalDone.setText("Goal Removed as it was overdue");
-        }
-        if (db.checkGoalMet(User.getID())){
-            GoalDone.setText("Goal complete!");
-        }
         int goalWeight = db.getClosestGoal(User.getID());
-        if (goalWeight != -1){
+        if (goalWeight != -1){//gets the closest goal
             nextGoal.setText("Up coming goal: " + goalWeight);
         }
-        int cb = db.getCalBurned(User.getID(), new Date());
-        int cc = db.getCalConsumed(User.getID(), new Date());
-        calLeft.setText(totalCal + " - " + cc + " + " + cb + " = " + (totalCal - cc + cb));
+        int cb = db.getCalBurned(User.getID(), new Date());//gets the calories burned that day
+        int cc = db.getCalConsumed(User.getID(), new Date());//gets the calories consumed that day
+        calLeft.setText(totalCal + " - " + cc + " + " + cb + " = " + (totalCal - cc + cb));//sets the bottom line
 
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#.###");//format of decimal of bmi
         df.setRoundingMode(RoundingMode.CEILING);
-        double bmi = db.getCurrentWeight(User.getID())/Math.pow((User.getHeight().doubleValue()/100.0),2.0);
+        double bmi = db.getCurrentWeight(User.getID())/Math.pow((User.getHeight().doubleValue()/100.0),2.0);//works out bmi
         if (bmi > 0){
-            BMI.setText("Your BMI is: " + df.format(bmi));
+            BMI.setText("Your BMI is: " + df.format(bmi));//sets bmi label
         }
-
-        ArrayList<Integer> weights = db.getWeightTrackingWeight(User.getID());
-        ArrayList<java.util.Date> dates = db.getWeightTrackingDate(User.getID());
+        //line chart of weight
+        ArrayList<Integer> weights = db.getWeightTrackingWeight(User.getID());//gets all the weights
+        ArrayList<java.util.Date> dates = db.getWeightTrackingDate(User.getID());//gets all the dates
         XYChart.Series series = new XYChart.Series();
         for (int i = 0; i < weights.size(); i++) {
-            series.getData().add(new XYChart.Data<Number,Number>(dates.get(i).getTime(), weights.get(i)));
+            series.getData().add(new XYChart.Data<Number,Number>(dates.get(i).getTime(), weights.get(i)));//puts the weights and dates into a series
         }
         series.setName("Weight");
-        WeightTracking.getData().add(series);
+        WeightTracking.getData().add(series);//adds the series to the linechart
 
         NumberAxis xAxis = (NumberAxis) WeightTracking.getXAxis();
-        xAxis.setUpperBound(new Date().getTime() + 86400000L);
-        xAxis.setLowerBound(new Date().getTime() - 1296000000L);
-        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+        xAxis.setUpperBound(new Date().getTime() + 86400000L);//sets the x axis upperbound to 1 day in the future from now
+        xAxis.setLowerBound(new Date().getTime() - 1296000000L);//sets the x axis lower bound to 2 weeks ago
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {//create a tick label formatter
             @Override
-            public String toString(Number n) {
+            public String toString(Number n) {//overide number tostring method converts it to a date
                 long i = n.longValue();
                 java.util.Date date = new Date(i);
                 DateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy");
                 return  newFormat.format(date);
             }
             @Override
-            public Number fromString(String string) {
+            public Number fromString(String string) {//has to be here however isnt used so i didnt write it properly
                 return 0;
             }
         });

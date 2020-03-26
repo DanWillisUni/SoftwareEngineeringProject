@@ -1,26 +1,19 @@
 package Controller;
-
+//javafx imports
 import Model.DatabaseController;
 import Model.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCombination;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+//java imports
 import java.util.ArrayList;
 
 public class AddFoodController {
-    private Person User;
+    private Person User;//the user that the food is being added to
     @FXML private TextField txt_search;
     @FXML private ComboBox Foods;
     @FXML private TextField quantity;
@@ -59,7 +52,7 @@ public class AddFoodController {
     /**
      * adds meal
      * adds diet
-     * goto dashboard
+     * go to dashboard
      * @param event add food button pressed
      */
     @FXML
