@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class RegistrationController {
+public class RegistrationController extends GenericController{
     @FXML private TextField forename;
     @FXML private TextField surname;
     @FXML private TextField username;
@@ -166,7 +166,7 @@ public class RegistrationController {
         if (errorMsg.getText().equals("")){
             Person newPerson = new Person(db.genID("PersonalInfo","idUser"),forename.getText(),surname.getText(),username.getText(),email.getText(),password.getText(), Date.from(Instant.from(DOB.getValue().atStartOfDay(ZoneId.systemDefault()))),new BigDecimal(height.getText()), gender.getValue().toString().charAt(0));
             db.addUser(newPerson);
-            GenericController.goToPage("../View/Login.fxml",event);
+            goToPage("../View/Login.fxml",event);
         }
     }
     /**
@@ -175,6 +175,6 @@ public class RegistrationController {
      */
     @FXML
     private void GoToLoginButtonAction (ActionEvent event) {
-        GenericController.goToPage("../View/Login.fxml",event);
+        goToPage("../View/Login.fxml",event);
     }
 }

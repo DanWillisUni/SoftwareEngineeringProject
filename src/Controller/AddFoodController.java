@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 //java imports
 import java.util.ArrayList;
 
-public class AddFoodController {
+public class AddFoodController extends GenericController{
     private Person User;//the user that the food is being added to
     @FXML private TextField txt_search;
     @FXML private ComboBox Foods;
@@ -47,7 +47,7 @@ public class AddFoodController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event) {
-        GenericController.goToDash(User,event);
+        goToDash(User,event);
     }
     /**
      * adds meal
@@ -96,7 +96,7 @@ public class AddFoodController {
         if (errorMsg.getText().equals("")){
             int mealId = db.addMeal(Foods.getValue().toString(),Integer.parseInt(quantity.getText()),MealType.getValue().toString());//adds meal
             db.addDiet(mealId,User.getID());//adds diet
-            GenericController.goToDash(User,event);
+            goToDash(User,event);
         }
     }
     /**

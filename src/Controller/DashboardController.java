@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DashboardController {
+public class DashboardController extends GenericController{
     private Person User;
     @FXML private Label name;
     @FXML private Label calLeft;
@@ -189,6 +189,6 @@ public class DashboardController {
      */
     @FXML
     private void GoToSignOutButtonAction (ActionEvent event) {
-        GenericController.goToPage("../View/Login.fxml",event);
+        goToPage("../View/Login.fxml",event);
     }
 }

@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AddWeightController {
+public class AddWeightController extends GenericController{
     private Person User;
     @FXML private Label name;
     @FXML private TextField weight;
@@ -40,7 +40,7 @@ public class AddWeightController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event) {
-        GenericController.goToDash(User,event);
+        goToDash(User,event);
     }
     /**
      * validation
@@ -66,7 +66,7 @@ public class AddWeightController {
             DatabaseController db = new DatabaseController();
             db.addWeight(User.getID(),weight.getText());
             //go to dashboard
-            FXMLLoader loader = new FXMLLoader(GenericController.class.getResource("../View/Dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
             Parent root = null;
             try {
                 root = loader.load();

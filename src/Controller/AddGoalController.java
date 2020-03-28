@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class AddGoalController {
+public class AddGoalController extends GenericController{
     private Person User;
     @FXML private TextField TargetWeight;
     @FXML private DatePicker targetDate;
@@ -38,7 +38,7 @@ public class AddGoalController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event){
-        GenericController.goToDash(User,event);
+        goToDash(User,event);
     }
     /**
      * adds goal
@@ -64,7 +64,7 @@ public class AddGoalController {
             Long c = new Date().getTime();
             if (c<=d){
                 if (c + 31536000000L < d){
-                    errorMsg.setText("Error: target to far");
+                    errorMsg.setText("Error: target date to far ahead");
                 }
             } else {
                 errorMsg.setText("Error: target date in the past or today");
@@ -75,7 +75,7 @@ public class AddGoalController {
         if (errorMsg.getText().equals("")){
             DatabaseController db = new DatabaseController();
             db.addGoal(User.getID(),Integer.parseInt(TargetWeight.getText()), Date.from(Instant.from(targetDate.getValue().atStartOfDay(ZoneId.systemDefault()))));
-            GenericController.goToDash(User,event);
+            goToDash(User,event);
         }
     }
 }

@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginController {
+public class LoginController extends GenericController{
     @FXML private Label errorMsg;
     @FXML private TextField email;
     @FXML private PasswordField password;
@@ -41,7 +41,7 @@ public class LoginController {
                 db = new DatabaseController();
                 int id =  db.getIDFromName(email.getText(),"personalinfo","email","idUser");
                 Person u = db.getAllPersonalInfo(id);
-                FXMLLoader loader = new FXMLLoader(GenericController.class.getResource("../View/Dashboard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/Dashboard.fxml"));
                 Parent root = null;
                 try {
                     root = loader.load();
@@ -75,7 +75,7 @@ public class LoginController {
      */
     @FXML
     private void GoToRegisterButtonAction (ActionEvent event) {
-        GenericController.goToPage("../View/Registration.fxml",event);
+        goToPage("../View/Registration.fxml",event);
     }
     /**
      * exits the application

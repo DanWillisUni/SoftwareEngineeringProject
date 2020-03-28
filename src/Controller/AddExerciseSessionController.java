@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class AddExerciseSessionController {
+public class AddExerciseSessionController extends GenericController{
     private Person User; //person who is currently logged in
     @FXML private TextField txt_search;//search box
     @FXML private ComboBox Exercise;//exercises drop down
@@ -48,7 +48,7 @@ public class AddExerciseSessionController {
      */
     @FXML
     private void GoToDashButtonAction (ActionEvent event) {
-        GenericController.goToDash(User,event);
+        goToDash(User,event);
     }
      /**
      * Adds exercise when button pushed if it is valid otherwise it displays an error message
@@ -132,7 +132,7 @@ public class AddExerciseSessionController {
                 caloriesBurned = Integer.parseInt(calBurned.getText());
             }
             db.addExerciseLink(db.addExerciseSession(durationDec,sportID,caloriesBurned),User.getID());//adds the exercise link to the database
-            GenericController.goToDash(User,event);//go to the dashboard
+            goToDash(User,event);//go to the dashboard
         }
     }
     /**
